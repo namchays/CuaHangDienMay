@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+	<persistence-unit name="CuaHangDienMay">
+		<class>edu.hueuni.entity.Anh</class>
+		<class>edu.hueuni.entity.AnhMatHang</class>
+		<class>edu.hueuni.entity.BaiDang</class>
+		<class>edu.hueuni.entity.BinhLuan</class>
+		<class>edu.hueuni.entity.ChiTietDatHang</class>
+		<class>edu.hueuni.entity.ChiTietMatHang</class>
+		<class>edu.hueuni.entity.CuaHang</class>
+		<class>edu.hueuni.entity.DonDatHang</class>
+		<class>edu.hueuni.entity.KhachHang</class>
+		<class>edu.hueuni.entity.LoaiHang</class>
+		<class>edu.hueuni.entity.MatHang</class>
+		<class>edu.hueuni.entity.NhanVien</class>
+		<class>edu.hueuni.entity.NhomHang</class>
+		<class>edu.hueuni.entity.QuaTang</class>
+		<class>edu.hueuni.entity.Quyen</class>
+		<class>edu.hueuni.entity.TraLoi</class>
+	</persistence-unit>
+</persistence>
