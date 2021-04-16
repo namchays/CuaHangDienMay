@@ -33,6 +33,12 @@ public class Quyen implements Serializable {
 
 	public Quyen() {
 	}
+	
+
+	public Quyen(String tenQuyen) {
+		this.tenQuyen = tenQuyen;
+	}
+
 
 	public int getIdQuyen() {
 		return this.idQuyen;

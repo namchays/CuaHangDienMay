@@ -38,6 +38,11 @@ public class NhomHang implements Serializable {
 
 	public NhomHang() {
 	}
+	
+	public NhomHang(String tenNhomHang) {
+		super();
+		this.tenNhomHang = tenNhomHang;
+	}
 
 	public int getIdNhomHang() {
 		return this.idNhomHang;

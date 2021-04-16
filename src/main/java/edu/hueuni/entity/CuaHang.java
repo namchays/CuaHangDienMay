@@ -53,6 +53,14 @@ public class CuaHang implements Serializable {
 
 	public CuaHang() {
 	}
+	
+	public CuaHang(String diaChiCuaHang, String iframe, String soDienThoai, String tenCuaHang) {
+		super();
+		this.diaChiCuaHang = diaChiCuaHang;
+		this.iframe = iframe;
+		this.soDienThoai = soDienThoai;
+		this.tenCuaHang = tenCuaHang;
+	}
 
 	public int getIdCuaHang() {
 		return this.idCuaHang;

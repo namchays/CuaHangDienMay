@@ -35,6 +35,7 @@ public class MatHang implements Serializable {
 	private Date ngayNhap;
 
 	private int rating;
+	private int count_rating;
 
 	@Column(name="so_luong")
 	private int soLuong;
@@ -90,6 +91,17 @@ public class MatHang implements Serializable {
 
 	public MatHang() {
 	}
+	
+
+	public int getCount_rating() {
+		return count_rating;
+	}
+
+
+	public void setCount_rating(int count_rating) {
+		this.count_rating = count_rating;
+	}
+
 
 	public int getMaHang() {
 		return this.maHang;

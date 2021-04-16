@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+<title>Bootstrap Simple Login Form with Blue Background</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/user/register.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> 
+
+</head>
+<body>
+	<div class="signup-form">
+		<form action="/register" method="post">
+			<fieldset>
+				<h2>Đăng ký</h2>
+				<p>Xin hãy điền đầy đủ thông tin để đăng ký!</p>
+				<hr>
+				<div class="form-group">
+					<input class="form-control" name="userName"
+						placeholder="Tên đăng nhập..." required="required">
+				</div>
+				<div class="form-group">
+					<input class="form-control" type="password"
+						placeholder="Mật khẩu..." id="password" name="password" required>
+				</div>
+				<div class="form-group">
+					<input class="form-control" type="password"
+						placeholder="Xác nhận mật khẩu..." id="confirm_password" required>
+				</div>
+				<div class="form-group">
+					<input class="form-control" name="tenKhachHang" placeholder="Họ tên..."
+						required="required">
+				</div>
+				<div class="form-group">
+					<input class="form-control" name="diaChi" placeholder="Địa chỉ..."
+						required="required">
+				</div>
+				<div class="form-group">
+					<input class="form-control" name="soDienThoai" placeholder="Số điện thoại..."
+						required="required">
+				</div>
+				<div class="form-group">
+					<select class="form-control" name="gioiTinh">
+						<option value="1">Nam</option>
+						<option value="0">Nữ</option>
+					</select>
+				</div>
+				<div class="form-group">
+				<input class="form-control" type="date"  name="ngaySinh" pattern="yyyy-MM-dd">
+				</div>
+				<button type="submit" class="btn btn-primary btn-lg">Đăng
+					ký</button>
+
+			</fieldset>
+		</form>
+		<div class="hint-text">
+			Already have an account? <a href="/login">Login here</a>
+		</div>
+	</div>
+	<script type="text/javascript">
+var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
+
+	function validatePassword(){
+	if(password.value != confirm_password.value) {
+	  confirm_password.setCustomValidity("Mật khẩu phải trùng nhau");
+	} else {
+	  confirm_password.setCustomValidity('');
+	}
+	}
+
+	password.onchange = validatePassword;
+	confirm_password.onkeyup = validatePassword;
+</script>
+</body>
+</html>

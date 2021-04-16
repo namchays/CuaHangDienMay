@@ -56,6 +56,30 @@ public class KhachHang implements Serializable {
 
 	public KhachHang() {
 	}
+	
+
+	public KhachHang(String userName, String password,boolean enable) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.enable = enable;
+	}
+	
+
+
+	public KhachHang(String userName, String diaChi, int gioiTinh, Date ngaySinh, String password,
+			String soDienThoai, String tenKhachHang) {
+		super();
+		this.userName = userName;
+		this.diaChi = diaChi;
+		this.enable = true;
+		this.gioiTinh = gioiTinh;
+		this.ngaySinh = ngaySinh;
+		this.password = password;
+		this.soDienThoai = soDienThoai;
+		this.tenKhachHang = tenKhachHang;
+	}
+
 
 	public String getUserName() {
 		return this.userName;
@@ -150,5 +174,7 @@ public class KhachHang implements Serializable {
 
 		return donDatHang;
 	}
+
+
 
 }

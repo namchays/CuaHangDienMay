@@ -34,6 +34,11 @@ public class LoaiHang implements Serializable {
 	public LoaiHang() {
 	}
 
+	public LoaiHang(String tenLoaiHang) {
+		super();
+		this.tenLoaiHang = tenLoaiHang;
+	}
+
 	public int getIdLoaiHang() {
 		return this.idLoaiHang;
 	}

@@ -19,6 +19,8 @@ import java.util.List;
 public class NhanVien implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+
+
 	@Id
 	@Column(name="user_name",length = 50)
 	private String userName;
@@ -54,7 +56,11 @@ public class NhanVien implements Serializable {
 	@Column(name="ten_nhan_vien")
 	@Nationalized
 	private String tenNhanVien;
-
+	
+	@Column(name="url_avatar")
+	@Nationalized
+	private String urlAvatar;
+	
 	//bi-directional many-to-one association to DonDatHang
 	@OneToMany(mappedBy="nhanVien")
 	private List<DonDatHang> donDatHangs;
@@ -65,6 +71,25 @@ public class NhanVien implements Serializable {
 	private Quyen quyen;
 
 	public NhanVien() {
+	}
+	
+
+
+
+	public NhanVien(String userName, String password, String tenNhanVien) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.tenNhanVien = tenNhanVien;
+	}
+
+
+	public String getUrlAvatar() {
+		return urlAvatar;
+	}
+	
+	public void setUrlAvatar(String urlAvatar) {
+		this.urlAvatar = urlAvatar;
 	}
 
 	public String getUserName() {
