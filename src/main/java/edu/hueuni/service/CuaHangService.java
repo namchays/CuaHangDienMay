@@ -24,6 +24,13 @@ public class CuaHangService {
 	public Optional<CuaHang> findBySoDienThoai(String soDienThoai) {
 		return cuaHangRepository.findBySoDienThoai(soDienThoai);
 	}
-
+	
+	public Optional<CuaHang> findById(int id) {
+		return cuaHangRepository.findById(id);
+	}
+	public void DeleteById(int id) {
+		cuaHangRepository.deleteById(id);
+	}
+	
 	
 }

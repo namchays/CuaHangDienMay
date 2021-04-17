@@ -34,8 +34,6 @@ public class MatHang implements Serializable {
 	@Column(name="ngay_nhap")
 	private Date ngayNhap;
 
-	private int rating;
-	private int count_rating;
 
 	@Column(name="so_luong")
 	private int soLuong;
@@ -93,14 +91,7 @@ public class MatHang implements Serializable {
 	}
 	
 
-	public int getCount_rating() {
-		return count_rating;
-	}
-
-
-	public void setCount_rating(int count_rating) {
-		this.count_rating = count_rating;
-	}
+	
 
 
 	public int getMaHang() {
@@ -133,14 +124,6 @@ public class MatHang implements Serializable {
 
 	public void setNgayNhap(Date ngayNhap) {
 		this.ngayNhap = ngayNhap;
-	}
-
-	public int getRating() {
-		return this.rating;
-	}
-
-	public void setRating(int rating) {
-		this.rating = rating;
 	}
 
 	public int getSoLuong() {

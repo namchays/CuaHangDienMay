@@ -12,13 +12,17 @@ import edu.hueuni.entity.KhachHang;
 import edu.hueuni.entity.LoaiHang;
 import edu.hueuni.entity.NhanVien;
 import edu.hueuni.entity.NhomHang;
+import edu.hueuni.entity.QuaTang;
 import edu.hueuni.entity.Quyen;
+import edu.hueuni.repository.QuaTangRepository;
 import edu.hueuni.repository.QuyenRepository;
 import edu.hueuni.service.CuaHangService;
 import edu.hueuni.service.KhachHangService;
 import edu.hueuni.service.LoaiHangService;
+import edu.hueuni.service.MatHangService;
 import edu.hueuni.service.NhanVienService;
 import edu.hueuni.service.NhomHangService;
+import edu.hueuni.service.QuaTangService;
 import edu.hueuni.service.QuyenService;
 @Component
 public class DataSeedingListener implements ApplicationListener<ContextRefreshedEvent> {
@@ -35,6 +39,10 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 	private NhomHangService nhomHangService;
 	@Autowired 
 	private CuaHangService cuaHangService;
+	@Autowired
+	private QuaTangService quaTangService;
+	@Autowired
+	private MatHangService matHangService;
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 
@@ -140,12 +148,25 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 				createNhomHang(MyConstances.LG, MyConstances.LAPTOP);
 				
 		//Tự dộng sinh ra các cửa hàng
-				if(cuaHangService.findBySoDienThoai("0827307304").isEmpty()) {
-					cuaHangService.save(new CuaHang("Đường Hùng Vương, An Cựu, Thành phố Huế, Thừa Thiên Huế, Vietnam",MyConstances.DIEN_MAY_DUC_TAI,"0827307304","Diện máy Đức Tài"));
+				if(cuaHangService.findById(1).isEmpty()) {
+					CuaHang cuaHang = new CuaHang("Đường Hùng Vương, An Cựu, Thành phố Huế, Thừa Thiên Huế, Vietnam",MyConstances.DIEN_MAY_DUC_TAI,"0827307304","Diện máy Đức Tài");
+					cuaHang.setIdCuaHang(1);
+					cuaHangService.save(cuaHang);
+				
 				}
-				if(cuaHangService.findBySoDienThoai("0827307305").isEmpty()) {
-					cuaHangService.save(new CuaHang("197 Phan Đăng Lưu, Phú Hoà, Thành phố Huế, Thừa Thiên Huế, Vietnam",MyConstances.DIEN_MAY_PHUC_MAI,"0827307305","Diện máy Phúc Mai"));
+				if(cuaHangService.findById(2).isEmpty()) {
+					CuaHang cuaHang = new CuaHang("197 Phan Đăng Lưu, Phú Hoà, Thành phố Huế, Thừa Thiên Huế, Vietnam",MyConstances.DIEN_MAY_PHUC_MAI,"0827307305","Diện máy Phúc Mai");
+					cuaHang.setIdCuaHang(2);
+					cuaHangService.save(cuaHang);
 				}
+				
+		// Tự động sinh ra các quà tặng
+				if(quaTangService.findByTenQuaTang("Chuột không dây").isEmpty()) {
+					QuaTang quaTang = new QuaTang();
+					
+				}
+				
+				
 	}
 	
 	

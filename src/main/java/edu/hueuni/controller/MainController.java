@@ -51,9 +51,9 @@ public class MainController {
 				session.setAttribute("account", curNhanVien);
 				Quyen quyenNhanVien = curNhanVien.getQuyen();
 				if (quyenNhanVien.getTenQuyen().equals(MyConstances.ROLE_EMPLOYEES)) {
-					return "redirect:/employee/manageDonHang";
+					return "redirect:/employee/manage-don-hang";
 				} else if (quyenNhanVien.getTenQuyen().equals(MyConstances.ROLE_ADMIN)) {
-					return "redirect:/admin/manageDonHang";
+					return "redirect:/manage-don-hang";
 				}
 			}
 		}
