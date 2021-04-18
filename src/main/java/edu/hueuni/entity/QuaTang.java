@@ -25,8 +25,8 @@ public class QuaTang implements Serializable {
 
 	private int gia;
 
-	@Column(name="ma_hang")
-	private int maHang;
+//	@Column(name="ma_hang")
+//	private int maHang;
 
 	@Column(name="so_luong")
 	private int soLuong;
@@ -45,6 +45,16 @@ public class QuaTang implements Serializable {
 
 	public QuaTang() {
 	}
+	
+
+	public QuaTang(int gia, int soLuong, String tenQuaTang, String urlImage) {
+		super();
+		this.gia = gia;
+		this.soLuong = soLuong;
+		this.tenQuaTang = tenQuaTang;
+		this.urlImage = urlImage;
+	}
+
 
 	public int getIdQuaTang() {
 		return this.idQuaTang;
@@ -62,13 +72,13 @@ public class QuaTang implements Serializable {
 		this.gia = gia;
 	}
 
-	public int getMaHang() {
-		return this.maHang;
-	}
-
-	public void setMaHang(int maHang) {
-		this.maHang = maHang;
-	}
+//	public int getMaHang() {
+//		return this.maHang;
+//	}
+//
+//	public void setMaHang(int maHang) {
+//		this.maHang = maHang;
+//	}
 
 	public int getSoLuong() {
 		return this.soLuong;

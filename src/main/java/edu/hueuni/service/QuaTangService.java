@@ -23,5 +23,8 @@ public class QuaTangService {
 	public Optional<QuaTang> findByTenQuaTang(String tenQuaTang) {
 		return quaTangRepository.findByTenQuaTang(tenQuaTang);
 	}
+	public Optional<QuaTang> findById(int id) {
+		return quaTangRepository.findById(id);
+	}
 	
 }

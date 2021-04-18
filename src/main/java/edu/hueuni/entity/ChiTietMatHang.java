@@ -36,6 +36,14 @@ public class ChiTietMatHang implements Serializable {
 
 	public ChiTietMatHang() {
 	}
+	
+
+	public ChiTietMatHang(String tenChiTiet, String thongTinChiTiet) {
+		super();
+		this.tenChiTiet = tenChiTiet;
+		this.thongTinChiTiet = thongTinChiTiet;
+	}
+
 
 	public int getMaChiTiet() {
 		return this.maChiTiet;

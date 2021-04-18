@@ -16,7 +16,7 @@ public class LoaiHangService {
 	@Autowired
 	private LoaiHangRepository loaiHangRepository;
 	@Autowired
-	private NhomHangRepository nhomHangRepository;
+	private NhomHangService nhomHangService;
 	
 	public void save(LoaiHang loaiHang) {
 		loaiHangRepository.save(loaiHang);
@@ -33,11 +33,11 @@ public class LoaiHangService {
 	public void deleteById(int id) {
 		Optional<LoaiHang> LoaiHangFound = loaiHangRepository.findById(id);
 		if(LoaiHangFound.isPresent()) {
-			List<NhomHang> ListNhomHang = nhomHangRepository.findByLoaiHang(LoaiHangFound.get());
+			List<NhomHang> ListNhomHang = nhomHangService.findByLoaiHang(LoaiHangFound.get());
 			if(ListNhomHang!=null) {
 				if(ListNhomHang.size()>0) {
 					ListNhomHang.forEach(x->{
-						nhomHangRepository.deleteById(x.getIdNhomHang());
+						nhomHangService.deleteById(x.getIdNhomHang());
 					});
 				}
 			}

@@ -162,8 +162,16 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 				
 		// Tự động sinh ra các quà tặng
 				if(quaTangService.findByTenQuaTang("Chuột không dây").isEmpty()) {
-					QuaTang quaTang = new QuaTang();
-					
+					QuaTang quaTang = new QuaTang(10000,20,"Chuột không dây",null);
+					quaTangService.save(quaTang);
+				}
+				if(quaTangService.findByTenQuaTang("Balo du lịch").isEmpty()) {
+					QuaTang quaTang = new QuaTang(10000,20,"Balo du lịch",null);
+					quaTangService.save(quaTang);
+				}
+				if(quaTangService.findByTenQuaTang("Tai nghe bluetooth").isEmpty()) {
+					QuaTang quaTang = new QuaTang(10000,20,"Tai nghe bluetooth",null);
+					quaTangService.save(quaTang);
 				}
 				
 				

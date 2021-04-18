@@ -109,5 +109,6 @@ public class CuaHang implements Serializable {
 	public void setMatHangs(List<MatHang> matHangs) {
 		this.matHangs = matHangs;
 	}
+	
 
 }

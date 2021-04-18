@@ -94,6 +94,53 @@ public class MatHang implements Serializable {
 	
 
 
+	
+
+
+
+
+	public MatHang(String donViTinh, int giaHang, int soLuong, String tenHang, int trangThai, String xuatXu,
+			List<AnhMatHang> anhMatHangs, List<ChiTietMatHang> chiTietMatHangs, List<CuaHang> cuaHangs,
+			NhomHang nhomHang, List<QuaTang> quaTangs) {
+		super();
+		this.ngayNhap = new Date();		
+		this.donViTinh = donViTinh;
+		this.giaHang = giaHang;
+		this.soLuong = soLuong;
+		this.tenHang = tenHang;
+		this.trangThai = trangThai;
+		this.xuatXu = xuatXu;
+		this.anhMatHangs = anhMatHangs;
+		this.chiTietMatHangs = chiTietMatHangs;
+		this.cuaHangs = cuaHangs;
+		this.nhomHang = nhomHang;
+		this.quaTangs = quaTangs;
+	}
+	public MatHang(String donViTinh, int giaHang, int soLuong, String tenHang, int trangThai, String xuatXu,
+			NhomHang nhomHang, List<QuaTang> quaTangs) {
+		super();
+		this.ngayNhap = new Date();		
+		this.donViTinh = donViTinh;
+		this.giaHang = giaHang;
+		this.soLuong = soLuong;
+		this.tenHang = tenHang;
+		this.trangThai = trangThai;
+		this.xuatXu = xuatXu;
+
+	
+		this.nhomHang = nhomHang;
+		this.quaTangs = quaTangs;
+	}
+
+	
+
+
+
+
+
+
+
+
 	public int getMaHang() {
 		return this.maHang;
 	}

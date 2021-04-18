@@ -1,5 +1,6 @@
 package edu.hueuni.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import edu.hueuni.config.MyConstances;
+import edu.hueuni.entity.CuaHang;
 import edu.hueuni.entity.KhachHang;
 import edu.hueuni.entity.NhanVien;
 import edu.hueuni.entity.Quyen;
+import edu.hueuni.service.CuaHangService;
 import edu.hueuni.service.KhachHangService;
 import edu.hueuni.service.NhanVienService;
 
@@ -28,9 +31,17 @@ public class MainController {
 	@Autowired
 	private NhanVienService nhanVienService;
 
+	@Autowired
+	private CuaHangService cuaHangService;
 	@GetMapping("/login")
 	public String ShowLogin() {
 		return "login";
+	}
+	@GetMapping("/")
+	public String homePage(Model model) {
+		List<CuaHang> listCuaHang = cuaHangService.findAll();
+		model.addAttribute("soCuaHang", listCuaHang.size());
+		return "index";
 	}
 
 	@PostMapping("/login")

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
 
 <head>
   <meta charset="UTF-8">
@@ -36,7 +37,7 @@
             <div class="hotline_info col-sm-3" >
               <div class="module-border-wrap">
               <a class="iconsprites_total_branch branch_market" href="/he-thong-sieu-thi"
-                title="Hệ thống chi nhánh siêu thị toàn quốc" rel="nofollow"> XEM HỆ THỐNG <strong
+                title="Hệ thống chi nhánh siêu thị toàn quốc" rel="nofollow"> XEM HỆ THỐNG <strong th:text="${soCuaHang}"
                   class="num_store">83</strong> CHI NHÁNH </a>
                   </div>
               <p class="hotline">HOTLINE: <span class="phone">028-38563388</span></p>
