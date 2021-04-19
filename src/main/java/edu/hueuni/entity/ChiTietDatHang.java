@@ -44,6 +44,14 @@ public class ChiTietDatHang implements Serializable {
 	public ChiTietDatHang() {
 	}
 
+	public ChiTietDatHang(int giaBan, int mucGiamGia, int soLuong, int trangThai) {
+		super();
+		this.giaBan = giaBan;
+		this.mucGiamGia = mucGiamGia;
+		this.soLuong = soLuong;
+		this.trangThai = trangThai;
+	}
+
 	public int getIdChiTietDatHang() {
 		return this.idChiTietDatHang;
 	}

@@ -20,7 +20,7 @@ public class QuaTangService {
 	public void save(QuaTang quaTang) {
 		quaTangRepository.save(quaTang);
 	}
-	public Optional<QuaTang> findByTenQuaTang(String tenQuaTang) {
+	public List<QuaTang> findByTenQuaTang(String tenQuaTang) {
 		return quaTangRepository.findByTenQuaTang(tenQuaTang);
 	}
 	public Optional<QuaTang> findById(int id) {

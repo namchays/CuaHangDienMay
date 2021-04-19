@@ -1,5 +1,8 @@
 package edu.hueuni.config;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,16 +10,21 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import edu.hueuni.entity.ChiTietDatHang;
 import edu.hueuni.entity.CuaHang;
+import edu.hueuni.entity.DonDatHang;
 import edu.hueuni.entity.KhachHang;
 import edu.hueuni.entity.LoaiHang;
+import edu.hueuni.entity.MatHang;
 import edu.hueuni.entity.NhanVien;
 import edu.hueuni.entity.NhomHang;
 import edu.hueuni.entity.QuaTang;
 import edu.hueuni.entity.Quyen;
 import edu.hueuni.repository.QuaTangRepository;
 import edu.hueuni.repository.QuyenRepository;
+import edu.hueuni.service.ChiTietDatHangService;
 import edu.hueuni.service.CuaHangService;
+import edu.hueuni.service.DonDatHangService;
 import edu.hueuni.service.KhachHangService;
 import edu.hueuni.service.LoaiHangService;
 import edu.hueuni.service.MatHangService;
@@ -36,13 +44,18 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 	@Autowired
 	private LoaiHangService loaiHangService;
 	@Autowired
-	private NhomHangService nhomHangService;
-	@Autowired 
+	private NhomHangService nhomHangService; 
+	@Autowired
 	private CuaHangService cuaHangService;
 	@Autowired
 	private QuaTangService quaTangService;
 	@Autowired
 	private MatHangService matHangService;
+	@Autowired
+	private DonDatHangService donDatHangService;
+	@Autowired
+	private ChiTietDatHangService chiTietDatHangService;
+	
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 
@@ -64,8 +77,6 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 						nhanvienService.save(admin);
 					}
 					
-					
-					
 				}
 				if(nhanvienService.findByUserName("employee").isEmpty()) {
 					Optional<Quyen> quyenEmployee = quyenService.findByTenQuyen(MyConstances.ROLE_EMPLOYEES);
@@ -76,8 +87,23 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 					}
 					
 				}
+				if(nhanvienService.findByUserName("nhanvien").isEmpty()) {
+					Optional<Quyen> quyenEmployee = quyenService.findByTenQuyen(MyConstances.ROLE_EMPLOYEES);
+					if(quyenEmployee.isPresent()) {
+						NhanVien employee = new NhanVien("nhanvien","hoilamchi1","Lê Văn A");
+						employee.setQuyen(quyenEmployee.get());
+						nhanvienService.save(employee);
+					}
+					
+				}
 				if(khachHangService.findByUserName("user").isEmpty()) {
 					khachHangService.save(new KhachHang("user","hoilamchi1",true));
+				}
+				if(khachHangService.findByUserName("khachhang").isEmpty()) {
+					khachHangService.save(new KhachHang("khachhang","hoilamchi1",true));
+				}
+				if(khachHangService.findByUserName("khachhang1").isEmpty()) {
+					khachHangService.save(new KhachHang("khachhang1","hoilamchi1",true));
 				}
 		//Tự động sinh ra các loại hàng trong CSDL
 				if(loaiHangService.findByTenLoaiHang(MyConstances.DI_DONG).isEmpty()) {
@@ -173,8 +199,77 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 					QuaTang quaTang = new QuaTang(10000,20,"Tai nghe bluetooth",null);
 					quaTangService.save(quaTang);
 				}
+		// Tự độn sinh ra các mặt hàng
+				themMatHang(MyConstances.IPHONE_8, MyConstances.IPHONE,"Tai nghe bluetooth");
+				themMatHang(MyConstances.IPHONE_X, MyConstances.IPHONE,"Balo du lịch");
+				themMatHang(MyConstances.ACER_LAPTOP, MyConstances.ACER,"Balo du lịch");
+				themMatHang(MyConstances.QUAT_LUNG_ASIA, MyConstances.QUAT_DIEN,"Balo du lịch");
+		//Tự động sinh ra các đơn đặt hàng
+				
+				addDonDatHang(MyConstances.HUE);
+				addDonDatHang(MyConstances.DA_NANG);
+				addDonDatHang(MyConstances.NGUYEN_HUE);
+				addDonDatHang(MyConstances.DUY_TAN);
+				
+		// Thêm chi tiết đơn hàng
+			addChiTietDonHang(MyConstances.IPHONE_8, MyConstances.HUE);
+			addChiTietDonHang(MyConstances.IPHONE_X, MyConstances.DA_NANG);
+			addChiTietDonHang(MyConstances.ACER, MyConstances.DUY_TAN);
+			
+		//Thêm bài đăng
+			
+			List<MatHang> listMatHang = matHangService.findByTenHang(MyConstances.IPHONE_8);
+			if(listMatHang.size()>0) {
+				
+			}
 				
 				
+				
+	}
+	private void addChiTietDonHang(String tenMatHang, String diaChi) {
+		List<MatHang> listMatHang = matHangService.findByTenHang(tenMatHang);
+		List<DonDatHang> listDonDatHang = donDatHangService.findByNoiGiaoHang(diaChi);
+		if(listMatHang.size() > 0 && listDonDatHang.size()>0) {
+			int giaBan = listMatHang.get(0).getGiaHang();
+			int mucGiamGia = 0;
+			int soLuong = 1;
+			int trangThai = MyConstances.DA_DAT_HANG;
+			
+			ChiTietDatHang chiTietDatHang = new ChiTietDatHang(giaBan, mucGiamGia, soLuong, trangThai);
+			chiTietDatHang.setDonDatHang(listDonDatHang.get(0));
+			chiTietDatHang.setMatHang(listMatHang.get(0));
+			chiTietDatHangService.save(chiTietDatHang);
+		}
+		
+	}
+	private void addDonDatHang(String noiGiaoHang) {
+		List<DonDatHang> listDonDatHang = donDatHangService.findByNoiGiaoHang(noiGiaoHang);
+		if(listDonDatHang.size() == 0) {
+			try {
+				String ngayDatHangString="2020/1/1";  
+			    Date ngayDatHang=new SimpleDateFormat("yyyy/MM/dd").parse(ngayDatHangString);  
+			    String ngayGiaoHangString="2020/1/1";  
+			    Date ngayGiaoHang=new SimpleDateFormat("yyyy/MM/dd").parse(ngayGiaoHangString);  
+			    Optional<KhachHang> khachHangFound = khachHangService.findByUserName("user");
+				Optional<NhanVien> nhanVienFound = nhanvienService.findByUserName("employee");
+				DonDatHang donDatHang = new DonDatHang(ngayDatHang,ngayGiaoHang,noiGiaoHang,khachHangFound.get(),nhanVienFound.get());
+				donDatHangService.save(donDatHang);
+			}catch (Exception e) {
+				System.out.println(e.toString());
+			}
+		    
+			
+		}
+		
+	}
+	private void themMatHang(String tenMatHang, String tenNhomHang,String TenQuaTang){
+		if(matHangService.findByTenHang(tenMatHang).size()==0) {
+			List<NhomHang> nhomHangGet = nhomHangService.findByTenNhomHang(tenNhomHang);
+			List<QuaTang> listQuaTang = quaTangService.findByTenQuaTang("Chuột không dây");
+			MatHang matHang  =new MatHang("Vnd", 100000, 20, tenMatHang, 1, 
+					"china", nhomHangGet.get(0), listQuaTang);
+			matHangService.save(matHang);
+		}
 	}
 	
 	

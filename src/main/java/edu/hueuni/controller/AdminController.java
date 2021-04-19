@@ -33,6 +33,7 @@ import edu.hueuni.entity.Anh;
 import edu.hueuni.entity.AnhMatHang;
 import edu.hueuni.entity.ChiTietMatHang;
 import edu.hueuni.entity.CuaHang;
+import edu.hueuni.entity.DonDatHang;
 import edu.hueuni.entity.LoaiHang;
 import edu.hueuni.entity.MatHang;
 import edu.hueuni.entity.NhomHang;
@@ -44,6 +45,7 @@ import edu.hueuni.model.QuaTangModel;
 import edu.hueuni.service.AnhMatHangService;
 import edu.hueuni.service.ChiTietMatHangService;
 import edu.hueuni.service.CuaHangService;
+import edu.hueuni.service.DonDatHangService;
 import edu.hueuni.service.LoaiHangService;
 import edu.hueuni.service.MatHangService;
 import edu.hueuni.service.NhomHangService;
@@ -65,15 +67,12 @@ public class AdminController {
 	private ChiTietMatHangService chiTietMatHangService;
 	@Autowired
 	private AnhMatHangService anhMatHangService;
+	@Autowired
+	private DonDatHangService donDatHangService;
 
 	public static String uploadDirectory = System.getProperty("user.dir")
 			+ "\\src\\main\\resources\\static\\img\\mathang\\";
-	// manage don hang
 
-	@GetMapping("/manage-don-hang")
-	public String showDonHang() {
-		return "/admin/donhang/manageDonHang";
-	}
 
 	// manage cua hang
 	@GetMapping("admin/manage-cua-hang")
@@ -238,13 +237,11 @@ public class AdminController {
 		List<QuaTang> listQuaTang = quaTangService.findAll();
 		List<CuaHang> listCuaHang = cuaHangService.findAll();
 		Optional<MatHang> matHangFound = matHangService.findById(id);
-//		if(matHangFound.isPresent()) {
-//			MatHang matHang = matHangFound.get();
-//			List<QuaTang> listQuaTangFound = matHang.getQuaTangs();
-//			if(listQuaTangFound!=null) {
-//			  
-//			}
-//		}
+		if(matHangFound.isPresent()) {
+			MatHang matHang = matHangFound.get();
+			String tenMatHang = matHang.getTenHang();
+			mav.addObject("matHang", matHang);
+		}
 //		Optional<QuaTang> QuaTangFound = quaTangService.findById(id);
 		QuaTangModel quaTangModel = new QuaTangModel();
 		ChiTietMatHangModel chiTietMatHangModel = new ChiTietMatHangModel();
@@ -253,6 +250,7 @@ public class AdminController {
 		mav.addObject("listCuaHang", listCuaHang);
 		mav.addObject("quaTangModel", quaTangModel);
 		mav.addObject("chiTietMatHangModel", chiTietMatHangModel);
+		
 		return mav;
 	}
 
@@ -443,6 +441,15 @@ public class AdminController {
 	public ModelAndView deleteMatHangById(@PathVariable int id) {
 		ModelAndView mav = new ModelAndView("redirect:/manage-mat-hang");
 		matHangService.deleteById(id);
+		return mav;
+	}
+	
+	//Quản lý đơn hàng
+	@GetMapping("/manage-don-hang")
+	public ModelAndView manageDonHang() {
+		ModelAndView mav = new ModelAndView("/admin/donhang/manageDonHang");
+		List<DonDatHang> listDonDatHang = donDatHangService.findAll();
+		mav.addObject("listDonDatHang", listDonDatHang);
 		return mav;
 	}
 }

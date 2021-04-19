@@ -255,39 +255,39 @@
 
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">Thêm mặt hàng</h6>
+							<h6 class="m-0 font-weight-bold text-primary">Sửa mặt hàng</h6>
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
 								<form action="/add-mat-hang" method="post"
-									enctype="multipart/form-data">
+									enctype="multipart/form-data"   th:object="${matHang}">
 									<div class="form-group col-md-7">
 										<label>Tên mặt hàng</label> <input class="form-control"
-											placeholder="Tên mặt hàng..." name="tenMatHang">
+											placeholder="Tên mặt hàng..."  th:field="*{tenHang}">
 									</div>
 
 									<div class="form-group col-md-8">
 										<label for="inputAddress2">Giá hàng</label> <input
 											type="number" class="form-control" id=""
-											placeholder="Giá hàng..." name="giaHang">
+											placeholder="Giá hàng..."  th:field="*{giaHang}">
 									</div>
 
 									<div class="form-group col-md-8">
 										<label for="inputAddress2">Đơn vị tính</label> <input
 											type="text" class="form-control" id=""
-											placeholder="Đơn vị tính..." name="donViTinh">
+											placeholder="Đơn vị tính..."  th:field="*{donViTinh}">
 									</div>
 
 									<div class="form-group col-md-8">
 										<label for="inputAddress2">Số lượng</label> <input
 											type="number" class="form-control" id=""
-											placeholder="Số lượng..." name="soLuong">
+											placeholder="Số lượng..."  th:field="*{soLuong}">
 									</div>
 
 									<div class="form-group col-md-8">
 										<label for="inputAddress2">Xuất xứ</label> <input type="text"
 											class="form-control" id="" placeholder="Xuất xứ..."
-											name="xuatXu">
+											 th:field="*{xuatXu}">
 									</div>
 
 									<div class="form-group col-md-10">
@@ -348,7 +348,7 @@
 										</select>
 									</div>
 									<div class="form-group col-md-8">
-										<label>Trạng thái</label> <select name="trangThai"
+										<label>Trạng thái</label> <select  th:field="*{trangThai}"
 											id="trangThai" class="form-control" style="width: 30%">
 											<option th:value="1">Hàng mới</option>
 											<option th:value="0">Hàng sắp về</option>
@@ -376,7 +376,7 @@
 
 									<div class="form-group col-md-8">
 										<button style="margin-left: 10px" type="submit"
-											class="btn btn-primary ">Thêm mặt hàng</button>
+											class="btn btn-primary ">Sửa mặt hàng</button>
 										&nbsp; <a href="/manage-mat-hang" class="btn btn-danger ">Quay
 											về</a>
 									</div>

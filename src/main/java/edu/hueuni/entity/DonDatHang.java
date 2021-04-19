@@ -52,6 +52,16 @@ public class DonDatHang implements Serializable {
 
 	public DonDatHang() {
 	}
+	
+	public DonDatHang(Date ngayDatHang, Date ngayGiaoHang, String noiGiaoHang, 
+			KhachHang khachHang, NhanVien nhanVien) {
+		super();
+		this.ngayDatHang = ngayDatHang;
+		this.ngayGiaoHang = ngayGiaoHang;
+		this.noiGiaoHang = noiGiaoHang;
+		this.khachHang = khachHang;
+		this.nhanVien = nhanVien;
+	}
 
 	public int getSoHoaDon() {
 		return this.soHoaDon;

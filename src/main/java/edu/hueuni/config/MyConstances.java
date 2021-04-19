@@ -68,4 +68,23 @@ public class MyConstances {
 	//Cửa hàng iframe
 	public static final String 	DIEN_MAY_DUC_TAI="<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15305.37190228942!2d107.59540884999484!3d16.458162065806494!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x2e74944a1b86b57e!2zQ-G7rWEgSMOgbmcgxJBp4buHbiBNw6F5IMSQ4bupYyBUw6Bp!5e0!3m2!1sen!2s!4v1618534605322!5m2!1sen!2s' width='600' height='450' style='border:0;' allowfullscreen='' loading='lazy'></iframe>";
 	public static final String 	DIEN_MAY_PHUC_MAI="<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61209.40220354491!2d107.57580689470075!3d16.496404954053403!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3141a128a48e279f%3A0xdab43595f6b5eb6d!2zQ-G7rWEgSMOgbmcgxJBp4buHbiBNw6F5IFBow7pjIE1haQ!5e0!3m2!1sen!2s!4v1618535296197!5m2!1sen!2s' width='600' height='450' style='border:0;' allowfullscreen='' loading='lazy'></iframe>";
+
+	//Tên mặt hàng
+	public static final String IPHONE_8 = "Iphone 8";
+	public static final String IPHONE_X = "Iphone X";
+	public static final String ACER_LAPTOP= "Laptop Acer Aspire 5";
+	public static final String QUAT_LUNG_ASIA = "Quạt lửng Asia";
+	
+	//Nơi giao hàng
+	public static final String HUE = "112 Trần Phú, TP Huế";
+	public static final String DA_NANG = "121 Mai Đăng Chơn, Đà Nẵng";
+	public static final String DUY_TAN = "121 Duy Tân, TP Huế";
+	public static final String NGUYEN_HUE = "121 Nguyễn huệ, TP Huế";
+	
+	//Trạng thái
+	public static final int DA_DAT_HANG = 1;
+	public static final int CHO_LAY_HANG = 2;
+	public static final int DANG_GIAO = 3;
+	public static final int DA_GIAO = 4;
+	
 }

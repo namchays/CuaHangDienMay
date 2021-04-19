@@ -18,7 +18,7 @@ public class NhomHangService {
 	@Autowired
 	private MatHangService matHangService;
 	
-	public Optional<NhomHang> findByTenNhomHang(String tenNhomHang) {
+	public List<NhomHang> findByTenNhomHang(String tenNhomHang) {
 		return nhomHangRepository.findByTenNhomHang(tenNhomHang);
 	}
 	public void save(NhomHang nhomHang) {

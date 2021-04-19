@@ -42,6 +42,9 @@ public class MatHang implements Serializable {
 	@Nationalized
 	private String tenHang;
 
+	@Column(name="muc_giam_gia")
+	private int mucGiamGia;
+	
 	@Column(name="trang_thai")
 	private int trangThai;
 
@@ -115,6 +118,7 @@ public class MatHang implements Serializable {
 		this.cuaHangs = cuaHangs;
 		this.nhomHang = nhomHang;
 		this.quaTangs = quaTangs;
+		this.mucGiamGia = 0;
 	}
 	public MatHang(String donViTinh, int giaHang, int soLuong, String tenHang, int trangThai, String xuatXu,
 			NhomHang nhomHang, List<QuaTang> quaTangs) {

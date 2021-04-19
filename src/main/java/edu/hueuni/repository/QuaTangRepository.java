@@ -10,5 +10,5 @@ import edu.hueuni.entity.QuaTang;
 @Repository
 public interface QuaTangRepository extends CrudRepository<QuaTang, Integer> {
 	 public List<QuaTang> findAll();
-	 public Optional<QuaTang> findByTenQuaTang(String tenQuaTang);
+	 public List<QuaTang> findByTenQuaTang(String tenQuaTang);
 }

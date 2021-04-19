@@ -87,4 +87,7 @@ public class MatHangService {
 		
 		matHangRepository.deleteById(id);
 	}
+	public List<MatHang> findByTenHang(String tenHang) {
+		return matHangRepository.findByTenHang(tenHang);
+	}
 }

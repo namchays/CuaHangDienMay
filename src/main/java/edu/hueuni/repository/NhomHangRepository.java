@@ -10,7 +10,7 @@ import edu.hueuni.entity.LoaiHang;
 import edu.hueuni.entity.NhomHang;
 @Repository
 public interface NhomHangRepository extends CrudRepository<NhomHang, Integer>{
-	public Optional<NhomHang> findByTenNhomHang(String tenNhomHang);
+	public List<NhomHang> findByTenNhomHang(String tenNhomHang);
 	public List<NhomHang> findAll();
 	public List<NhomHang> findByLoaiHang(LoaiHang loaiHang);
 }
