@@ -268,13 +268,11 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Tên Cửa Hàng</th>
-                                          <!--   <th>Địa chỉ</th>
-                                            <th>Số điện thoại</th>
-                                            <th>Số lượng mặt hàng</th>
-                                            <th>Sửa</th>
-                                            <th>Xóa</th> -->
+                                           <th>Số hóa đơn</th>
+                                           <th>Ngày đặt hàng</th>
+                                           <th>Ngày giao hàng</th>
+                                           <th>Nơi giao hàng</th>
+                                           <th>Tên nhân viên</th>
                                         </tr>
                                     </thead>
                                    
@@ -283,12 +281,11 @@
                                     <tr>
                                        		<td th:text="${DonDatHang.soHoaDon}"></td>
                                        		<td th:text="${DonDatHang.ngayDatHang}"></td>
-                                       		<!-- <td th:text="${CuaHang.DiaChiCuaHang}"></td>
-                                       		<td th:text="${CuaHang.SoDienThoai}"></td>
-                                       		<td th:text="${CuaHang.MatHangs.size()}"></td>
-                                       		<td ><a th:href="@{'/admin/edit-cua-hang/'+${CuaHang.IdCuaHang}}">Sửa</a></td>
-                                       		<td ><a th:href="@{'/admin/delete-cua-hang/'+${CuaHang.IdCuaHang}}">Xóa</a></td> -->
-                                       </tr>
+                                       		<td th:text="${DonDatHang.ngayGiaoHang}"></td>
+                                       		<td th:text="${DonDatHang.noiGiaoHang}"></td>
+                                       		<td th:text="${DonDatHang.nhanVien.tenNhanVien}"></td>
+                                       	
+                                       		</tr>
                                     </th:block>
                                        
                                     </tbody>

@@ -1,4 +1,4 @@
-package edu.hueuni.controller;
+	package edu.hueuni.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,13 +29,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import edu.hueuni.entity.Anh;
 import edu.hueuni.entity.AnhMatHang;
 import edu.hueuni.entity.ChiTietMatHang;
 import edu.hueuni.entity.CuaHang;
 import edu.hueuni.entity.DonDatHang;
+import edu.hueuni.entity.KhachHang;
 import edu.hueuni.entity.LoaiHang;
 import edu.hueuni.entity.MatHang;
+import edu.hueuni.entity.NhanVien;
 import edu.hueuni.entity.NhomHang;
 import edu.hueuni.entity.QuaTang;
 import edu.hueuni.model.AjaxResponseBody;
@@ -46,8 +47,10 @@ import edu.hueuni.service.AnhMatHangService;
 import edu.hueuni.service.ChiTietMatHangService;
 import edu.hueuni.service.CuaHangService;
 import edu.hueuni.service.DonDatHangService;
-import edu.hueuni.service.LoaiHangService;
+import edu.hueuni.service.KhachHangService;
+import edu.hueuni.service.loaiHangService;
 import edu.hueuni.service.MatHangService;
+import edu.hueuni.service.NhanVienService;
 import edu.hueuni.service.NhomHangService;
 import edu.hueuni.service.QuaTangService;
 
@@ -56,7 +59,7 @@ public class AdminController {
 	@Autowired
 	private CuaHangService cuaHangService;
 	@Autowired
-	private LoaiHangService LoaiHangService;
+	private loaiHangService loaiHangService;
 	@Autowired
 	private NhomHangService nhomHangService;
 	@Autowired
@@ -69,7 +72,10 @@ public class AdminController {
 	private AnhMatHangService anhMatHangService;
 	@Autowired
 	private DonDatHangService donDatHangService;
-
+	@Autowired
+	private NhanVienService nhanVienService;
+	@Autowired
+	private KhachHangService khachHangService;
 	public static String uploadDirectory = System.getProperty("user.dir")
 			+ "\\src\\main\\resources\\static\\img\\mathang\\";
 
@@ -131,16 +137,16 @@ public class AdminController {
 	@PostMapping("/add-loai-hang")
 	public String addLoaiHangSubmit(@RequestParam(name = "tenLoaiHang") String tenLoaiHang) {
 		LoaiHang loaiHang = new LoaiHang(tenLoaiHang);
-		LoaiHangService.save(loaiHang);
+		loaiHangService.save(loaiHang);
 		return "redirect:/manage-loai-hang/" + 1;
 	}
 
 	@GetMapping("/manage-loai-hang/{id}")
 	public ModelAndView manageLoaiHang(@PathVariable int id) {
 		ModelAndView mav = new ModelAndView("/admin/loaihang/manageLoaiHang");
-		List<LoaiHang> listLoaiHang = LoaiHangService.findAll();
+		List<LoaiHang> listLoaiHang = loaiHangService.findAll();
 		mav.addObject("listLoaiHang", listLoaiHang);
-		Optional<LoaiHang> loaiHangFound = LoaiHangService.findById(id);
+		Optional<LoaiHang> loaiHangFound = loaiHangService.findById(id);
 		if (loaiHangFound.isPresent()) {
 			List<NhomHang> nhomHangs = loaiHangFound.get().getNhomHangs();
 			mav.addObject("listNhomHang", nhomHangs);
@@ -154,7 +160,7 @@ public class AdminController {
 	@GetMapping("/delete-loai-hang/{id}")
 	public ModelAndView deleteLoaiHang(@PathVariable int id) {
 		ModelAndView mav = new ModelAndView("redirect:/manage-loai-hang/1");
-		LoaiHangService.deleteById(id);
+		loaiHangService.deleteById(id);
 		return mav;
 
 	}
@@ -162,11 +168,11 @@ public class AdminController {
 	@PostMapping("/edit-loai-hang/{id}")
 	public ModelAndView editLoaiHang(@PathVariable int id, @RequestParam(name = "tenLoaiHang") String tenLoaiHang) {
 		ModelAndView mav = new ModelAndView("redirect:/manage-loai-hang/" + id);
-		Optional<LoaiHang> loaiHangFound = LoaiHangService.findById(id);
+		Optional<LoaiHang> loaiHangFound = loaiHangService.findById(id);
 		if (loaiHangFound.isPresent()) {
 			LoaiHang loaiHang = loaiHangFound.get();
 			loaiHang.setTenLoaiHang(tenLoaiHang);
-			LoaiHangService.save(loaiHang);
+			loaiHangService.save(loaiHang);
 		}
 		return mav;
 
@@ -176,7 +182,7 @@ public class AdminController {
 	@PostMapping("/add-nhom-hang/{id}")
 	public String addNhomHangSubmit(@RequestParam(name = "tenNhomHang") String tenNhomHang, @PathVariable int id) {
 		NhomHang nhomHang = new NhomHang(tenNhomHang);
-		Optional<LoaiHang> LoaiHangFound = LoaiHangService.findById(id);
+		Optional<LoaiHang> LoaiHangFound = loaiHangService.findById(id);
 		if (LoaiHangFound.isPresent()) {
 			nhomHang.setLoaiHang(LoaiHangFound.get());
 			nhomHangService.save(nhomHang);
@@ -218,7 +224,7 @@ public class AdminController {
 	@GetMapping("/add-mat-hang")
 	public ModelAndView addMatHang() {
 		ModelAndView mav = new ModelAndView("/admin/mathang/addMatHang");
-		List<LoaiHang> listLoaiHang = LoaiHangService.findAll();
+		List<LoaiHang> listLoaiHang = loaiHangService.findAll();
 		List<QuaTang> listQuaTang = quaTangService.findAll();
 		List<CuaHang> listCuaHang = cuaHangService.findAll();
 		QuaTangModel quaTangModel = new QuaTangModel();
@@ -233,22 +239,42 @@ public class AdminController {
 	@GetMapping("/edit-mat-hang/{id}")
 	public ModelAndView editMatHang(@PathVariable int id) {
 		ModelAndView mav = new ModelAndView("/admin/mathang/editMatHang");
-		List<LoaiHang> listLoaiHang = LoaiHangService.findAll();
+		List<LoaiHang> listLoaiHang = loaiHangService.findAll();
 		List<QuaTang> listQuaTang = quaTangService.findAll();
 		List<CuaHang> listCuaHang = cuaHangService.findAll();
 		Optional<MatHang> matHangFound = matHangService.findById(id);
 		if(matHangFound.isPresent()) {
 			MatHang matHang = matHangFound.get();
-			String tenMatHang = matHang.getTenHang();
+			List<QuaTang> quaTangs = matHang.getQuaTangs();
+			QuaTangModel quaTangModel;
+			switch(quaTangs.size()) {
+			  case 0:
+				   quaTangModel = new QuaTangModel();
+			    break;
+			  case 1:
+				   quaTangModel = new QuaTangModel(quaTangs.get(0).getIdQuaTang()+"","0","0");
+				  break;
+			  case 2:
+				   quaTangModel = new QuaTangModel(quaTangs.get(0).getIdQuaTang()+"",quaTangs.get(1).getIdQuaTang()+"","0");
+				  break;
+			  case 3:
+				   quaTangModel = new QuaTangModel(quaTangs.get(0).getIdQuaTang()+"",quaTangs.get(1).getIdQuaTang()+"",quaTangs.get(2).getIdQuaTang()+"");
+			    break;
+			  default:
+				   quaTangModel = new QuaTangModel();
+			}
+			
+			mav.addObject("quaTangModel", quaTangModel);
 			mav.addObject("matHang", matHang);
 		}
 //		Optional<QuaTang> QuaTangFound = quaTangService.findById(id);
-		QuaTangModel quaTangModel = new QuaTangModel();
+		
 		ChiTietMatHangModel chiTietMatHangModel = new ChiTietMatHangModel();
+		
 		mav.addObject("listLoaiHang", listLoaiHang);
 		mav.addObject("listQuaTang", listQuaTang);
 		mav.addObject("listCuaHang", listCuaHang);
-		mav.addObject("quaTangModel", quaTangModel);
+		
 		mav.addObject("chiTietMatHangModel", chiTietMatHangModel);
 		
 		return mav;
@@ -266,8 +292,12 @@ public class AdminController {
 			@ModelAttribute("quaTangModel") @Valid QuaTangModel quaTangModel,
 			@ModelAttribute("ChiTietMatHangModel") ChiTietMatHangModel chiTietMatHangModel,
 			@RequestParam("files") MultipartFile[] files) {
-		
-		
+		System.out.println("index"+giaHang.indexOf('$'));
+		System.out.println("gia"+giaHang);
+		String giaHangChange = giaHang.replaceAll(",","").substring(1);
+		String firstPart = giaHangChange.substring(0, giaHangChange.indexOf("."));
+		System.out.println(firstPart);
+		int giaHangInt = Integer.parseInt(firstPart);
 		
 		ModelAndView mav = new ModelAndView("redirect:/manage-mat-hang");
 		
@@ -281,7 +311,7 @@ public class AdminController {
 			
 		
 		//thêm mặt hàng 
-		MatHang matHang =new MatHang(donViTinh, Integer.parseInt(giaHang), Integer.parseInt(soLuong), tenMatHang, Integer.parseInt(trangThai), 
+		MatHang matHang =new MatHang(donViTinh,giaHangInt, Integer.parseInt(soLuong), tenMatHang, Integer.parseInt(trangThai), 
 				xuatXu, nhomHangGet, listQuaTang);
 		matHangService.save(matHang);
 	
@@ -324,6 +354,86 @@ public class AdminController {
 		ThemAnh(files,matHang);
 
 		
+		return mav;
+	}
+	@PostMapping("/edit-mat-hang/{id}")
+	public ModelAndView editMatHangSubmit(@RequestParam(name = "tenMatHang", required = false) String tenMatHang,
+			@RequestParam(name = "giaHang") String giaHang,
+			@RequestParam(name = "donViTinh") String donViTinh,
+			@RequestParam(name = "xuatXu") String xuatXu,
+			@RequestParam(name = "soLuong") String soLuong,
+			@RequestParam(name = "tenCuaHang") String tenCuaHang,
+			@RequestParam(name = "tenNhomHang") String tenNhomHang,
+			@RequestParam(name = "trangThai") String trangThai,
+			@ModelAttribute("quaTangModel") @Valid QuaTangModel quaTangModel,
+			@ModelAttribute("ChiTietMatHangModel") ChiTietMatHangModel chiTietMatHangModel,
+			@RequestParam("files") MultipartFile[] files,
+			@PathVariable int id) {
+		System.out.println("index"+giaHang.indexOf('$'));
+		System.out.println("gia"+giaHang);
+		String giaHangChange = giaHang.replaceAll(",","").substring(1);
+		String firstPart = giaHangChange.substring(0, giaHangChange.indexOf("."));
+		System.out.println(firstPart);
+		int giaHangInt = Integer.parseInt(firstPart);
+		
+		ModelAndView mav = new ModelAndView("redirect:/manage-mat-hang");
+		
+		//Nhóm hàng ok
+		int idNhomHang = Integer.parseInt(tenNhomHang);
+		Optional<NhomHang> nhomHang = nhomHangService.findById(idNhomHang);
+		NhomHang nhomHangGet = nhomHang.get();
+		
+		//Thêm quà tặng ok
+		List<QuaTang> listQuaTang = addListQuaTang(Integer.parseInt(quaTangModel.getQuaTang1()),Integer.parseInt(quaTangModel.getQuaTang2()),Integer.parseInt(quaTangModel.getQuaTang3()));
+		
+		
+		//edit mat hang
+		Optional<MatHang> matHangFound = matHangService.findById(id);
+		MatHang matHang = matHangFound.get();
+		
+		
+		
+
+		
+		//thêm chi tiết mặt hàng ok
+		addChiTietMatHang(chiTietMatHangModel.getCt1(),chiTietMatHangModel.getNd1(),
+				chiTietMatHangModel.getCt2(),chiTietMatHangModel.getNd2(),
+				chiTietMatHangModel.getCt3(),chiTietMatHangModel.getNd3(),
+				chiTietMatHangModel.getCt4(),chiTietMatHangModel.getNd4(),
+				chiTietMatHangModel.getCt5(),chiTietMatHangModel.getNd5(),
+				chiTietMatHangModel.getCt6(),chiTietMatHangModel.getNd6(),
+				chiTietMatHangModel.getCt7(),chiTietMatHangModel.getNd7(),
+				chiTietMatHangModel.getCt8(),chiTietMatHangModel.getNd8(),
+				chiTietMatHangModel.getCt9(),chiTietMatHangModel.getNd9(),
+				chiTietMatHangModel.getCt10(),chiTietMatHangModel.getNd10(),matHang);
+		//Thêm cửa hàng ok 
+		int idCuaHang = Integer.parseInt(tenCuaHang);
+		
+		List<CuaHang> listCuaHang = new ArrayList<CuaHang>();
+		if(idCuaHang == 0) {
+			listCuaHang = cuaHangService.findAll();
+			for (CuaHang cuaHang : listCuaHang) {
+				List<MatHang> listMatHang = cuaHang.getMatHangs();
+				listMatHang.add(matHang);
+				cuaHang.setMatHangs(listMatHang);
+				cuaHangService.save(cuaHang);
+			}
+		}else {
+			Optional<CuaHang> cuaHangFound = cuaHangService.findById(idCuaHang);
+			CuaHang cuaHang = cuaHangFound.get();
+			List<MatHang> listMatHang = cuaHang.getMatHangs();
+			listMatHang.add(matHang);
+			cuaHang.setMatHangs(listMatHang);
+			cuaHangService.save(cuaHang);
+		}
+		
+		//Thêm ảnh ok
+		ThemAnh(files,matHang);
+		matHang.setQuaTangs(listQuaTang);
+		matHang.setNhomHang(nhomHangGet);
+		matHang.setGiaHang(giaHangInt);
+		matHang.setSoLuong(Integer.parseInt(soLuong));
+		matHangService.save(matHang);
 		return mav;
 	}
 
@@ -417,7 +527,7 @@ public class AdminController {
 			return ResponseEntity.badRequest().body(result);
 
 		}
-		Optional<LoaiHang> loaiHangFound = LoaiHangService.findById(selectedValue);
+		Optional<LoaiHang> loaiHangFound = loaiHangService.findById(selectedValue);
 		ArrayList<NhomHang> NhomHangFound = new ArrayList<NhomHang>();
 		if (loaiHangFound.isPresent()) {
 			result.setMsg("success");
@@ -452,4 +562,20 @@ public class AdminController {
 		mav.addObject("listDonDatHang", listDonDatHang);
 		return mav;
 	}
+	//quản lý nhân viên
+	@GetMapping("/admin/manage-nhan-vien")
+	public ModelAndView manageNhanVien() {
+		ModelAndView mav = new ModelAndView("/admin/user/manageNhanVien");
+		List<NhanVien> listNhanVien = nhanVienService.findAll();
+		mav.addObject("listNhanVien", listNhanVien);
+		return mav;
+	}
+	@GetMapping("/admin/manage-khach-hang")
+	public ModelAndView manageKhachHang() {
+		ModelAndView mav = new ModelAndView("/admin/user/manageKhachHang");
+		List<KhachHang> listKhachHang = khachHangService.findAll();
+		mav.addObject("listKhachHang", listKhachHang);
+		return mav;
+	}
+	
 }

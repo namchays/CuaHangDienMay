@@ -24,7 +24,7 @@ public class MatHang implements Serializable {
 	@Column(name="ma_hang")
 	private int maHang;
 
-	@Column(name="don_vi_tinh")
+	@Column(name="don_vi_tinh",length = 20)
 	private String donViTinh;
 
 	@Column(name="gia_hang")

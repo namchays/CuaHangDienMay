@@ -311,7 +311,7 @@
 														th:value="${QuaTang.IdQuaTang}"></option>
 												</th:block>
 											</select> <select id="quaTang2" class="form-control"
-												style="width: 20%; margin-top: 7px; display: none"
+												style="width: 20%; margin-top: 7px;"
 												th:field="*{quaTang2}">
 												<option th:value="0">---Chọn quà tặng---</option>
 												<th:block th:each="QuaTang : ${listQuaTang}">
@@ -319,8 +319,8 @@
 														th:value="${QuaTang.IdQuaTang}"></option>
 												</th:block>
 											</select> <select id="quaTang3" class="form-control"
-												name="quaTang3"
-												style="width: 20%; margin-top: 7px; display: none">
+											th:field="*{quaTang3}"
+												style="width: 20%; margin-top: 7px; ">
 												<option th:value="0">---Chọn quà tặng---</option>
 												<th:block th:each="QuaTang : ${listQuaTang}">
 													<option th:text="${QuaTang.TenQuaTang}"

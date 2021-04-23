@@ -10,5 +10,5 @@ import edu.hueuni.entity.BaiDang;
 @Repository
 public interface BaiDangRepository extends CrudRepository<BaiDang, Integer>{
 	public List<BaiDang> findAll();
-	
+	public List<BaiDang> findByTieuDe(String tieuDe);
 }	

@@ -29,8 +29,7 @@ public class NhanVien implements Serializable {
 	@Nationalized
 	private String diaChi;
 
-	@Column(name="dien_thoai",length = 11)
-	@Nationalized
+	@Column(name="dien_thoai",length = 12)
 	private String dienThoai;
 
 	@Column(name="gioi_tinh")
@@ -82,6 +81,24 @@ public class NhanVien implements Serializable {
 		this.password = password;
 		this.tenNhanVien = tenNhanVien;
 	}
+	
+
+	public NhanVien(String userName, String diaChi, String dienThoai, int gioiTinh, int luongCoBan, Date ngayLamViec,
+			Date ngaySinh, String password, int phuCap, String tenNhanVien) {
+		super();
+		this.userName = userName;
+		this.diaChi = diaChi;
+		this.dienThoai = dienThoai;
+		this.gioiTinh = gioiTinh;
+		this.luongCoBan = luongCoBan;
+		this.ngayLamViec = ngayLamViec;
+		this.ngaySinh = ngaySinh;
+		this.password = password;
+		this.phuCap = phuCap;
+		this.tenNhanVien = tenNhanVien;
+	}
+
+
 
 
 	public String getUrlAvatar() {

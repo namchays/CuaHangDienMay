@@ -23,7 +23,7 @@ public class Quyen implements Serializable {
 	@Column(name="id_quyen")
 	private int idQuyen;
 
-	@Column(name="ten_quyen")
+	@Column(name="ten_quyen",length = 50)
 	@Nationalized
 	private String tenQuyen;
 

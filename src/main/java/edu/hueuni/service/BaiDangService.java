@@ -19,4 +19,7 @@ public class BaiDangService {
 	public void  save(BaiDang baiDang) {
 		 baiDangRepository.save(baiDang);
 	}
+	public List<BaiDang> findByTieuDe(String tieuDe) {
+		return baiDangRepository.findByTieuDe(tieuDe);
+	}
 }

@@ -23,4 +23,7 @@ public class KhachHangService {
 	public Optional<KhachHang> findByUserName(String userName){
 		return khachHangRepository.findByUserName(userName);
 	}
+	public List<KhachHang> findAll() {
+		return khachHangRepository.findAll();
+	}
 }

@@ -9,4 +9,6 @@ import edu.hueuni.entity.TraLoi;
 @Repository
 public interface TraLoiRepository extends CrudRepository<TraLoi, Integer>{
 	public List<TraLoi> findAll();
+
+	public List<TraLoi> findByNoiDung(String noiDung);
 }

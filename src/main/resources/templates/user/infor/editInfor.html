@@ -1,0 +1,124 @@
+  
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/user-homepage-style.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/userinfo.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/mystyle.css}">
+<title>Thông tin tài khoản</title>
+</head>
+<body>
+	<nav th:insert="creator/shared/menu::menu">
+	</nav>
+	<nav th:insert="creator/shared/sidebar::sidebar">
+	</nav>
+	
+	<section class="container emp-profile">
+		<form class="shadow" action="/user/edit" method="post"  enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                            <img th:if="${session.user.urlAvatar}!=null" th:src="@{'/getimage/'+${session.user.urlAvatar}}" alt="" style="z-index:-5;">
+                            <img th:if="${session.user.urlAvatar}==null" style="z-index:-5;"
+                            th:src="@{'https://ui-avatars.com/api/?name='+${session.user.hoVaTen}}">
+                            <label class="file btn btn-lg btn-primary">
+                                Change Photo
+                                <input style="z-index:10" type="file" name="fileAvatar"> 
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                                    <h5 class='font-weight-bold' th:utext="${session.user.hoVaTen}">
+                                        Kshiti Ghelani
+                                    </h5>
+                                    <p class="proile-rating">Điểm tích lũy : <span  th:utext="${session.user.diemTichLuy}">8/10</span></p>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                    	<a class="profile-edit-btn" th:href="@{/user/edit}">Edit Profile</a>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-work">
+                            <p></p>
+                            <a href=""></a>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Username</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p th:text="${session.user.username}">Kshiti123</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Name</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class='input-info' type="text" name="hoVaTen" th:value="${session.user.hoVaTen}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Email</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class='input-info' type="text" name="email" th:value="${session.user.email}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Phone</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class='input-info' type="text" name="sdt" th:value="${session.user.sdt}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Ngày sinh</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <!--  <input class='input-info' type="date" th:if="${session.user.ngaySinh}!=null" name="ngaySinh" th:value="${session.user.ngaySinh}">
+                                               <input class='input-info' type="date" th:if="${session.user.ngaySinh}==null" name="ngaySinh"> -->
+                                            </div>
+                                        </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Vai trò</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p th:text="${session.user.role.roleName}">Web Developer and Designer</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input class="btn btn-success float-right mb-3" type="submit" value = "Lưu">
+            </form> 
+	</section>
+</body>
+</html>

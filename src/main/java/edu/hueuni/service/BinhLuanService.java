@@ -20,4 +20,7 @@ public class BinhLuanService {
 	public List<BinhLuan> findAll() {
 		return binhLuanRepository.findAll();
 	}
+	public List<BinhLuan> findByNoiDung(String noiDung) {
+		return binhLuanRepository.findByNoiDung(noiDung);
+	}
 }

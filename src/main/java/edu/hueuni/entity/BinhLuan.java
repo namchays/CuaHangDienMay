@@ -49,6 +49,14 @@ public class BinhLuan implements Serializable {
 
 	public BinhLuan() {
 	}
+	
+	public BinhLuan(int luotThich, String noiDung, String userName, BaiDang baiDang) {
+		super();
+		this.luotThich = luotThich;
+		this.noiDung = noiDung;
+		this.userName = userName;
+		this.baiDang = baiDang;
+	}
 
 	public int getIdBinhLuan() {
 		return this.idBinhLuan;

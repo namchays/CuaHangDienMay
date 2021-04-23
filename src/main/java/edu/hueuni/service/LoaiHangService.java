@@ -12,7 +12,7 @@ import edu.hueuni.repository.LoaiHangRepository;
 import edu.hueuni.repository.NhomHangRepository;
 
 @Service
-public class LoaiHangService {
+public class loaiHangService {
 	@Autowired
 	private LoaiHangRepository loaiHangRepository;
 	@Autowired

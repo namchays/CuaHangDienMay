@@ -9,4 +9,6 @@ import edu.hueuni.entity.BinhLuan;
 @Repository
 public interface BinhLuanRepository extends CrudRepository<BinhLuan, Integer>{
 	public List<BinhLuan> findAll();
+
+	public List<BinhLuan> findByNoiDung(String noiDung);
 }

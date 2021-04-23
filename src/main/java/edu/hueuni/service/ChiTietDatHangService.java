@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.hueuni.entity.ChiTietDatHang;
+import edu.hueuni.entity.MatHang;
 import edu.hueuni.repository.ChiTietDatHangRepository;
 
 @Service
@@ -18,5 +19,8 @@ public class ChiTietDatHangService {
 	}
 	public void save(ChiTietDatHang chiTietDatHang) {
 		chiTietDatHangRepository.save(chiTietDatHang);
+	}
+	public List<ChiTietDatHang> findByMatHang(MatHang matHang) {
+		return chiTietDatHangRepository.findByMatHang(matHang);
 	}
 }

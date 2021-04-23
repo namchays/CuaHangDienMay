@@ -1,5 +1,6 @@
 package edu.hueuni.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
@@ -10,4 +11,5 @@ import edu.hueuni.entity.NhanVien;
 public interface NhanVienRepository extends CrudRepository<NhanVien, String>{
 	public Optional<NhanVien> findByUserName(String UserName);
 	public Optional<NhanVien> findByUserNameAndPassword(String userName, String password);
+	public List<NhanVien> findAll();
 }

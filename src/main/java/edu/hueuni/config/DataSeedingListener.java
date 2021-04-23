@@ -1,5 +1,6 @@
 package edu.hueuni.config;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -10,6 +11,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import edu.hueuni.entity.BaiDang;
+import edu.hueuni.entity.BinhLuan;
 import edu.hueuni.entity.ChiTietDatHang;
 import edu.hueuni.entity.CuaHang;
 import edu.hueuni.entity.DonDatHang;
@@ -20,18 +23,20 @@ import edu.hueuni.entity.NhanVien;
 import edu.hueuni.entity.NhomHang;
 import edu.hueuni.entity.QuaTang;
 import edu.hueuni.entity.Quyen;
-import edu.hueuni.repository.QuaTangRepository;
-import edu.hueuni.repository.QuyenRepository;
+import edu.hueuni.entity.TraLoi;
+import edu.hueuni.service.BaiDangService;
+import edu.hueuni.service.BinhLuanService;
 import edu.hueuni.service.ChiTietDatHangService;
 import edu.hueuni.service.CuaHangService;
 import edu.hueuni.service.DonDatHangService;
 import edu.hueuni.service.KhachHangService;
-import edu.hueuni.service.LoaiHangService;
+import edu.hueuni.service.loaiHangService;
 import edu.hueuni.service.MatHangService;
 import edu.hueuni.service.NhanVienService;
 import edu.hueuni.service.NhomHangService;
 import edu.hueuni.service.QuaTangService;
 import edu.hueuni.service.QuyenService;
+import edu.hueuni.service.TraLoiService;
 @Component
 public class DataSeedingListener implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -42,7 +47,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 	@Autowired 
 	private KhachHangService khachHangService;
 	@Autowired
-	private LoaiHangService loaiHangService;
+	private loaiHangService loaiHangService;
 	@Autowired
 	private NhomHangService nhomHangService; 
 	@Autowired
@@ -55,7 +60,12 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 	private DonDatHangService donDatHangService;
 	@Autowired
 	private ChiTietDatHangService chiTietDatHangService;
-	
+	@Autowired
+	private BaiDangService baiDangService;
+	@Autowired 
+	private BinhLuanService binhLuanService;
+	@Autowired
+	private TraLoiService traLoiService;	
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 
@@ -72,27 +82,61 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 				if(nhanvienService.findByUserName("admin").isEmpty()) {
 					Optional<Quyen> quyenAdmin = quyenService.findByTenQuyen(MyConstances.ROLE_ADMIN);
 					if(quyenAdmin.isPresent()) {
-						NhanVien admin = new NhanVien("admin","hoilamchi1","Lê Trường Nam");
-						admin.setQuyen(quyenAdmin.get());
-						nhanvienService.save(admin);
+					
+					    try {
+					    	String ngayLamViecString="2020/1/1";  
+					    	String ngaySinhString ="2000/1/1";
+							Date ngayLamViec=new SimpleDateFormat("yyyy/MM/dd").parse(ngayLamViecString);
+							Date ngaySinh=new SimpleDateFormat("yyyy/MM/dd").parse(ngaySinhString);
+							
+							NhanVien admin = new NhanVien("admin","Đà nẵng", "03243235574", 1, 1000000,  ngayLamViec,	 ngaySinh,  "hoilamchi1", 2000000,  "Lê Trường Nam");
+							admin.setQuyen(quyenAdmin.get());
+							nhanvienService.save(admin);
+					    } catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}  
+					
 					}
 					
 				}
 				if(nhanvienService.findByUserName("employee").isEmpty()) {
 					Optional<Quyen> quyenEmployee = quyenService.findByTenQuyen(MyConstances.ROLE_EMPLOYEES);
 					if(quyenEmployee.isPresent()) {
-						NhanVien employee = new NhanVien("employee","hoilamchi1","Lê Văn A");
-						employee.setQuyen(quyenEmployee.get());
-						nhanvienService.save(employee);
+					
+						try {
+							String ngayLamViecString="2020/11/1";  
+					    	String ngaySinhString ="2000/12/1";
+							Date ngayLamViec = new SimpleDateFormat("yyyy/MM/dd").parse(ngayLamViecString);
+							Date ngaySinh=new SimpleDateFormat("yyyy/MM/dd").parse(ngaySinhString);
+							NhanVien employee = new NhanVien("employee","Huế", "032213374", 1, 6490000,  ngayLamViec,	 ngaySinh,  "hoilamchi1", 400000,  "Lê Thanh Trí");
+							employee.setQuyen(quyenEmployee.get());
+							nhanvienService.save(employee);
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
 					}
 					
 				}
 				if(nhanvienService.findByUserName("nhanvien").isEmpty()) {
 					Optional<Quyen> quyenEmployee = quyenService.findByTenQuyen(MyConstances.ROLE_EMPLOYEES);
 					if(quyenEmployee.isPresent()) {
-						NhanVien employee = new NhanVien("nhanvien","hoilamchi1","Lê Văn A");
-						employee.setQuyen(quyenEmployee.get());
-						nhanvienService.save(employee);
+					
+						try {
+							String ngayLamViecString="2020/1/12";  
+					    	String ngaySinhString ="2000/5/12";
+							Date ngayLamViec = new SimpleDateFormat("yyyy/MM/dd").parse(ngayLamViecString);
+							Date ngaySinh=new SimpleDateFormat("yyyy/MM/dd").parse(ngaySinhString);
+							NhanVien employee = new NhanVien("nhanvien1","Vũng Tàu", "0322152764", 1, 6532000,  ngayLamViec,	 ngaySinh,  "hoilamchi1", 65465400,  "Lê Thanh Tú");
+							employee.setQuyen(quyenEmployee.get());
+							nhanvienService.save(employee);
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					
 					}
 					
 				}
@@ -214,32 +258,62 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 		// Thêm chi tiết đơn hàng
 			addChiTietDonHang(MyConstances.IPHONE_8, MyConstances.HUE);
 			addChiTietDonHang(MyConstances.IPHONE_X, MyConstances.DA_NANG);
-			addChiTietDonHang(MyConstances.ACER, MyConstances.DUY_TAN);
+//			addChiTietDonHang(MyConstances.ACER, MyConstances.DUY_TAN);
 			
 		//Thêm bài đăng
-			
 			List<MatHang> listMatHang = matHangService.findByTenHang(MyConstances.IPHONE_8);
 			if(listMatHang.size()>0) {
+				if(baiDangService.findByTieuDe(MyConstances.TIEU_DE_SAMSUNG).size()==0) {
+					BaiDang baiDang = new BaiDang(MyConstances.NOI_DUNG_SAMSUNG, MyConstances.TIEU_DE_SAMSUNG, "admin", listMatHang.get(0));
+					baiDangService.save(baiDang);
+				}
 				
 			}
+		///them binh luan
+			if(binhLuanService.findByNoiDung(MyConstances.BINH_LUAN).size() == 0) {
+				List<BaiDang> listBaiDang = baiDangService.findByTieuDe(MyConstances.TIEU_DE_SAMSUNG);
+				if(listBaiDang!=null) {
+					if(listBaiDang.size()>0) {
+						BinhLuan binhLuan = new BinhLuan(0, MyConstances.BINH_LUAN, "user", listBaiDang.get(0));
+						binhLuanService.save(binhLuan);
+					}
+				}
 				
+			}
+		//them tra loi
+			if(traLoiService.findByNoiDung(MyConstances.TRA_LOI).size() == 0) {
+				List<BinhLuan> listBinhLuan = binhLuanService.findByNoiDung(MyConstances.BINH_LUAN);
+				if(listBinhLuan!=null) {
+					if(listBinhLuan.size() > 0) {
+						TraLoi traLoi = new TraLoi(0,MyConstances.TRA_LOI,null,"admin");
+						traLoi.setBinhLuan(listBinhLuan.get(0));
+						traLoiService.save(traLoi);
+					}
+				}
+			}
+			
 				
 				
 	}
 	private void addChiTietDonHang(String tenMatHang, String diaChi) {
 		List<MatHang> listMatHang = matHangService.findByTenHang(tenMatHang);
 		List<DonDatHang> listDonDatHang = donDatHangService.findByNoiGiaoHang(diaChi);
-		if(listMatHang.size() > 0 && listDonDatHang.size()>0) {
-			int giaBan = listMatHang.get(0).getGiaHang();
-			int mucGiamGia = 0;
-			int soLuong = 1;
-			int trangThai = MyConstances.DA_DAT_HANG;
-			
-			ChiTietDatHang chiTietDatHang = new ChiTietDatHang(giaBan, mucGiamGia, soLuong, trangThai);
-			chiTietDatHang.setDonDatHang(listDonDatHang.get(0));
-			chiTietDatHang.setMatHang(listMatHang.get(0));
-			chiTietDatHangService.save(chiTietDatHang);
+	
+			if(listMatHang.size() > 0 && listDonDatHang.size()>0) {
+				List<ChiTietDatHang> listChiTietDatHang = chiTietDatHangService.findByMatHang(listMatHang.get(0));
+				if (listChiTietDatHang.size() == 0) {
+				int giaBan = listMatHang.get(0).getGiaHang();
+				int mucGiamGia = 0;
+				int soLuong = 1;
+				int trangThai = MyConstances.DA_DAT_HANG;
+				
+				ChiTietDatHang chiTietDatHang = new ChiTietDatHang(giaBan, mucGiamGia, soLuong, trangThai);
+				chiTietDatHang.setDonDatHang(listDonDatHang.get(0));
+				chiTietDatHang.setMatHang(listMatHang.get(0));
+				chiTietDatHangService.save(chiTietDatHang);
+			}
 		}
+	
 		
 	}
 	private void addDonDatHang(String noiGiaoHang) {

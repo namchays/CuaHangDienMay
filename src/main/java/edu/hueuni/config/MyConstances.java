@@ -86,5 +86,13 @@ public class MyConstances {
 	public static final int CHO_LAY_HANG = 2;
 	public static final int DANG_GIAO = 3;
 	public static final int DA_GIAO = 4;
+	//bai dang
+	public static final String TIEU_DE_SAMSUNG = "Samsung lại tiếp tục cho ra mắt chiếc smartphone mới thuộc thế hệ Galaxy M với tên gọi là Samsung Galaxy M51. Thiết kế mới này tuy nằm trong phân khúc tầm trung nhưng được Samsung nâng cấp và cải tiến với camera góc siêu rộng, dung lượng pin siêu khủng cùng vẻ ngoài sang trọng và thời thượng.";
+	public static final String NOI_DUNG_SAMSUNG = "Thiết kế hiện đại và đẳng cấp.\r\n"
+			+ "Ấn tượng ban đầu với màn hình của Galaxy M51 là kiểu màn hình Infinity-O rộng 6.7 inch. Kiểu thiết kế này đưa camera selfie thu gọn hơn chỉ bằng một hình tròn nhỏ cùng thiết kế màn hình tràn viền làm tăng khả năng hiển thị hình ảnh hơn.\r\n"
+			+ "\r\n"
+			+ "Ngoài ra, máy còn sở hữu công nghệ màn hình Super AMOLED Plus mang đến chất lượng hiển thị sắc nét, hình ảnh tươi tắn cho bạn tận hưởng các chương trình giải trí hấp dẫn, thưởng thức các bộ phim bom tấn, chơi những tựa game yêu thích vô cùng bắt mắt.";
 	
+	public static final String BINH_LUAN = "Hàng tốt, chất lượng";
+	public static final String TRA_LOI = "Cám ơn bạn";
 }

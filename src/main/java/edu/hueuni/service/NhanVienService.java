@@ -1,5 +1,6 @@
 package edu.hueuni.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,8 @@ public class NhanVienService {
 	}
 	public Optional<NhanVien> findByUserNameAndPassword(String userName, String password){
 		return nhanVienRepository.findByUserNameAndPassword(userName, password);
+	}
+	public List<NhanVien> findAll() {
+		return nhanVienRepository.findAll();
 	}
 }

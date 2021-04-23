@@ -260,7 +260,7 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3" >
                             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                           <a href="/add-mat-hang" class="btn btn-primary" style="float: right"><i class="fas fa-plus"></i> Thêm</a>
+                           <a href="/admin/add-cua-hang" class="btn btn-primary" style="float: right"><i class="fas fa-plus"></i> Thêm</a>
                         </div>
                       
                         <div class="card-body">
@@ -268,34 +268,26 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Mã hàng</th>
-                                            <th>Tên hàng</th>
-                                            <th>Giá hàng</th>
-                                            <th>Đơn vị tính</th>
-                                            <th>Ngày nhập</th>
-                                            <th>Số lượng</th>
-                                            <th>Xuất xứ</th>
-                                            <th>Trạng thái</th>
-                                            <th>Sửa</th>
-                                            <th>Xóa</th>
-                                           
+                                            <th>User Name</th>
+                                            <th>Tên nhân viên</th>
+                                            <th>Địa chỉ</th>
+                                            <th>Số điện thoại</th>
+                                            <th>Lương cơ bản</th>
+                                            <th>Ngày làm việc</th>
                                         </tr>
                                     </thead>
                                    
                                     <tbody >
-                                    <th:block th:each="MatHang : ${listMatHang}">
+                                    <th:block th:each="NhanVien : ${listNhanVien}">
                                     <tr>
-                                       		<td th:text="${MatHang.MaHang}"></td>
-                                       		<td th:text="${MatHang.TenHang}"></td>
-                                       		<td class="giahang" th:text="${MatHang.GiaHang}"></td>
-                                       		<td th:text="${MatHang.DonViTinh}"></td>
-                                       		<td th:text="${MatHang.NgayNhap}"></td>
-                                       		<td th:text="${MatHang.SoLuong}"></td>
-                                       		<td th:text="${MatHang.XuatXu}"></td>
-                                       		<td th:text="${MatHang.TrangThai}"></td>
+                                    <td >[[${NhanVien.userName}]]</td>
+                                       		<td >[[${NhanVien.tenNhanVien}]]</td>
+                                       		<td >[[${NhanVien.diaChi}]]</td>
+                                       		<td >[[${NhanVien.dienThoai}]]</td>
+                                       		<td class="luong">[[${NhanVien.luongCoBan}]]</td>
+                                       		<td >[[${NhanVien.ngayLamViec}]]</td>
                                        		
-                                       		<td ><a th:href="@{'/edit-mat-hang/'+${MatHang.MaHang}}">Sửa</a></td>
-                                       		<td ><a th:href="@{'/delete-mat-hang/'+${MatHang.MaHang}}">Xóa</a></td>
+                                       		
                                        </tr>
                                     </th:block>
                                        
@@ -351,9 +343,10 @@
             </div>
         </div>
     </div>
+
 <script type="text/javascript">
 
-	$('.giahang').each(function( index ) {
+	$('.luong').each(function( index ) {
 		  $( this ).text(Number($(this).text()).toLocaleString('en'));
 	});
 	
@@ -377,4 +370,3 @@
 
 </body>
 
-</html>

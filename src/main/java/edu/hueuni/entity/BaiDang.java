@@ -23,20 +23,22 @@ public class BaiDang implements Serializable {
 	@Column(name="id_bai_dang")
 	private int idBaiDang;
 
-	@Column(name="noi_dung")
+	@Column(name="noi_dung",length = 5000)
 	@Nationalized
 	private String noiDung;
 
-	@Column(name="tieu_de")
+	@Column(name="tieu_de",length = 500)
 	@Nationalized
 	private String tieuDe;
 
 	@Column(name="user_name",length = 50)
 	private String userName;
+	
+	@Column(name="url_img")
+	@Nationalized
+	private String urlImg;
 
 	//bi-directional many-to-one association to Anh
-	@OneToMany(mappedBy="baiDang")
-	private List<Anh> anhs;
 
 	//bi-directional many-to-one association to MatHang
 	@ManyToOne
@@ -49,6 +51,16 @@ public class BaiDang implements Serializable {
 
 	public BaiDang() {
 	}
+	
+
+	public BaiDang(String noiDung, String tieuDe, String userName, MatHang matHang) {
+		super();
+		this.noiDung = noiDung;
+		this.tieuDe = tieuDe;
+		this.userName = userName;
+		this.matHang = matHang;
+	}
+
 
 	public int getIdBaiDang() {
 		return this.idBaiDang;
@@ -82,28 +94,7 @@ public class BaiDang implements Serializable {
 		this.userName = userName;
 	}
 
-	public List<Anh> getAnhs() {
-		return this.anhs;
-	}
-
-	public void setAnhs(List<Anh> anhs) {
-		this.anhs = anhs;
-	}
-
-	public Anh addAnh(Anh anh) {
-		getAnhs().add(anh);
-		anh.setBaiDang(this);
-
-		return anh;
-	}
-
-	public Anh removeAnh(Anh anh) {
-		getAnhs().remove(anh);
-		anh.setBaiDang(null);
-
-		return anh;
-	}
-
+	
 	public MatHang getMatHang() {
 		return this.matHang;
 	}

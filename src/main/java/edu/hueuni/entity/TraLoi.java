@@ -42,6 +42,16 @@ public class TraLoi implements Serializable {
 
 	public TraLoi() {
 	}
+	
+
+	public TraLoi(int luotThich, String noiDung, String urlImage, String userName) {
+		super();
+		this.luotThich = luotThich;
+		this.noiDung = noiDung;
+		this.urlImage = urlImage;
+		this.userName = userName;
+	}
+
 
 	public int getIdCauTraLoi() {
 		return this.idCauTraLoi;

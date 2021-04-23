@@ -19,4 +19,7 @@ public class TraLoiService {
 	public List<TraLoi> findAll() {
 		return traLoiRepository.findAll();
 	}
+	public List<TraLoi> findByNoiDung(String noiDung) {
+		return traLoiRepository.findByNoiDung(noiDung);
+	}
 }

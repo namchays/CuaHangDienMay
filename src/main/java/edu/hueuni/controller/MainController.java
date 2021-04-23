@@ -12,27 +12,34 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import edu.hueuni.config.MyConstances;
 import edu.hueuni.entity.CuaHang;
 import edu.hueuni.entity.KhachHang;
+import edu.hueuni.entity.LoaiHang;
 import edu.hueuni.entity.NhanVien;
 import edu.hueuni.entity.Quyen;
 import edu.hueuni.service.CuaHangService;
 import edu.hueuni.service.KhachHangService;
+import edu.hueuni.service.loaiHangService;
 import edu.hueuni.service.NhanVienService;
+import edu.hueuni.service.NhomHangService;
 
 @Controller
 public class MainController {
 	@Autowired
 	private KhachHangService khachHangService;
-
 	@Autowired
 	private NhanVienService nhanVienService;
-
 	@Autowired
 	private CuaHangService cuaHangService;
+	@Autowired
+	private NhomHangService nhomHangService;
+	@Autowired
+	private loaiHangService loaiHangService;
+	
 	@GetMapping("/login")
 	public String ShowLogin() {
 		return "login";
@@ -40,6 +47,8 @@ public class MainController {
 	@GetMapping("/")
 	public String homePage(Model model) {
 		List<CuaHang> listCuaHang = cuaHangService.findAll();
+		List<LoaiHang> listLoaiHang = loaiHangService.findAll();
+		model.addAttribute("listLoaiHang", listLoaiHang);
 		model.addAttribute("soCuaHang", listCuaHang.size());
 		return "index";
 	}
@@ -52,8 +61,13 @@ public class MainController {
 		Optional<KhachHang> khachHang = khachHangService.findByUserNameAndPassword(userName, password);
 		if (khachHang.isPresent()) {
 			HttpSession session = request.getSession();
-			session.setAttribute("account", khachHang.get());
-			return "index";
+			if(khachHang.get().getEnable()==false) {
+				session.setAttribute("account", khachHang.get());
+				return "index";
+			}else {
+				return "login";
+			}
+			
 		} else {
 			Optional<NhanVien> nhanVienFind = nhanVienService.findByUserNameAndPassword(userName, password);
 			if (nhanVienFind.isPresent()) {
@@ -71,4 +85,21 @@ public class MainController {
 
 		return "login";
 	}
+	@GetMapping("/he-thong-sieu-thi")
+	public String getListCuaHang(Model model) {
+		List<CuaHang> listCuaHang = cuaHangService.findAll();
+		model.addAttribute("listCuaHang", listCuaHang);
+		return "/cuahang/heThongSieuThi";
+	}
+	@GetMapping("/chi-tiet-cua-hang/{id}")
+	public String chiTietCuaHang(Model model,@PathVariable int id) {
+		Optional<CuaHang> cuaHangFound = cuaHangService.findById(id);
+		if(cuaHangFound.isPresent()) {
+			CuaHang cuaHang = cuaHangFound.get();
+			model.addAttribute("cuaHang",cuaHang);
+		}
+		return "/cuahang/chiTietCuaHang";
+	}
+
+	
 }
