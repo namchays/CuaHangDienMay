@@ -23,4 +23,7 @@ public class ChiTietDatHangService {
 	public List<ChiTietDatHang> findByMatHang(MatHang matHang) {
 		return chiTietDatHangRepository.findByMatHang(matHang);
 	}
+	public void deleteById(int id) {
+		chiTietDatHangRepository.deleteById(id);
+	}
 }

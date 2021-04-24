@@ -292,6 +292,7 @@ public class AdminController {
 			@ModelAttribute("quaTangModel") @Valid QuaTangModel quaTangModel,
 			@ModelAttribute("ChiTietMatHangModel") ChiTietMatHangModel chiTietMatHangModel,
 			@RequestParam("files") MultipartFile[] files) {
+		System.out.println("TRANG THAI "+ trangThai);
 		System.out.println("index"+giaHang.indexOf('$'));
 		System.out.println("gia"+giaHang);
 		String giaHangChange = giaHang.replaceAll(",","").substring(1);

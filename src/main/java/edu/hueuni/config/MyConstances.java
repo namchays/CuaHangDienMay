@@ -95,4 +95,7 @@ public class MyConstances {
 	
 	public static final String BINH_LUAN = "Hàng tốt, chất lượng";
 	public static final String TRA_LOI = "Cám ơn bạn";
+	public static final int HANG_MOI = 1;
+	public static final int HANG_SAP_VE = 0;
+	public static final int ONLINE_GIA_RE = 2;
 }

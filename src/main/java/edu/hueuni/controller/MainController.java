@@ -1,5 +1,6 @@
 package edu.hueuni.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,10 +20,14 @@ import edu.hueuni.config.MyConstances;
 import edu.hueuni.entity.CuaHang;
 import edu.hueuni.entity.KhachHang;
 import edu.hueuni.entity.LoaiHang;
+import edu.hueuni.entity.MatHang;
 import edu.hueuni.entity.NhanVien;
 import edu.hueuni.entity.Quyen;
+import edu.hueuni.model.ListMatHangModel;
+import edu.hueuni.model.MatHangModel;
 import edu.hueuni.service.CuaHangService;
 import edu.hueuni.service.KhachHangService;
+import edu.hueuni.service.MatHangService;
 import edu.hueuni.service.loaiHangService;
 import edu.hueuni.service.NhanVienService;
 import edu.hueuni.service.NhomHangService;
@@ -39,7 +44,8 @@ public class MainController {
 	private NhomHangService nhomHangService;
 	@Autowired
 	private loaiHangService loaiHangService;
-	
+	@Autowired
+	private MatHangService matHangService;
 	@GetMapping("/login")
 	public String ShowLogin() {
 		return "login";
@@ -48,8 +54,14 @@ public class MainController {
 	public String homePage(Model model) {
 		List<CuaHang> listCuaHang = cuaHangService.findAll();
 		List<LoaiHang> listLoaiHang = loaiHangService.findAll();
+		List<MatHang> listMatHang = matHangService.findAll();
+		ListMatHangModel listMatHangModel = new ListMatHangModel();
+		List<MatHangModel> listMatHangModels = listMatHangModel.getMatHangModel(listMatHang);
+		
 		model.addAttribute("listLoaiHang", listLoaiHang);
+		model.addAttribute("listMatHangModels", listMatHangModels);
 		model.addAttribute("soCuaHang", listCuaHang.size());
+		model.addAttribute("listCuaHang", listCuaHang);
 		return "index";
 	}
 

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.hueuni.entity.AnhMatHang;
+import edu.hueuni.entity.BaiDang;
+import edu.hueuni.entity.ChiTietDatHang;
 import edu.hueuni.entity.ChiTietMatHang;
 import edu.hueuni.entity.CuaHang;
 import edu.hueuni.entity.MatHang;
@@ -27,7 +29,10 @@ public class MatHangService {
 	private ChiTietMatHangRepository chiTietMatHangRepository;
 	@Autowired
 	private AnhMatHangRepository anhMatHangRepository;
-	
+	@Autowired
+	private BaiDangService baiDangService;
+	@Autowired
+	private ChiTietDatHangService chiTietDatHangService;
 	public void save(MatHang matHang) {
 		matHangRepository.save(matHang);
 	}
@@ -79,6 +84,24 @@ public class MatHangService {
 				if(listAnhMatHang.size()>0) {
 					listAnhMatHang.forEach(x->{
 						anhMatHangRepository.deleteById(x.getIdAnh());
+					});
+				}
+			}
+			//xóa bài đăng 
+			List<BaiDang> listBaiDang = baiDangService.findByMatHang(matHangFound.get());
+			if(listBaiDang!=null) {
+				if(listBaiDang.size()>0) {
+					listBaiDang.forEach(x->{
+						baiDangService.deleteById(x.getIdBaiDang());
+					});
+				}
+			}
+			//xóa chi tiết đặt hàng
+			List<ChiTietDatHang> listChiTietDatHang = chiTietDatHangService.findByMatHang(matHangFound.get());
+			if(listChiTietDatHang!=null) {
+				if(listChiTietDatHang.size()>0) {
+					listChiTietDatHang.forEach(x->{
+						chiTietDatHangService.deleteById(x.getIdChiTietDatHang());
 					});
 				}
 			}

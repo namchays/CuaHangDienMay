@@ -145,6 +145,15 @@ public class MatHang implements Serializable {
 
 
 
+	public int getMucGiamGia() {
+		return mucGiamGia;
+	}
+
+
+	public void setMucGiamGia(int mucGiamGia) {
+		this.mucGiamGia = mucGiamGia;
+	}
+
 	public int getMaHang() {
 		return this.maHang;
 	}

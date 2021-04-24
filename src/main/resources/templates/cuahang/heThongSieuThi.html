@@ -22,43 +22,7 @@
 	<div class="row">
 		<div class="col-sm-1" style="background-color: aqua;">a</div>
 		<div class="col-sm-10">
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav mr-auto ">
-						<li class="nav-item active col-sm-3"><a class="nav-link"
-							href="/"> <img src="/img/home/LOGO HEADER.png" width="250px">
-								<span class="sr-only">(current)</span></a></li>
-						<form class="form-inline my-2 my-lg-0 col-sm-5">
-							<input class="form-control mr-sm-2" size="40" type="search"
-								placeholder="Nhập tên sản phẩm..." aria-label="Search"
-								style="border-color: yellow;">
-							<button style="background-color: yellow;"
-								class="btn btn-outline-success my-2 my-sm-0" type="submit">
-								<i style="color: black;" class="fas fa-search"></i>
-							</button>
-						</form>
-						<div class="hotline_info col-sm-3">
-							<div class="module-border-wrap">
-								<a class="iconsprites_total_branch branch_market"
-									href="/he-thong-sieu-thi"
-									title="Hệ thống chi nhánh siêu thị toàn quốc" rel="nofollow">
-									XEM HỆ THỐNG <strong th:text="${soCuaHang}" class="num_store">83</strong>
-									CHI NHÁNH
-								</a>
-							</div>
-							<p class="hotline">
-								HOTLINE: <span class="phone">028-38563388</span>
-							</p>
-							<p class="online">
-								(Online từ <strong>8h30 - 21h</strong> từ <strong>Thứ 2
-									- Chủ Nhật</strong>)
-							</p>
-						</div>
-						<li class="nav-item active login col-sm-2"><a href="/login">Đăng
-								Nhập</a> <a href="/register">Đăng ký</a></li>
-					</ul>
-				</div>
-			</nav>
+			
 			<div class="row">
 			<th:block th:each="CuaHang : ${listCuaHang}">
 				<div class="col-sm-6">
