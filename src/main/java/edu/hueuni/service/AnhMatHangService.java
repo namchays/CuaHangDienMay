@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.hueuni.entity.AnhMatHang;
+import edu.hueuni.entity.MatHang;
 import edu.hueuni.repository.AnhMatHangRepository;
 
 @Service
@@ -18,6 +19,9 @@ public class AnhMatHangService {
 	}
 	public List<AnhMatHang> findAll() {
 		return anhMatHangRepository.findAll();
+	}
+	public void deleteByMatHang(MatHang matHang) {
+		anhMatHangRepository.deleteByMatHang(matHang);
 	}
 	
 }

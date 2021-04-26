@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="Enter your description here" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="/css/footer/footer.css">
+    <title>Title</title>
+</head>
+
+<body>
+    <div>
+        <div class="row">
+            <div class="container">
+            <!-- --navbar-- -->
+		<th:block th:insert="/shared/navbar :: navbar"></th:block>
+			<!-- -----------------------Body-------------------- -->
+                <div class="row" id="gradient">
+                    <div class="col-md-5">
+                        <img src="http://www.prepbootstrap.com/Content/images/shared/misc/s7e.png" class="img-fluid">
+                    </div>
+                    <div id="overview">
+                        <div class="row">
+                            <div>
+                                <ul class="pb-product-details-ul">
+                                    <li><span class="fa fa-calendar">&nbsp;Released 2016, March</span></li>
+                                    <li><span class="fa fa-phone">&nbsp;157g, 7.7mm thickness</span></li>
+                                    <li><span class="fa fa-bluetooth-b">&nbsp;Android OS, v6.0, up to 7.0</span></li>
+                                    <li><span class="fa fa-microchip">&nbsp;32/64/128GB Storage</span></li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-3 col-md-3 text-xs-center" id="hits">
+                                <span class="fa fa-bar-chart">&nbsp;24%</span>
+                                <p>22,010,155 HITS</p>
+                            </div>
+                            <div class="col-xs-3 col-md-3 text-xs-center" id="fan">
+                               <a class="btn btn-success" th:href="@{'/add-to-cart/'+${matHang.maHang}}">Thêm vào giỏ hàng <i class="fas fa-cart-plus"></i></a>
+                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3 col-md-3 pb-product-details-fa">
+                                <span class="fa fa-mobile fa-lg"></span>
+                                <h3><strong>5.5"</strong></h3>
+                                <p>1440x2560 pixels</p>
+                            </div>
+                            <div class="col-xs-3 col-md-3 pb-product-details-fa">
+                                <span class="fa fa-camera fa-lg"></span>
+                                <h3><strong>12 MP</strong></h3>
+                                <p>2160p</p>
+                            </div>
+                            <div class="col-xs-3 col-md-3 pb-product-details-fa">
+                                <span class="fa fa-microchip fa-lg"></span>
+                                <h3><strong>4GB RAM</strong></h3>
+                                <p>Exynos 8890</p>
+                            </div>
+                            <div class="col-xs-3 col-md-3 pb-product-details-fa">
+                                <span class="fa fa-battery-4 fa-lg"></span>
+                                <h3><strong>3600mAH</strong></h3>
+                                <p>Li-ion</p>
+                            </div>
+                           
+                        </div>
+                        <div class="row">
+                            
+                        <div class="col-xs-7 col-md-7 pb-product-details-fa">
+                            <span class="fa fa-battery-4 fa-lg">Ảnh Quà tặng</span> <br/>
+                            <img src="./1.jpg" width="100px">
+                            <img src="./1.jpg" width="100px">
+                            <img src="./1.jpg" width="100px">
+                        
+                        </div>
+                        <div class="col-xs-5 col-md-5 pb-product-details-fa">
+                            <span class="fa fa-battery-4 fa-lg">Quà tặng bao gồm</span> <br/>
+                            <p>dsann</p>
+                            <p>dsann</p>
+                            <p>dsann</p>
+                            <p>dsann</p>
+                        
+                        </div>
+                        </div>
+                    </div>
+                </div>
+               
+                    <div>
+                      <p style="font-size: 28px;" class="text-center">Chi Tiết Sản Phẩm:</p>
+                        <table class="table">
+                            <tbody>
+                            <th:block th:each="ChiTiet : ${listChiTietMatHang}">
+                            <tr>
+                                    <td class="success" th:text="${ChiTiet.tenChiTiet}">Camera: </td>
+                                    <td th:text="${ChiTiet.ThongTinChiTiet}">12 megapixels</td>
+                                </tr>
+                            </th:block>
+                                
+                             
+                            </tbody>
+                        </table>
+                    </div>
+                            <!-- ---------------------bai dang-------------- -->
+                    <div>
+                            <p style="font-size: 28px;" class="text-center">Tiêu đề</p>
+                            <img src="./1.jpg" style="width: 100%;">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, error? Ullam nihil magni laborum, iste et dignissimos est consectetur nesciunt! Quia, temporibus autem voluptatem iusto illo natus voluptatibus ipsam itaque?</p>
+                    </div>
+
+                </div>
+       
+
+        </div>
+
+        <!-- ----comment -->
+        <div class="container mb-5 mt-5">
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="text-center mb-5"> Đánh giá sản phẩm</h3>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="media"> <img class="mr-3 rounded-circle" alt="Bootstrap Media Preview" src="https://i.imgur.com/stD0Q19.jpg" style="width: 50px;" />
+                                    <div class="media-body" id="comment">
+                                        <div class="row">
+                                            <div class="col-8 d-flex">
+                                                <h5>Maria Smantha</h5> <span>- 2 hours ago</span>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="pull-right reply"> </div>
+                                            </div>
+                                        </div> It is a long established fact that a reader will be distracted by the readable content of a page.<br><i class="far fa-thumbs-up"></i> &nbsp;  <span id="reply" style="color: blue;"><i class="fa fa-reply"></i> reply</span>  <div class="media mt-4"> <a class="pr-3" href="#"><img class="rounded-circle" alt="Bootstrap Media Another Preview" src="https://i.imgur.com/xELPaag.jpg" style="width: 50px;" /></a>
+                                            <div class="media-body">
+                                                <div class="row">
+                                                    <div class="col-12 d-flex">
+                                                        <h5>Simona Disa</h5> <span>- 3 hours ago</span>
+                                                    </div>
+                                                </div> letters, as opposed to using 'Content here, content here', making it look like readable English.
+                                            </div>
+                                        </div>
+                                        <div class="media mt-3"> <a class="pr-3" href="#"><img class="rounded-circle" alt="Bootstrap Media Another Preview" src="https://i.imgur.com/nAcoHRf.jpg" style="width: 50px;" /></a>
+                                            <div class="media-body">
+                                                <div class="row">
+                                                    <div class="col-12 d-flex">
+                                                        <h5>John Smith</h5> <span>- 4 hours ago</span>
+                                                    </div>
+                                                </div> the majority have suffered alteration in some form, by injected humour, or randomised words.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        	<th:block th:insert="/shared/footer :: footer"></th:block>
+    </div>
+
+    <!-- you need to include the shieldui css and js assets in order for the charts to work -->
+    <link rel="stylesheet" type="text/css"
+        href="http://www.shieldui.com/shared/components/latest/css/light-glow/all.min.css" />
+    <script type="text/javascript"
+        src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $(".tabs_div").shieldTabs();
+        });
+    </script>
+
+    <style>
+        .pb-product-details-ul {
+            list-style-type: none;
+            padding-left: 0;
+            color: black;
+        }
+
+        .pb-product-details-ul>li {
+            padding-bottom: 5px;
+            font-size: 15px;
+        }
+
+        #gradient {
+            /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#feffff+0,ddf1f9+31,a0d8ef+62 */
+            background: #feffff;
+            /* Old browsers */
+            background: -moz-linear-gradient(left, #feffff 0%, #ddf1f9 31%, #a0d8ef 62%);
+            /* FF3.6-15 */
+            background: -webkit-linear-gradient(left, #feffff 0%, #ddf1f9 31%, #a0d8ef 62%);
+            /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to right, #feffff 0%, #ddf1f9 31%, #a0d8ef 62%);
+            /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#feffff', endColorstr='#a0d8ef', GradientType=1);
+            /* IE6-9 */
+            border: 1px solid #f2f2f2;
+            padding: 20px;
+        }
+
+        #hits {
+            border-right: 1px solid white;
+            border-left: 1px solid white;
+            vertical-align: middle;
+            padding-top: 15px;
+            font-size: 17px;
+            color: white;
+        }
+
+        #fan {
+            vertical-align: middle;
+            padding-top: 15px;
+            font-size: 17px;
+            color: white;
+        }
+
+        .pb-product-details-fa>span {
+            padding-top: 20px;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    
+
+
+<script>
+    $(document).ready(function(){
+        $('#reply').click(function(){
+            $("#comment").append("<input class='form-control' style='width:50%;margin-top:10px; ' display='inline'>"+
+            "<button class='btn btn-primary'>Reply</button>"
+            );
+            $('#reply').css("color","black").off("click");
+            
+        });
+      
+    }); 
+</script>
+</body>
+
+</html>

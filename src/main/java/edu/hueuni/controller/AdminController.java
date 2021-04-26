@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.hueuni.entity.AnhMatHang;
+import edu.hueuni.entity.ChiTietDatHang;
 import edu.hueuni.entity.ChiTietMatHang;
 import edu.hueuni.entity.CuaHang;
 import edu.hueuni.entity.DonDatHang;
@@ -40,8 +42,10 @@ import edu.hueuni.entity.NhanVien;
 import edu.hueuni.entity.NhomHang;
 import edu.hueuni.entity.QuaTang;
 import edu.hueuni.model.AjaxResponseBody;
+import edu.hueuni.model.ChiTietMatHangItem;
 import edu.hueuni.model.ChiTietMatHangModel;
 import edu.hueuni.model.NhomHangModel;
+import edu.hueuni.model.QuaTangItem;
 import edu.hueuni.model.QuaTangModel;
 import edu.hueuni.service.AnhMatHangService;
 import edu.hueuni.service.ChiTietMatHangService;
@@ -228,7 +232,14 @@ public class AdminController {
 		List<QuaTang> listQuaTang = quaTangService.findAll();
 		List<CuaHang> listCuaHang = cuaHangService.findAll();
 		QuaTangModel quaTangModel = new QuaTangModel();
+		
+			quaTangModel.addQuaTangItem(new QuaTangItem(0));
+	
 		ChiTietMatHangModel chiTietMatHangModel = new ChiTietMatHangModel();
+		 for (int i = 1; i <= 3; i++) {
+			 chiTietMatHangModel.addChiTietMatHangItem(new ChiTietMatHangItem());
+		    }
+		
 		mav.addObject("listLoaiHang", listLoaiHang);
 		mav.addObject("listQuaTang", listQuaTang);
 		mav.addObject("listCuaHang", listCuaHang);
@@ -244,42 +255,44 @@ public class AdminController {
 		List<CuaHang> listCuaHang = cuaHangService.findAll();
 		Optional<MatHang> matHangFound = matHangService.findById(id);
 		if(matHangFound.isPresent()) {
-			MatHang matHang = matHangFound.get();
-			List<QuaTang> quaTangs = matHang.getQuaTangs();
-			QuaTangModel quaTangModel;
-			switch(quaTangs.size()) {
-			  case 0:
-				   quaTangModel = new QuaTangModel();
-			    break;
-			  case 1:
-				   quaTangModel = new QuaTangModel(quaTangs.get(0).getIdQuaTang()+"","0","0");
-				  break;
-			  case 2:
-				   quaTangModel = new QuaTangModel(quaTangs.get(0).getIdQuaTang()+"",quaTangs.get(1).getIdQuaTang()+"","0");
-				  break;
-			  case 3:
-				   quaTangModel = new QuaTangModel(quaTangs.get(0).getIdQuaTang()+"",quaTangs.get(1).getIdQuaTang()+"",quaTangs.get(2).getIdQuaTang()+"");
-			    break;
-			  default:
-				   quaTangModel = new QuaTangModel();
+			//thêm quà tặng vào form
+			MatHang matHangGet = matHangFound.get();
+			List<QuaTang> listQuaTangs = matHangGet.getQuaTangs();
+			if(listQuaTangs!=null && listQuaTang.size()>0) {
+				QuaTangModel quaTangModel = new QuaTangModel();
+				for (QuaTang quaTang : listQuaTangs) {
+					quaTangModel.addQuaTangItem(new QuaTangItem(quaTang.getIdQuaTang()));
+				}
+				mav.addObject("quaTangModel", quaTangModel);
+				
+			}else {
+				QuaTangModel quaTangModel = new QuaTangModel();
+				quaTangModel.addQuaTangItem(new QuaTangItem(0));
+				mav.addObject("quaTangModel", quaTangModel);
 			}
-			
-			mav.addObject("quaTangModel", quaTangModel);
-			mav.addObject("matHang", matHang);
+			//thêm chi tiết vào form
+			ChiTietMatHangModel chiTietMatHangModel = new ChiTietMatHangModel();
+			 List<ChiTietMatHang> listChiTietMatHang = matHangGet.getChiTietMatHangs();
+			 if(listChiTietMatHang!=null && listChiTietMatHang.size()>0) {
+				 for (ChiTietMatHang chiTietMatHang : listChiTietMatHang) {
+					chiTietMatHangModel.addChiTietMatHangItem(new ChiTietMatHangItem(chiTietMatHang.getTenChiTiet(), chiTietMatHang.getThongTinChiTiet()));
+				}
+			 }else {
+				 for (int i = 1; i <= 3; i++) {
+					 chiTietMatHangModel.addChiTietMatHangItem(new ChiTietMatHangItem());
+				    }
+			 }
+			 mav.addObject("chiTietMatHangModel", chiTietMatHangModel);
+			 mav.addObject("matHang", matHangFound.get());
 		}
-//		Optional<QuaTang> QuaTangFound = quaTangService.findById(id);
-		
-		ChiTietMatHangModel chiTietMatHangModel = new ChiTietMatHangModel();
-		
+		mav.addObject("id", id);
 		mav.addObject("listLoaiHang", listLoaiHang);
 		mav.addObject("listQuaTang", listQuaTang);
 		mav.addObject("listCuaHang", listCuaHang);
 		
-		mav.addObject("chiTietMatHangModel", chiTietMatHangModel);
 		
 		return mav;
 	}
-
 	@PostMapping("/add-mat-hang")
 	public ModelAndView addMatHangSubmit(@RequestParam(name = "tenMatHang", required = false) String tenMatHang,
 			@RequestParam(name = "giaHang") String giaHang,
@@ -290,7 +303,7 @@ public class AdminController {
 			@RequestParam(name = "tenNhomHang") String tenNhomHang,
 			@RequestParam(name = "trangThai") String trangThai,
 			@ModelAttribute("quaTangModel") @Valid QuaTangModel quaTangModel,
-			@ModelAttribute("ChiTietMatHangModel") ChiTietMatHangModel chiTietMatHangModel,
+			@ModelAttribute("ChiTietMatHangModel") @Valid ChiTietMatHangModel chiTietMatHangModel,
 			@RequestParam("files") MultipartFile[] files) {
 		System.out.println("TRANG THAI "+ trangThai);
 		System.out.println("index"+giaHang.indexOf('$'));
@@ -308,28 +321,31 @@ public class AdminController {
 		NhomHang nhomHangGet = nhomHang.get();
 		
 		//Thêm quà tặng ok
-		List<QuaTang> listQuaTang = addListQuaTang(Integer.parseInt(quaTangModel.getQuaTang1()),Integer.parseInt(quaTangModel.getQuaTang2()),Integer.parseInt(quaTangModel.getQuaTang3()));
-			
+//		List<QuaTang> listQuaTang = addListQuaTang(Integer.parseInt(quaTangModel.getQuaTang1()),Integer.parseInt(quaTangModel.getQuaTang2()),Integer.parseInt(quaTangModel.getQuaTang3()));
+		List<QuaTangItem> listQuaTangItem = quaTangModel.getQuaTangItem();
+		List<QuaTang> listQuaTangs = new ArrayList<QuaTang>();
+		for (QuaTangItem quaTangItem : listQuaTangItem) {
+			Optional<QuaTang> quaTangFound = quaTangService.findById(quaTangItem.getId());
+			if(quaTangFound.isPresent()) {
+				listQuaTangs.add(quaTangFound.get());
+			}
+		}
 		
 		//thêm mặt hàng 
 		MatHang matHang =new MatHang(donViTinh,giaHangInt, Integer.parseInt(soLuong), tenMatHang, Integer.parseInt(trangThai), 
-				xuatXu, nhomHangGet, listQuaTang);
+				xuatXu, nhomHangGet, listQuaTangs);
 		matHangService.save(matHang);
 	
 		
 		System.out.println(matHang.getMaHang());
 		
 		//thêm chi tiết mặt hàng ok
-		addChiTietMatHang(chiTietMatHangModel.getCt1(),chiTietMatHangModel.getNd1(),
-						  chiTietMatHangModel.getCt2(),chiTietMatHangModel.getNd2(),
-						  chiTietMatHangModel.getCt3(),chiTietMatHangModel.getNd3(),
-						  chiTietMatHangModel.getCt4(),chiTietMatHangModel.getNd4(),
-						  chiTietMatHangModel.getCt5(),chiTietMatHangModel.getNd5(),
-						  chiTietMatHangModel.getCt6(),chiTietMatHangModel.getNd6(),
-						  chiTietMatHangModel.getCt7(),chiTietMatHangModel.getNd7(),
-						  chiTietMatHangModel.getCt8(),chiTietMatHangModel.getNd8(),
-						  chiTietMatHangModel.getCt9(),chiTietMatHangModel.getNd9(),
-						  chiTietMatHangModel.getCt10(),chiTietMatHangModel.getNd10(),matHang);
+		
+		List<ChiTietMatHangItem> listChiTietMatHangItem = chiTietMatHangModel.getChiTietMatHangItem();
+		for (ChiTietMatHangItem chiTietMatHangItem : listChiTietMatHangItem) {
+			createChiTiet(chiTietMatHangItem.getTenChiTiet(), chiTietMatHangItem.getNoiDungChiTiet(), matHang);
+		}
+
 		//Thêm cửa hàng ok 
 		int idCuaHang = Integer.parseInt(tenCuaHang);
 		
@@ -358,7 +374,7 @@ public class AdminController {
 		return mav;
 	}
 	@PostMapping("/edit-mat-hang/{id}")
-	public ModelAndView editMatHangSubmit(@RequestParam(name = "tenMatHang", required = false) String tenMatHang,
+	public ModelAndView editMatHangSubmit(@RequestParam(name = "tenHang", required = false) String tenMatHang,
 			@RequestParam(name = "giaHang") String giaHang,
 			@RequestParam(name = "donViTinh") String donViTinh,
 			@RequestParam(name = "xuatXu") String xuatXu,
@@ -367,116 +383,105 @@ public class AdminController {
 			@RequestParam(name = "tenNhomHang") String tenNhomHang,
 			@RequestParam(name = "trangThai") String trangThai,
 			@ModelAttribute("quaTangModel") @Valid QuaTangModel quaTangModel,
-			@ModelAttribute("ChiTietMatHangModel") ChiTietMatHangModel chiTietMatHangModel,
+			@ModelAttribute("ChiTietMatHangModel") @Valid ChiTietMatHangModel chiTietMatHangModel,
 			@RequestParam("files") MultipartFile[] files,
-			@PathVariable int id) {
+			@PathVariable int id
+			) {
+		ModelAndView mav = new ModelAndView("redirect:/manage-mat-hang");
+		System.out.println("TRANG THAI "+ trangThai);
 		System.out.println("index"+giaHang.indexOf('$'));
 		System.out.println("gia"+giaHang);
-		String giaHangChange = giaHang.replaceAll(",","").substring(1);
-		String firstPart = giaHangChange.substring(0, giaHangChange.indexOf("."));
-		System.out.println(firstPart);
-		int giaHangInt = Integer.parseInt(firstPart);
+		int giaHangInt;
+		try {
+			giaHangInt = Integer.parseInt(giaHang);
+		}catch (Exception e) {
+			System.out.println(e.toString());
+			String giaHangChange = giaHang.replaceAll(",","").substring(1);
+			String firstPart = giaHangChange.substring(0, giaHangChange.indexOf("."));
+			System.out.println(firstPart);
+			giaHangInt = Integer.parseInt(firstPart);
+		}
 		
-		ModelAndView mav = new ModelAndView("redirect:/manage-mat-hang");
 		
-		//Nhóm hàng ok
+		
+		
+		//Nhóm hàng chưa set
 		int idNhomHang = Integer.parseInt(tenNhomHang);
 		Optional<NhomHang> nhomHang = nhomHangService.findById(idNhomHang);
 		NhomHang nhomHangGet = nhomHang.get();
 		
-		//Thêm quà tặng ok
-		List<QuaTang> listQuaTang = addListQuaTang(Integer.parseInt(quaTangModel.getQuaTang1()),Integer.parseInt(quaTangModel.getQuaTang2()),Integer.parseInt(quaTangModel.getQuaTang3()));
+		//Thêm quà tặng chưa set
+		List<QuaTangItem> listQuaTangItem = quaTangModel.getQuaTangItem();
+		List<QuaTang> listQuaTangs = new ArrayList<QuaTang>();
+		for (QuaTangItem quaTangItem : listQuaTangItem) {
+			Optional<QuaTang> quaTangFound = quaTangService.findById(quaTangItem.getId());
+			if(quaTangFound.isPresent()) {
+				listQuaTangs.add(quaTangFound.get());
+			}
+		}
 		
-		
-		//edit mat hang
+		//sửa mặt hàng 
 		Optional<MatHang> matHangFound = matHangService.findById(id);
-		MatHang matHang = matHangFound.get();
+		if(matHangFound.isPresent()) {
+			MatHang matHang = matHangFound.get();
 		
+			
+			
+			System.out.println(matHang.getTenHang());
+			System.out.println(matHang);
+			//thêm chi tiết mặt hàng ok
+			chiTietMatHangService.deleteByMatHang(matHang);
 		
-		
-
-		
-		//thêm chi tiết mặt hàng ok
-		addChiTietMatHang(chiTietMatHangModel.getCt1(),chiTietMatHangModel.getNd1(),
-				chiTietMatHangModel.getCt2(),chiTietMatHangModel.getNd2(),
-				chiTietMatHangModel.getCt3(),chiTietMatHangModel.getNd3(),
-				chiTietMatHangModel.getCt4(),chiTietMatHangModel.getNd4(),
-				chiTietMatHangModel.getCt5(),chiTietMatHangModel.getNd5(),
-				chiTietMatHangModel.getCt6(),chiTietMatHangModel.getNd6(),
-				chiTietMatHangModel.getCt7(),chiTietMatHangModel.getNd7(),
-				chiTietMatHangModel.getCt8(),chiTietMatHangModel.getNd8(),
-				chiTietMatHangModel.getCt9(),chiTietMatHangModel.getNd9(),
-				chiTietMatHangModel.getCt10(),chiTietMatHangModel.getNd10(),matHang);
-		//Thêm cửa hàng ok 
-		int idCuaHang = Integer.parseInt(tenCuaHang);
-		
-		List<CuaHang> listCuaHang = new ArrayList<CuaHang>();
-		if(idCuaHang == 0) {
-			listCuaHang = cuaHangService.findAll();
-			for (CuaHang cuaHang : listCuaHang) {
+			List<ChiTietMatHangItem> listChiTietMatHangItem = chiTietMatHangModel.getChiTietMatHangItem();
+			for (ChiTietMatHangItem chiTietMatHangItem : listChiTietMatHangItem) {
+				createChiTiet(chiTietMatHangItem.getTenChiTiet(), chiTietMatHangItem.getNoiDungChiTiet(), matHang);
+			}
+			
+			//Thêm cửa hàng  chưa
+			int idCuaHang = Integer.parseInt(tenCuaHang);
+			
+			List<CuaHang> listCuaHang = new ArrayList<CuaHang>();
+			if(idCuaHang == 0) {
+				listCuaHang = cuaHangService.findAll();
+				for (CuaHang cuaHang : listCuaHang) {
+					List<MatHang> listMatHang = cuaHang.getMatHangs();
+					listMatHang.add(matHang);
+					cuaHang.setMatHangs(listMatHang);
+					cuaHangService.save(cuaHang);
+				}
+			}else {
+				Optional<CuaHang> cuaHangFound = cuaHangService.findById(idCuaHang);
+				CuaHang cuaHang = cuaHangFound.get();
 				List<MatHang> listMatHang = cuaHang.getMatHangs();
 				listMatHang.add(matHang);
 				cuaHang.setMatHangs(listMatHang);
 				cuaHangService.save(cuaHang);
 			}
-		}else {
-			Optional<CuaHang> cuaHangFound = cuaHangService.findById(idCuaHang);
-			CuaHang cuaHang = cuaHangFound.get();
-			List<MatHang> listMatHang = cuaHang.getMatHangs();
-			listMatHang.add(matHang);
-			cuaHang.setMatHangs(listMatHang);
-			cuaHangService.save(cuaHang);
+			
+			//Thêm ảnh chưa check
+			anhMatHangService.deleteByMatHang(matHang);
+			ThemAnh(files,matHang);
+			
+			
+			//set value
+			
+			matHang.setNhomHang(nhomHangGet);
+			matHang.setQuaTangs(listQuaTangs);
+			matHang.setGiaHang(giaHangInt);
+			matHang.setSoLuong(Integer.parseInt(soLuong));
+			matHang.setDonViTinh(donViTinh);
+			matHang.setXuatXu(xuatXu);
+			matHang.setTrangThai(Integer.parseInt(trangThai));
+			matHang.setTenHang(tenMatHang);
+			
+			
+			matHangService.save(matHang);
 		}
 		
-		//Thêm ảnh ok
-		ThemAnh(files,matHang);
-		matHang.setQuaTangs(listQuaTang);
-		matHang.setNhomHang(nhomHangGet);
-		matHang.setGiaHang(giaHangInt);
-		matHang.setSoLuong(Integer.parseInt(soLuong));
-		matHangService.save(matHang);
+	
 		return mav;
 	}
-
-	private List<QuaTang> addListQuaTang(int idQuaTang1, int idQuaTang2, int idQuaTang3) {
-		List<QuaTang> listQuaTangs = new ArrayList<QuaTang>();
-		if (addQuaTang(idQuaTang1) != null) {
-			listQuaTangs.add(addQuaTang(idQuaTang1));
-		}
-		if (addQuaTang(idQuaTang2) != null) {
-			listQuaTangs.add(addQuaTang(idQuaTang2));
-		}
-		if (addQuaTang(idQuaTang3) != null) {
-			listQuaTangs.add(addQuaTang(idQuaTang3));
-		}
-		return listQuaTangs;
-	}
-
-	private QuaTang addQuaTang(int idQuaTang) {
-		if (idQuaTang != 0) {
-			Optional<QuaTang> quaTang = quaTangService.findById(idQuaTang);
-			if (quaTang.isPresent()) {
-				return quaTang.get();
-			}
-		}
-		return null;
-	}
-
-	private void addChiTietMatHang(String ct1, String nd1, String ct2, String nd2, String ct3,
-			String nd3, String ct4, String nd4, String ct5, String nd5, String ct6, String nd6, String ct7, String nd7,
-			String ct8, String nd8, String ct9, String nd9, String ct10, String nd10,MatHang matHang) {
-		createChiTiet(ct1, nd1,matHang);
-		createChiTiet(ct2, nd2,matHang);
-		createChiTiet(ct3, nd3,matHang);
-		createChiTiet(ct4, nd4,matHang); 
-		createChiTiet(ct5, nd5,matHang); 
-		createChiTiet(ct6, nd6,matHang); 
-		createChiTiet(ct7, nd7,matHang); 
-		createChiTiet(ct8, nd8,matHang); 
-		createChiTiet(ct9, nd9,matHang); 
-		createChiTiet(ct10, nd10,matHang);
 	
-	}
 
 	private void createChiTiet(String ct, String nd,MatHang matHang) {
 		if (ct != null && nd != null) {

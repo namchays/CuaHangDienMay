@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+<title>Title</title>
+</head>
+<body>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">GIỎ HÀNG</h1>
+         </div>
+    </section>
+    
+    <div class="container mb-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col"> Mã hàng</th>
+                                <th scope="col">Tên hàng</th>
+                                <th scope="col">Hình ảnh</th>
+                                
+                                <th scope="col">Số lượng</th>
+                                <th scope="col" class="text-center">Giá</th>
+                                <th scope="col" class="text-right">Thành tiền</th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="gioHangItem : ${listGioHangItem}">
+                        
+                        
+                            <tr>
+                             
+                                <td th:text = "${gioHangItem.maHang}"></td>
+                                <td th:text = "${gioHangItem.tenHang}"></td>
+                                 <td><img th:src="${gioHangItem.imgUrl}" style="height: 70px"/> </td>
+                                <td th:text = "${gioHangItem.soLuong}"></td>
+                                <td th:text = "${gioHangItem.gia}"></td>
+                                <td th:text = "${gioHangItem.thanhTien}"></td>
+                              
+                            </tr>
+                       </th:block>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><strong>Total</strong></td>
+                                <td class="text-right"><strong>[[${tongTien}]]</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col mb-2">
+                <div class="row">
+                    <div class="col-sm-12  col-md-6">
+                        <a class="btn btn-block btn-light" href="/">Continue Shopping</a>
+                    </div>
+                    <div class="col-sm-12 col-md-6 text-right">
+                        <button class="btn btn-lg btn-block btn-success text-uppercase">Dặt hàng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+</body>
+</html>

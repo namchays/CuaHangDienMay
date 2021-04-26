@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import edu.hueuni.config.MyConstances;
+import edu.hueuni.entity.ChiTietMatHang;
 import edu.hueuni.entity.CuaHang;
 import edu.hueuni.entity.KhachHang;
 import edu.hueuni.entity.LoaiHang;
@@ -63,6 +65,32 @@ public class MainController {
 		model.addAttribute("soCuaHang", listCuaHang.size());
 		model.addAttribute("listCuaHang", listCuaHang);
 		return "index";
+	}
+	@GetMapping("/detail-san-pham/{id}")
+	public String chiTietMatHang(Model model,@PathVariable int id) {
+		System.out.println(id);
+		Optional<MatHang> matHangFound = matHangService.findById(id);
+		if(matHangFound.isPresent()) {
+			MatHang matHang = matHangFound.get();
+		
+			List<ChiTietMatHang> listChiTietMatHang = matHang.getChiTietMatHangs();
+			model.addAttribute("listChiTietMatHang", listChiTietMatHang);
+			model.addAttribute("matHang", matHang );
+		}
+		
+		
+		
+		List<CuaHang> listCuaHang = cuaHangService.findAll();
+		List<LoaiHang> listLoaiHang = loaiHangService.findAll();
+		List<MatHang> listMatHang = matHangService.findAll();
+		ListMatHangModel listMatHangModel = new ListMatHangModel();
+		List<MatHangModel> listMatHangModels = listMatHangModel.getMatHangModel(listMatHang);
+		
+		model.addAttribute("listLoaiHang", listLoaiHang);
+		model.addAttribute("listMatHangModels", listMatHangModels);
+		model.addAttribute("soCuaHang", listCuaHang.size());
+		model.addAttribute("listCuaHang", listCuaHang);
+		return "/mathang/chiTietMatHang";
 	}
 
 	@PostMapping("/login")
@@ -111,6 +139,32 @@ public class MainController {
 			model.addAttribute("cuaHang",cuaHang);
 		}
 		return "/cuahang/chiTietCuaHang";
+	}
+	
+	@GetMapping("/find-by-cua-hang/{id}")
+	public ModelAndView findByCuaHang(@PathVariable int id) {
+		ModelAndView mav = new ModelAndView("/cuahang/findByCuaHang");
+		List<CuaHang> listCuaHang = cuaHangService.findAll();
+		List<LoaiHang> listLoaiHang = loaiHangService.findAll();
+//		List<MatHang> listMatHang = matHangService.findAll();
+		Optional<CuaHang> cuaHangFound = cuaHangService.findById(id);
+		if(cuaHangFound.isPresent()) {
+			CuaHang cuaHang = cuaHangFound.get();
+			String tenCuaHang = cuaHang.getTenCuaHang();
+			mav.addObject("tenCuaHang", tenCuaHang);
+			List<MatHang> listMatHang = cuaHang.getMatHangs();
+			ListMatHangModel listMatHangModel = new ListMatHangModel();
+			List<MatHangModel> listMatHangModels = listMatHangModel.getMatHangModel(listMatHang);
+			mav.addObject("listMatHangModels", listMatHangModels);
+		}
+		
+		
+		
+		mav.addObject("listLoaiHang", listLoaiHang);
+	
+		mav.addObject("soCuaHang", listCuaHang.size());
+		mav.addObject("listCuaHang", listCuaHang);
+		return mav;
 	}
 
 	

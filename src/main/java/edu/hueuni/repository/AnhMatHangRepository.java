@@ -11,4 +11,5 @@ import edu.hueuni.entity.MatHang;
 public interface AnhMatHangRepository extends CrudRepository<AnhMatHang, Integer>{
 	public List<AnhMatHang> findAll();
 	public List<AnhMatHang> findByMatHang(MatHang matHang);
+	public void deleteByMatHang(MatHang matHang);
 }

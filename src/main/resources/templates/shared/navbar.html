@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<title>Title</title>
+
+</head>
+<body>
+
+   		<div class="row navbar navbar-expand-md navbar-dark bg-dark mb-4"
+				role="navigation"
+				style="font-size: 13px; background-color: #ffe263 !important" th:fragment="navbar">
+
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#navbarCollapse" aria-controls="navbarCollapse"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarCollapse">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item "><a class="nav-link" href="/"
+							style="color: blue;">Home <span class="sr-only">(current)</span>
+						</a></li>
+
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" id="dropdown1"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+							style="color: blue;">Chọn loại hàng</a>
+							<ul class="dropdown-menu" aria-labelledby="dropdown1">
+
+
+								<!-- ---- block---- -->
+								<th:block th:each="LoaiHang : ${listLoaiHang}">
+									<li class="dropdown-item dropdown"><a
+										class="dropdown-toggle" th:id="${LoaiHang.IdLoaiHang}"
+										data-toggle="dropdown" aria-haspopup="true"
+										th:text="${LoaiHang.TenLoaiHang}">Dropdown1.1</a>
+										<ul class="dropdown-menu"
+											th:aria-labelledby="${LoaiHang.IdLoaiHang}">
+
+											<th:block th:each="NhomHang : ${LoaiHang.NhomHangs}">
+												<li class="dropdown-item"><a
+													th:text="${NhomHang.tenNhomHang}"
+													th:href="@{'/find-nhom-hang/'+${NhomHang.IdNhomHang}}">Action
+														1.1</a></li>
+											</th:block>
+										</ul></li>
+								</th:block>
+								<!-- ---------------end block -->
+
+
+							</ul></li>
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" id="dropdown2"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+							style="color: blue;">Chọn cửa hàng</a>
+							<ul class="dropdown-menu" aria-labelledby="dropdown2">
+								<li class="dropdown-item dropdown"><a
+									href="/find-by-cua-hang/0">Tất cả cửa hàng</a></li>
+								<!-- ---- block---- -->
+								<th:block th:each="CuaHang : ${listCuaHang}">
+									<li class="dropdown-item dropdown"><a
+										th:href="@{'/find-by-cua-hang/'+${CuaHang.IdCuaHang}}"
+										th:id="${CuaHang.IdCuaHang}" th:text="${CuaHang.TenCuaHang}">Dropdown1.1</a>
+
+									</li>
+
+
+								</th:block>
+								<!-- ---------------end block -->
+
+
+							</ul></li>
+						<li class="nav-item ">
+							<form class="form-inline form-search" >
+								<input class="form-control mr-sm-2" size="40" type="search"
+									placeholder="Nhập tên sản phẩm..." aria-label="Search"
+									style="border-color: yellow;">
+								<button style="background-color: yellow;"
+									class="btn btn-outline-success my-2 my-sm-0" type="submit">
+									<i style="color: black;" class="fas fa-search"></i>
+								</button>
+							</form>
+						</li>
+
+					</ul>
+					<ul style="margin-top: 10px">
+						<li><a href="/he-thong-sieu-thi">Hệ thống siêu thị</a></li>
+					</ul>
+
+					<ul style="margin-top: 10px">
+						<li class=""><a href="/login">Đăng Nhập</a> &nbsp; <a
+							href="/register">Đăng ký</a></li>
+					</ul>
+
+				</div>
+			</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -300,32 +300,17 @@
 										</select> <label>Nhóm hàng</label> <select required="required" name="tenNhomHang"
 											class="form-control" style="width: 30%" id="listNhomHang">
 										</select> <br /> <label>quà tặng</label>
-										<div th:object="${quaTangModel}">
-											<select id="quaTang1" class="form-control"
-												style="width: 20%; margin-top: 7px" th:field="*{quaTang1}">
-												<option th:value="0">---Chọn quà tặng---</option>
+										<div th:object="${quaTangModel}" id="listQuaTang">
+											<th:block th:each="quaTang,pos : *{QuaTangItem}">
+											<select th:field="*{QuaTangItem[__${pos.index}__].id}"  class="form-control"
+												style="width: 20%; margin-top: 7px" >
+												<option th:value="0">---Không---</option>
 												<th:block th:each="QuaTang : ${listQuaTang}">
 													<option th:text="${QuaTang.TenQuaTang}"
 														th:value="${QuaTang.IdQuaTang}"></option>
 												</th:block>
-											</select> <select id="quaTang2" class="form-control"
-												style="width: 20%; margin-top: 7px; display: none"
-												th:field="*{quaTang2}">
-												<option th:value="0">---Chọn quà tặng---</option>
-												<th:block th:each="QuaTang : ${listQuaTang}">
-													<option th:text="${QuaTang.TenQuaTang}"
-														th:value="${QuaTang.IdQuaTang}"></option>
-												</th:block>
-											</select> <select id="quaTang3" class="form-control"
-												th:field="*{quaTang3}"
-												style="width: 20%; margin-top: 7px; display: none">
-												<option th:value="0">---Chọn quà tặng---</option>
-												<th:block th:each="QuaTang : ${listQuaTang}">
-													<option th:text="${QuaTang.TenQuaTang}"
-														th:value="${QuaTang.IdQuaTang}"></option>
-												</th:block>
-											</select>
-
+											</select> 
+											</th:block>
 										</div>
 										<button class="btn btn-success" id="addQuaTang">Thêm
 											Quà tặng</button>
@@ -359,11 +344,16 @@
 											accept="image/x-png,image/gif,image/jpeg">
 									</div>
 									<div class="form-group col-md-8 chiTiet">
-										<div class="detail" th:object="${ChiTietMatHangModel}">
-											<label>Tên chi tiết</label> <input name="ct1" id="chiTiet1"
+										<div class="detail" th:object="${chiTietMatHangModel}">
+										<th:block th:each="chiTiet,pos : *{chiTietMatHangItem}">
+										<label>Tên chi tiết</label> <input th:field="*{chiTietMatHangItem[__${pos.index}__].tenChiTiet}" 
 												class="form-control" style="width: 30%"> <label>Thông
-												tin chi tiết</label> <input name="nd1" id="noiDung1"
-												class="form-control" style="width: 40%"> <br />
+												tin chi tiết</label> <input th:field="*{chiTietMatHangItem[__${pos.index}__].noiDungChiTiet}" 
+												class="form-control" style="width: 35%"> <br />
+										
+										</th:block>
+										
+											
 										</div>
 									</div>
 									<div class="form-group col-md-8 ">
@@ -495,32 +485,28 @@
 		document.getElementById("addQuaTang").addEventListener("click",
 				function(event) {
 					event.preventDefault();
-					if ($('#quaTang1').is(":hidden")) {
-						$('#quaTang1').show();
-					} else {
-						if ($('#quaTang2').is(":hidden")) {
-							$('#quaTang2').show();
-
-						} else {
-							console.log("show")
-							$('#quaTang3').show();
-						}
-					}
+			
+					var len = $('#listQuaTang').children().length;
+			
+				
+						var txtSelect = "<select class='form-control' style='width: 20%; margin-top: 7px' id='QuaTangItem"+len+".id' name='QuaTangItem["+len+"].id'>";
+						var txtHtml = $('#listQuaTang').find("select:last").html();
+						var txtFoot ="</select>";
+						 $('#listQuaTang').append(txtSelect+txtHtml+txtFoot); 
+					
+					
+					console.log(txtHtml)
 
 				});
 		document.getElementById("xoaQuaTang").addEventListener("click",
 				function(event) {
 					event.preventDefault();
-					if ($('#quaTang3').is(":visible")) {
-						$('#quaTang3').hide();
-					} else {
-						if ($('#quaTang2').is(":visible")) {
-							$('#quaTang2').hide();
-						} else {
-							$('#quaTang1').hide();
-						}
-
+					var len = $('#listQuaTang').children().length;
+					console.log(len);
+					if(len>=2){
+						$('#listQuaTang').children("select:last").remove();	
 					}
+					
 
 				});
 	</script>
@@ -532,28 +518,30 @@
 						function(event) {
 							event.preventDefault();
 							var name = $(".chiTiet input:last").attr('name');
-							if (name != null) {
-								var arr = name.split('d'), idNumber = parseInt(arr[1]) + 1;
-
+							console.log(name);
+						 	if (name != null) {
+								var numberGet = name.match(/\d+/)[0];
+								var idNumber = parseInt(numberGet)+1;
 							} else {
-								var idNumber = 1;
+								var idNumber = 0;
 							}
-							if (idNumber <= 10) {
+							/* if (idNumber <= 10)  */
 								/* var txt1 = "<input name='"+idNumber+"-ct'>"; */
-								var htmlAdd = "<div class='detail'><label>Tên chi tiết</label> <input   name='ct"
-										+ idNumber
-										+ "' class='form-control' style='width: 30%'> <label>Thông tin chi tiết</label> <input name='nd"
-										+ idNumber
-										+ "' class='form-control' style='width: 40%'> <br/> </div>";
-								$(".chiTiet").append(htmlAdd);
-							}
+								var htmlAdd = "<label>Tên chi tiết</label> <input  id='chiTietMatHangItem"+idNumber+".tenChiTiet' name='chiTietMatHangItem["+idNumber+"].tenChiTiet' class='form-control' style='width: 30%'> <label>Thông tin chi tiết</label> <input id='chiTietMatHangItem"+idNumber+".noiDungChiTiet' name='chiTietMatHangItem["+idNumber+"].noiDungChiTiet' class='form-control' style='width: 35%'> <br/> ";
+			
+								$(".detail").append(htmlAdd);
+							
 
 						});
 		document.getElementById("xoaChiTiet").addEventListener("click",
 				function(event) {
 					event.preventDefault();
 					/* 	console.log(); */
-					$(".detail").last().remove();
+					$(".detail").children("input:last").remove();
+					$(".detail").children("label:last").remove();
+					$(".detail").children("input:last").remove();
+					$(".detail").children("label:last").remove();
+					$(".detail").children("br:last").remove();
 				});
 	</script>
 	<script type="text/javascript">
