@@ -64,10 +64,15 @@ public class MyConstances {
 	public static final String 	ACER="Acer";
 	public static final String 	DELL="Dell";
 	public static final String 	LG="LG";
+	//Tên cửa hàng
+	public static final String DIEN_MAY_DUC_TAI ="Điện máy Đức Tài";
+	public static final String DIEN_MAY_PHUC_MAI ="Điện máy Phúc Mai";
+	public static final String DIEN_MAY_HONG_LOI ="Cửa Hàng Điện Máy - Điện Lạnh Hồng Lợi";
 	
 	//Cửa hàng iframe
-	public static final String 	DIEN_MAY_DUC_TAI="<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15305.37190228942!2d107.59540884999484!3d16.458162065806494!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x2e74944a1b86b57e!2zQ-G7rWEgSMOgbmcgxJBp4buHbiBNw6F5IMSQ4bupYyBUw6Bp!5e0!3m2!1sen!2s!4v1618534605322!5m2!1sen!2s' width='600' height='450' style='border:0;' allowfullscreen='' loading='lazy'></iframe>";
-	public static final String 	DIEN_MAY_PHUC_MAI="<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61209.40220354491!2d107.57580689470075!3d16.496404954053403!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3141a128a48e279f%3A0xdab43595f6b5eb6d!2zQ-G7rWEgSMOgbmcgxJBp4buHbiBNw6F5IFBow7pjIE1haQ!5e0!3m2!1sen!2s!4v1618535296197!5m2!1sen!2s' width='600' height='450' style='border:0;' allowfullscreen='' loading='lazy'></iframe>";
+	public static final String 	IFRAME_DIEN_MAY_DUC_TAI="<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15305.37190228942!2d107.59540884999484!3d16.458162065806494!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x2e74944a1b86b57e!2zQ-G7rWEgSMOgbmcgxJBp4buHbiBNw6F5IMSQ4bupYyBUw6Bp!5e0!3m2!1sen!2s!4v1618534605322!5m2!1sen!2s' width='600' height='450' style='border:0;' allowfullscreen='' loading='lazy'></iframe>";
+	public static final String 	IFRAME_DIEN_MAY_PHUC_MAI="<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61209.40220354491!2d107.57580689470075!3d16.496404954053403!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3141a128a48e279f%3A0xdab43595f6b5eb6d!2zQ-G7rWEgSMOgbmcgxJBp4buHbiBNw6F5IFBow7pjIE1haQ!5e0!3m2!1sen!2s!4v1618535296197!5m2!1sen!2s' width='600' height='450' style='border:0;' allowfullscreen='' loading='lazy'></iframe>";
+	public static final String 	IFRAME_DIEN_MAY_HONG_LOI="<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15304.917286920017!2d107.5592280697754!3d16.463921900000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3141a6c97c388b93%3A0x1392840edc72525c!2zQ-G7rWEgSMOgbmcgxJBp4buHbiBNw6F5IC0gxJBp4buHbiBM4bqhbmggSOG7k25nIEzhu6Np!5e0!3m2!1sen!2s!4v1619514057024!5m2!1sen!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\"></iframe>";
 
 	//Tên mặt hàng
 	public static final String IPHONE_8 = "Iphone 8";

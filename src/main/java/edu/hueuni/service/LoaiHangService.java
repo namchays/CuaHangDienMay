@@ -21,7 +21,7 @@ public class loaiHangService {
 	public void save(LoaiHang loaiHang) {
 		loaiHangRepository.save(loaiHang);
 	}
-	public Optional<LoaiHang> findByTenLoaiHang(String tenLoaiHang) {
+	public List<LoaiHang> findByTenLoaiHang(String tenLoaiHang) {
 		return loaiHangRepository.findByTenLoaiHang(tenLoaiHang);
 	}
 	public List<LoaiHang> findAll() {

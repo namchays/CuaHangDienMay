@@ -1,5 +1,6 @@
 package edu.hueuni.controller;
 
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,7 +32,7 @@ public class KhachHangController {
 			@RequestParam(name = "diaChi") String diaChi,
 			@RequestParam(name = "soDienThoai") String soDienThoai,
 			@RequestParam(name = "gioiTinh") Integer gioiTinh,
-			@RequestParam(name = "ngaySinh") String ngaySinh) throws ParseException {
+			@RequestParam(name = "ngaySinh") String ngaySinh) throws ParseException, NoSuchAlgorithmException {
 		
 		Optional<KhachHang> khachHangFound = khachHangService.findByUserName(userName);
 		if(khachHangFound.isPresent()) {

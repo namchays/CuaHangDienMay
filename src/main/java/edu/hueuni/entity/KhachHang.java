@@ -39,7 +39,7 @@ public class KhachHang implements Serializable {
 	@Column(length = 50)
 	private String password;
 
-	@Column(name="so_dien_thoai",length = 12)
+	@Column(name="so_dien_thoai",length = 13)
 	private String soDienThoai;
 
 	@Column(name="ten_khach_hang")

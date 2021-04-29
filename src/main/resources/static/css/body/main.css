@@ -1,4 +1,4 @@
-﻿/*************************
+/*************************
 *******Typography******
 **************************/
 
@@ -1031,6 +1031,13 @@ h2.title {
     padding-left: 0;
 }
 
+#recommended-item-carousel-phone .carousel-inner .item {
+    padding-left: 0;
+}
+#recommended-item-carousel-laptop .carousel-inner .item {
+    padding-left: 0;
+}
+
 .recommended-item-control {
     position: absolute;
     top: 41%;
@@ -1538,7 +1545,7 @@ h2.title {
 }
 
 .breadcrumbs .breadcrumb>li+li:before {
-    content: " ";
+    content: "�";
 }
 
 #cart_items .cart_info {

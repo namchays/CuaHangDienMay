@@ -1,5 +1,6 @@
 package edu.hueuni.config;
 
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,6 +12,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import edu.hueuni.entity.AnhMatHang;
 import edu.hueuni.entity.BaiDang;
 import edu.hueuni.entity.BinhLuan;
 import edu.hueuni.entity.ChiTietDatHang;
@@ -24,9 +26,11 @@ import edu.hueuni.entity.NhomHang;
 import edu.hueuni.entity.QuaTang;
 import edu.hueuni.entity.Quyen;
 import edu.hueuni.entity.TraLoi;
+import edu.hueuni.service.AnhMatHangService;
 import edu.hueuni.service.BaiDangService;
 import edu.hueuni.service.BinhLuanService;
 import edu.hueuni.service.ChiTietDatHangService;
+import edu.hueuni.service.ChiTietMatHangService;
 import edu.hueuni.service.CuaHangService;
 import edu.hueuni.service.DonDatHangService;
 import edu.hueuni.service.KhachHangService;
@@ -66,6 +70,10 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 	private BinhLuanService binhLuanService;
 	@Autowired
 	private TraLoiService traLoiService;	
+	@Autowired
+	private AnhMatHangService anhMatHangService;
+	@Autowired
+	private ChiTietMatHangService chiTietMatHangService;
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 
@@ -93,7 +101,8 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 							admin.setQuyen(quyenAdmin.get());
 							nhanvienService.save(admin);
 					    } catch (ParseException e) {
-							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (NoSuchAlgorithmException e) {
 							e.printStackTrace();
 						}  
 					
@@ -112,15 +121,14 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 							NhanVien employee = new NhanVien("employee","Huế", "032213374", 1, 6490000,  ngayLamViec,	 ngaySinh,  "hoilamchi1", 400000,  "Lê Thanh Trí");
 							employee.setQuyen(quyenEmployee.get());
 							nhanvienService.save(employee);
-						} catch (ParseException e) {
-							// TODO Auto-generated catch block
+						} catch (ParseException | NoSuchAlgorithmException e) {
 							e.printStackTrace();
 						}
 						
 					}
 					
 				}
-				if(nhanvienService.findByUserName("nhanvien").isEmpty()) {
+				if(nhanvienService.findByUserName("nhanvien1").isEmpty()) {
 					Optional<Quyen> quyenEmployee = quyenService.findByTenQuyen(MyConstances.ROLE_EMPLOYEES);
 					if(quyenEmployee.isPresent()) {
 					
@@ -129,10 +137,10 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 					    	String ngaySinhString ="2000/5/12";
 							Date ngayLamViec = new SimpleDateFormat("yyyy/MM/dd").parse(ngayLamViecString);
 							Date ngaySinh=new SimpleDateFormat("yyyy/MM/dd").parse(ngaySinhString);
-							NhanVien employee = new NhanVien("nhanvien1","Vũng Tàu", "0322152764", 1, 6532000,  ngayLamViec,	 ngaySinh,  "hoilamchi1", 65465400,  "Lê Thanh Tú");
+							NhanVien employee = new NhanVien("nhanvien1","Vũng Tàu", "0322152764", 1, 6532000,  ngayLamViec,ngaySinh,  "hoilamchi1", 65465400,  "Lê Thanh Tú");
 							employee.setQuyen(quyenEmployee.get());
 							nhanvienService.save(employee);
-						} catch (ParseException e) {
+						} catch (ParseException | NoSuchAlgorithmException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
@@ -141,28 +149,53 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 					
 				}
 				if(khachHangService.findByUserName("user").isEmpty()) {
-					khachHangService.save(new KhachHang("user","hoilamchi1",true));
+					try {
+						String ngaySinhString ="2000/5/11";
+						Date ngaySinh=new SimpleDateFormat("yyyy/MM/dd").parse(ngaySinhString);
+						khachHangService.save(new KhachHang("user", "huế", 0, ngaySinh, "hoilamchi1", "09329174163", "Lê Trường Nam"));
+					} catch (ParseException | NoSuchAlgorithmException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
 				}
 				if(khachHangService.findByUserName("khachhang").isEmpty()) {
-					khachHangService.save(new KhachHang("khachhang","hoilamchi1",true));
+					String ngaySinhString ="2000/5/12";
+					Date ngaySinh;
+					try {
+						ngaySinh = new SimpleDateFormat("yyyy/MM/dd").parse(ngaySinhString);
+						khachHangService.save(new KhachHang("khachhang", "huế", 0, ngaySinh, "hoilamchi1", "09329174163", "Lê Trường Nam"));
+					} catch (ParseException | NoSuchAlgorithmException e) {
+						e.printStackTrace();
+					}
+					
 				}
 				if(khachHangService.findByUserName("khachhang1").isEmpty()) {
-					khachHangService.save(new KhachHang("khachhang1","hoilamchi1",true));
+					String ngaySinhString ="1999/2/12";
+					Date ngaySinh;
+					try {
+						ngaySinh = new SimpleDateFormat("yyyy/MM/dd").parse(ngaySinhString);
+						khachHangService.save(new KhachHang("khachhang1", "Đà nẵng", 0, ngaySinh, "hoilamchi", "09329174163", "Lê Trường Nam"));
+					} catch (ParseException | NoSuchAlgorithmException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				
 				}
 		//Tự động sinh ra các loại hàng trong CSDL
-				if(loaiHangService.findByTenLoaiHang(MyConstances.DI_DONG).isEmpty()) {
+				if(loaiHangService.findByTenLoaiHang(MyConstances.DI_DONG).size()==0) {
 					loaiHangService.save(new LoaiHang(MyConstances.DI_DONG));
 				}
-				if(loaiHangService.findByTenLoaiHang(MyConstances.LAPTOP).isEmpty()) {
+				if(loaiHangService.findByTenLoaiHang(MyConstances.LAPTOP).size()==0) {
 					loaiHangService.save(new LoaiHang(MyConstances.LAPTOP));
 				}
-				if(loaiHangService.findByTenLoaiHang(MyConstances.DIEN_TU).isEmpty()) {
+				if(loaiHangService.findByTenLoaiHang(MyConstances.DIEN_TU).size()==0) {
 					loaiHangService.save(new LoaiHang(MyConstances.DIEN_TU));
 				}
-				if(loaiHangService.findByTenLoaiHang(MyConstances.DIEN_LANH).isEmpty()) {
+				if(loaiHangService.findByTenLoaiHang(MyConstances.DIEN_LANH).size()==0) {
 					loaiHangService.save(new LoaiHang(MyConstances.DIEN_LANH));
 				}
-				if(loaiHangService.findByTenLoaiHang(MyConstances.DIA_DUNG).isEmpty()) {
+				if(loaiHangService.findByTenLoaiHang(MyConstances.DIA_DUNG).size()==0) {
 					loaiHangService.save(new LoaiHang(MyConstances.DIA_DUNG));
 				}
 		// Tự động sinh ra các nhóm hàng DienTu
@@ -217,37 +250,49 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 				createNhomHang(MyConstances.DELL, MyConstances.LAPTOP);
 				createNhomHang(MyConstances.LG, MyConstances.LAPTOP);
 				
-		//Tự dộng sinh ra các cửa hàng
-				if(cuaHangService.findById(1).isEmpty()) {
-					CuaHang cuaHang = new CuaHang("Đường Hùng Vương, An Cựu, Thành phố Huế, Thừa Thiên Huế, Vietnam",MyConstances.DIEN_MAY_DUC_TAI,"0827307304","Diện máy Đức Tài");
-					cuaHang.setIdCuaHang(1);
-					cuaHangService.save(cuaHang);
-				
-				}
-				if(cuaHangService.findById(2).isEmpty()) {
-					CuaHang cuaHang = new CuaHang("197 Phan Đăng Lưu, Phú Hoà, Thành phố Huế, Thừa Thiên Huế, Vietnam",MyConstances.DIEN_MAY_PHUC_MAI,"0827307305","Diện máy Phúc Mai");
-					cuaHang.setIdCuaHang(2);
-					cuaHangService.save(cuaHang);
-				}
+
 				
 		// Tự động sinh ra các quà tặng
 				if(quaTangService.findByTenQuaTang("Chuột không dây").isEmpty()) {
-					QuaTang quaTang = new QuaTang(10000,20,"Chuột không dây",null);
+					QuaTang quaTang = new QuaTang(10000,20,"Chuột không dây","/img/quatang/chuot-khong-day-logitech-m170-den-1-600x600.jpg");
 					quaTangService.save(quaTang);
 				}
 				if(quaTangService.findByTenQuaTang("Balo du lịch").isEmpty()) {
-					QuaTang quaTang = new QuaTang(10000,20,"Balo du lịch",null);
+					QuaTang quaTang = new QuaTang(10000,20,"Balo du lịch","/img/quatang/tai-nghe-bluetooth-samsung-itfit-a08c.jpg");
 					quaTangService.save(quaTang);
 				}
 				if(quaTangService.findByTenQuaTang("Tai nghe bluetooth").isEmpty()) {
-					QuaTang quaTang = new QuaTang(10000,20,"Tai nghe bluetooth",null);
+					QuaTang quaTang = new QuaTang(10000,20,"Tai nghe bluetooth","/img/quatang/balo-du-lich-do2-888-275k.jpg");
 					quaTangService.save(quaTang);
 				}
+	
+				
 		// Tự độn sinh ra các mặt hàng
 				themMatHang(MyConstances.IPHONE_8, MyConstances.IPHONE,"Tai nghe bluetooth");
 				themMatHang(MyConstances.IPHONE_X, MyConstances.IPHONE,"Balo du lịch");
 				themMatHang(MyConstances.ACER_LAPTOP, MyConstances.ACER,"Balo du lịch");
 				themMatHang(MyConstances.QUAT_LUNG_ASIA, MyConstances.QUAT_DIEN,"Balo du lịch");
+				//Tự dộng sinh ra các cửa hàng
+				if(cuaHangService.findByTenCuaHang(MyConstances.DIEN_MAY_DUC_TAI).size()==0) {
+					CuaHang cuaHang1 = new CuaHang("Đường Hùng Vương, An Cựu, Thành phố Huế, Thừa Thiên Huế, Vietnam",MyConstances.IFRAME_DIEN_MAY_DUC_TAI,"0827307304",MyConstances.DIEN_MAY_DUC_TAI);
+					List<MatHang> listMatHang = matHangService.findAll();
+					cuaHang1.setMatHangs(listMatHang);
+					cuaHangService.save(cuaHang1);
+				
+				}
+				if(cuaHangService.findByTenCuaHang(MyConstances.DIEN_MAY_PHUC_MAI).size() ==0) {
+					CuaHang cuaHang2 = new CuaHang("197 Phan Đăng Lưu, Phú Hoà, Thành phố Huế, Thừa Thiên Huế, Vietnam",MyConstances.IFRAME_DIEN_MAY_PHUC_MAI,"0827307305",MyConstances.DIEN_MAY_PHUC_MAI);
+					List<MatHang> listMatHang = matHangService.findAll();
+					cuaHang2.setMatHangs(listMatHang);
+					cuaHangService.save(cuaHang2);
+				}
+				if(cuaHangService.findByTenCuaHang(MyConstances.DIEN_MAY_HONG_LOI).size() ==0) {
+					CuaHang cuaHang3 = new CuaHang("Lê Duẩn, Phú Thuân, Thành phố Huế, Huế, Vietnam",MyConstances.IFRAME_DIEN_MAY_HONG_LOI,"842343522248",MyConstances.DIEN_MAY_HONG_LOI);
+					cuaHangService.save(cuaHang3);
+				}	
+//		Tự động sinh ra các chi tiết mặt hàng
+				
+				
 		//Tự động sinh ra các đơn đặt hàng
 				
 				addDonDatHang(MyConstances.HUE);
@@ -259,12 +304,20 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			addChiTietDonHang(MyConstances.IPHONE_8, MyConstances.HUE);
 			addChiTietDonHang(MyConstances.IPHONE_X, MyConstances.DA_NANG);
 //			addChiTietDonHang(MyConstances.ACER, MyConstances.DUY_TAN);
+		
+		//Thêm ảnh mặt hàng
+			themAnhMatHang(MyConstances.IPHONE_8,"/img/mathang/iPhone-8-Plus-256GB-Gold-1-1.png");
+			themAnhMatHang(MyConstances.QUAT_LUNG_ASIA,"/img/mathang/quat-lung-asia-a16019-xv0-thumb-ksp.jpg");
+			themAnhMatHang(MyConstances.ACER_LAPTOP,"/img/mathang/41365_aspire_a514_56_ha7.jpg");
+			themAnhMatHang(MyConstances.IPHONE_X,"/img/mathang/iPhone-X-64GB-Silver-1-1-1-1.png");
+			
 			
 		//Thêm bài đăng
+			/// iphone 8
 			List<MatHang> listMatHang = matHangService.findByTenHang(MyConstances.IPHONE_8);
 			if(listMatHang.size()>0) {
 				if(baiDangService.findByTieuDe(MyConstances.TIEU_DE_SAMSUNG).size()==0) {
-					BaiDang baiDang = new BaiDang(MyConstances.NOI_DUNG_SAMSUNG, MyConstances.TIEU_DE_SAMSUNG, "admin", listMatHang.get(0));
+					BaiDang baiDang = new BaiDang(MyConstances.NOI_DUNG_SAMSUNG, MyConstances.TIEU_DE_SAMSUNG, "admin","/img/baidang/Canifa-phieu-mua-hang.jpg", listMatHang.get(0));
 					baiDangService.save(baiDang);
 				}
 				
@@ -295,6 +348,17 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 				
 				
 	}
+	private void themAnhMatHang(String tenHang,String tenAnh) {
+		List<MatHang> listMatHang = matHangService.findByTenHang(tenHang);
+		if(listMatHang.size()>0) {
+			if(anhMatHangService.findByUrl(tenAnh).size()==0) {
+				AnhMatHang anhMatHang = new AnhMatHang();
+				anhMatHang.setUrl(tenAnh);
+				anhMatHang.setMatHang(listMatHang.get(0));
+				anhMatHangService.save(anhMatHang);
+			}
+		}
+	}
 	private void addChiTietDonHang(String tenMatHang, String diaChi) {
 		List<MatHang> listMatHang = matHangService.findByTenHang(tenMatHang);
 		List<DonDatHang> listDonDatHang = donDatHangService.findByNoiGiaoHang(diaChi);
@@ -305,9 +369,9 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 				int giaBan = listMatHang.get(0).getGiaHang();
 				int mucGiamGia = 0;
 				int soLuong = 1;
-				int trangThai = MyConstances.DA_DAT_HANG;
+			
 				
-				ChiTietDatHang chiTietDatHang = new ChiTietDatHang(giaBan, mucGiamGia, soLuong, trangThai);
+				ChiTietDatHang chiTietDatHang = new ChiTietDatHang(giaBan, mucGiamGia, soLuong);
 				chiTietDatHang.setDonDatHang(listDonDatHang.get(0));
 				chiTietDatHang.setMatHang(listMatHang.get(0));
 				chiTietDatHangService.save(chiTietDatHang);
@@ -316,6 +380,10 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 	
 		
 	}
+	
+		
+		
+
 	private void addDonDatHang(String noiGiaoHang) {
 		List<DonDatHang> listDonDatHang = donDatHangService.findByNoiGiaoHang(noiGiaoHang);
 		if(listDonDatHang.size() == 0) {
@@ -326,7 +394,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			    Date ngayGiaoHang=new SimpleDateFormat("yyyy/MM/dd").parse(ngayGiaoHangString);  
 			    Optional<KhachHang> khachHangFound = khachHangService.findByUserName("user");
 				Optional<NhanVien> nhanVienFound = nhanvienService.findByUserName("employee");
-				DonDatHang donDatHang = new DonDatHang(ngayDatHang,ngayGiaoHang,noiGiaoHang,khachHangFound.get(),nhanVienFound.get());
+				DonDatHang donDatHang = new DonDatHang(ngayDatHang,ngayGiaoHang,noiGiaoHang,khachHangFound.get(),nhanVienFound.get(),MyConstances.DA_DAT_HANG);
 				donDatHangService.save(donDatHang);
 			}catch (Exception e) {
 				System.out.println(e.toString());
@@ -350,10 +418,10 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 	
 	private void createNhomHang(String tenNhomHang, String tenLoaiHang) {
 		if(nhomHangService.findByTenNhomHang(tenNhomHang).isEmpty()) {
-			Optional<LoaiHang> hangDienTu = loaiHangService.findByTenLoaiHang(tenLoaiHang);
-			if(hangDienTu.isPresent()) {
+			 List<LoaiHang> listLoaiHang = loaiHangService.findByTenLoaiHang(tenLoaiHang);
+			if(listLoaiHang.size() > 0) {
 				NhomHang nhomHang = new NhomHang(tenNhomHang);
-				nhomHang.setLoaiHang(hangDienTu.get());
+				nhomHang.setLoaiHang(listLoaiHang.get(0));
 				nhomHangService.save(nhomHang);
 			}
 		}

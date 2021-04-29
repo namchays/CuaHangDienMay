@@ -11,7 +11,7 @@ import edu.hueuni.entity.CuaHang;
 public interface CuaHangRepository extends CrudRepository<CuaHang, Integer> {
 	public List<CuaHang> findAll();
 	public Optional<CuaHang> findBySoDienThoai(String soDienThoai);
-
+	public List<CuaHang> findByTenCuaHang(String tenCuaHang);
 
 	
 }

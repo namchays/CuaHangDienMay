@@ -23,5 +23,8 @@ public class AnhMatHangService {
 	public void deleteByMatHang(MatHang matHang) {
 		anhMatHangRepository.deleteByMatHang(matHang);
 	}
+	public List<AnhMatHang> findByUrl(String url) {
+		return anhMatHangRepository.findByUrl(url);
+	}
 	
 }

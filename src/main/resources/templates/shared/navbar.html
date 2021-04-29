@@ -37,17 +37,17 @@
 
 								<!-- ---- block---- -->
 								<th:block th:each="LoaiHang : ${listLoaiHang}">
-									<li class="dropdown-item dropdown"><a
+									<li   class="dropdown-item dropdown loai-hang-item"><a 
 										class="dropdown-toggle" th:id="${LoaiHang.IdLoaiHang}"
 										data-toggle="dropdown" aria-haspopup="true"
-										th:text="${LoaiHang.TenLoaiHang}">Dropdown1.1</a>
+										th:text="${LoaiHang.TenLoaiHang}" >Dropdown1.1</a>
 										<ul class="dropdown-menu"
 											th:aria-labelledby="${LoaiHang.IdLoaiHang}">
 
 											<th:block th:each="NhomHang : ${LoaiHang.NhomHangs}">
 												<li class="dropdown-item"><a
 													th:text="${NhomHang.tenNhomHang}"
-													th:href="@{'/find-nhom-hang/'+${NhomHang.IdNhomHang}}">Action
+													th:href="@{'/find-by-nhom-hang/'+${NhomHang.IdNhomHang}}">Action
 														1.1</a></li>
 											</th:block>
 										</ul></li>
@@ -78,7 +78,7 @@
 
 							</ul></li>
 						<li class="nav-item ">
-							<form class="form-inline form-search" >
+							<form class="form-inline form-search" method="post" action="/find-by-ten">
 								<input class="form-control mr-sm-2" size="40" type="search"
 									placeholder="Nhập tên sản phẩm..." aria-label="Search"
 									style="border-color: yellow;">
@@ -93,11 +93,20 @@
 					<ul style="margin-top: 10px">
 						<li><a href="/he-thong-sieu-thi">Hệ thống siêu thị</a></li>
 					</ul>
-
-					<ul style="margin-top: 10px">
+					<th:block th:if="${session.account}==null">
+						<ul style="margin-top: 10px">
 						<li class=""><a href="/login">Đăng Nhập</a> &nbsp; <a
 							href="/register">Đăng ký</a></li>
 					</ul>
+					</th:block>
+					<th:block th:if="${session.account}!=null">
+						<ul style="margin-top: 10px">
+						<li>Xin chào [[${session.account.userName}]] <a
+							href="/logout" id="logout">Đăng xuất</a></li>
+						
+					</ul>
+					</th:block>
+				
 
 				</div>
 			</div>

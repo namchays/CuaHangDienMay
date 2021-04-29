@@ -31,7 +31,7 @@ public class CuaHang implements Serializable {
 	@Nationalized
 	private String iframe;
 
-	@Column(name="so_dien_thoai",length = 12)
+	@Column(name="so_dien_thoai",length = 13)
 	private String soDienThoai;
 
 	@Column(name="ten_cua_hang")

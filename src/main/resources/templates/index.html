@@ -30,6 +30,12 @@
 	href="https://cdn.jsdelivr.net/gh/fontenele/bootstrap-navbar-dropdowns@5.0.2/dist/css/bootstrap-navbar-dropdowns.min.css"
 	rel="stylesheet">
 <style>
+.nowrap {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
 .dropdown:hover>.dropdown-menu {
 	display: block;
 }
@@ -43,8 +49,26 @@
 	pointer-events: none;
 }
 
-.form-search{
+.form-search {
 	margin-top: 13px
+}
+
+.box-product:hover {
+	border-color: blue;
+}
+
+.box-product {
+	border: 1px solid #000000;
+}
+
+.img-product {
+	position: relative;
+	top: 0;
+	transition: top ease 0.5s;
+}
+
+.img-product:hover {
+	top: -10px;
 }
 </style>
 <link rel="stylesheet" href="/css/footer/footer.css">
@@ -56,8 +80,8 @@
 	<div class="row">
 		<div class="col-sm-1" style="background-color: #d9d9d9;"></div>
 		<div class="col-sm-10">
-		<!-- --navbar-- -->
-		<th:block th:insert="/shared/navbar :: navbar"></th:block>
+			<!-- --navbar-- -->
+			<th:block th:insert="/shared/navbar :: navbar"></th:block>
 			<!-- -----------------------Body-------------------- -->
 			<section id="slider">
 				<!--slider-->
@@ -149,163 +173,58 @@
 
 
 						<div class="col-sm-12 padding-right">
-							<div class="features_items">
-								<!--features_items-->
-								<h2 class="title text-center">Hàng Hiệu Giảm Sốc</h2>
-								<div class="row">
-
-
-
-									<div class="col">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="/img/home/product1.jpg" alt="" />
-													<h2>$56</h2>
-													<p>Easy Polo Black Edition</p>
-													<a href="#" class="btn btn-default add-to-cart"><i
-														class="fa fa-shopping-cart"></i>Add to cart</a>
-												</div>
-												<div class="product-overlay">
-													<div class="overlay-content">
-														<h2>$56</h2>
-														<p>Easy Polo Black Edition</p>
-														<a href="#" class="btn btn-default add-to-cart"><i
-															class="fa fa-shopping-cart"></i>Add to cart</a>
-													</div>
-												</div>
-											</div>
-
-										</div>
-									</div>
-									<div class="col">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="/img/home/product2.jpg" alt="" />
-													<h2>$56</h2>
-													<p>Easy Polo Black Edition</p>
-													<a href="#" class="btn btn-default add-to-cart"><i
-														class="fa fa-shopping-cart"></i>Add to cart</a>
-												</div>
-												<div class="product-overlay">
-													<div class="overlay-content">
-														<h2>$56</h2>
-														<p>Easy Polo Black Edition</p>
-														<a href="#" class="btn btn-default add-to-cart"><i
-															class="fa fa-shopping-cart"></i>Add to cart</a>
-													</div>
-												</div>
-											</div>
-
-										</div>
-									</div>
-									<div class="col">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="/img/home/product3.jpg" alt="" />
-													<h2>$56</h2>
-													<p>Easy Polo Black Edition</p>
-													<a href="#" class="btn btn-default add-to-cart"><i
-														class="fa fa-shopping-cart"></i>Add to cart</a>
-												</div>
-												<div class="product-overlay">
-													<div class="overlay-content">
-														<h2>$56</h2>
-														<p>Easy Polo Black Edition</p>
-														<a href="#" class="btn btn-default add-to-cart"><i
-															class="fa fa-shopping-cart"></i>Add to cart</a>
-													</div>
-												</div>
-											</div>
-
-										</div>
-									</div>
-									<div class="col">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="/img/home/product4.jpg" alt="" />
-													<h2>$56</h2>
-													<p>Easy Polo Black Edition</p>
-													<a href="#" class="btn btn-default add-to-cart"><i
-														class="fa fa-shopping-cart"></i>Add to cart</a>
-												</div>
-												<div class="product-overlay">
-													<div class="overlay-content">
-														<h2>$56</h2>
-														<p>Easy Polo Black Edition</p>
-														<a href="#" class="btn btn-default add-to-cart"><i
-															class="fa fa-shopping-cart"></i>Add to cart</a>
-													</div>
-												</div>
-												<img src="/img/home/new.png" class="new" alt="" />
-											</div>
-
-										</div>
-									</div>
-									<div class="col">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="/img/home/product5.jpg" alt="" />
-													<h2>$56</h2>
-													<p>Easy Polo Black Edition</p>
-													<a href="#" class="btn btn-default add-to-cart"><i
-														class="fa fa-shopping-cart"></i>Add to cart</a>
-												</div>
-												<div class="product-overlay">
-													<div class="overlay-content">
-														<h2>$56</h2>
-														<p>Easy Polo Black Edition</p>
-														<a href="#" class="btn btn-default add-to-cart"><i
-															class="fa fa-shopping-cart"></i>Add to cart</a>
-													</div>
-												</div>
-												<img src="/img/home/sale.png" class="new" alt="" />
-											</div>
-
-										</div>
-									</div>
-								</div>
-								<!-- <div class="col-sm-2">
-							<div class="product-image-wrapper">
-								<div class="single-products">
-									<div class="productinfo text-center">
-										<img src="/img/home/product6.jpg" alt="" />
-										<h2>$56</h2>
-										<p>Easy Polo Black Edition</p>
-										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-									</div>
-									<div class="product-overlay">
-										<div class="overlay-content">
-											<h2>$56</h2>
-											<p>Easy Polo Black Edition</p>
-											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-										</div>
-									</div>
-								</div>
 							
-							</div>
-						</div> -->
-
-							</div>
 							<!--features_items-->
-
-
-
+							<!-- Hàng LapTop -->
 							<div class="recommended_items">
-								<!--recommended_items-->
-								<h2 class="title text-center">Hàng Hiệu Giảm Sốc</h2>
+
+
+								<h2 class="title text-center" style="color: #0054a6;">NHÓM HÀNG LAPTOP</h2>
+
+								<div id="recommended-item-carousel-laptop" class="carousel slide"
+									data-ride="carousel">
+									<div class="carousel-inner" id="laptop"></div>
+									<a class="left recommended-item-control"
+										href="#recommended-item-carousel-laptop" data-slide="prev"> <i
+										class="fa fa-angle-left"></i>
+									</a> <a class="right recommended-item-control"
+										href="#recommended-item-carousel-laptop" data-slide="next"> <i
+										class="fa fa-angle-right"></i>
+									</a>
+								</div>
+							</div>
+							<!-- Hàng LapTop -->
+							
+							<!-- Hàng điện thoại -->
+							<div class="recommended_items">
+
+
+								<h2 class="title text-center" style="color: #0054a6;">NHÓM HÀNG ĐIỆN THOẠI</h2>
+
+								<div id="recommended-item-carousel-phone" class="carousel slide"
+									data-ride="carousel">
+									<div class="carousel-inner" id="dienthoai"></div>
+									<a class="left recommended-item-control"
+										href="#recommended-item-carousel-phone" data-slide="prev"> <i
+										class="fa fa-angle-left"></i>
+									</a> <a class="right recommended-item-control"
+										href="#recommended-item-carousel-phone" data-slide="next"> <i
+										class="fa fa-angle-right"></i>
+									</a>
+								</div>
+							</div>
+							<!-- Hàng điện thoại -->
+							
+							<!--/Hàng hiệu giảm sốc-->
+							<div class="recommended_items">
+
+
+								<h2 class="title text-center" style="color: #0054a6;">HÀNG
+									HIỆU Giảm Sốc</h2>
 
 								<div id="recommended-item-carousel" class="carousel slide"
 									data-ride="carousel">
-									<div class="carousel-inner" id="hanghieu">
-										
-										
-										
-									</div>
+									<div class="carousel-inner" id="hanghieu"></div>
 									<a class="left recommended-item-control"
 										href="#recommended-item-carousel" data-slide="prev"> <i
 										class="fa fa-angle-left"></i>
@@ -315,7 +234,7 @@
 									</a>
 								</div>
 							</div>
-							<!--/recommended_items-->
+							<!--/Hàng hiệu giảm sốc-->
 
 						</div>
 					</div>
@@ -345,62 +264,92 @@
 				}
 			return array;
 		}
-		var txtCarousel = "";
+		
 		
 		listMatHangModels = shuffle(listMatHangModels);
-		var division = Math.floor(listMatHangModels.length/5); //2
-		for (i = 0; i < division; i ++) {
-			var txtState ="<img src='/img/home/new.png' class='new'> \n";
-			if (i === 0) {
-				txtCarousel += "<div class='item active'> \n"+
-				"<div class='row'>";
+		function createHTML(listMatHang){
+			var txtCarousel = "";
+			var division = Math.floor(listMatHang.length/5); //2
+			for (i = 0; i < division; i ++) {
+				var txtState ="<img src='/img/home/new.png' class='new'> \n";
+				if (i === 0) {
+					txtCarousel += "<div class='item active' > \n"+
+					"<div class='row'>";
 
-			}else{
-				txtCarousel += "<div class='item'> \n"+
-				"<div class='row'>";
-			}
-				for (j = i; j < i+5 && j<listMatHangModels.length; j++) {
-					if(listMatHangModels[j].trangThai===0) txtState="<img src='/img/home/sap_ve.png' class='new' > \n";
-					if(listMatHangModels[j].trangThai===2) 
-						{
-						txtState="<img src='/img/home/sale.png' class='new' > \n";
-						console.log("trang thai 2");
-						}
-						
-					txtCarousel = txtCarousel + 		"<div class='col'> \n"+
-					"<div class='product-image-wrapper'> \n"+
-					"<div class='single-products'> \n"+
-						"<div class='productinfo text-center'> \n"+
-							"<img src='getImg"+listMatHangModels[j].urlImg+"' />"+
-							"<h2>"+Number(listMatHangModels[j].giaHang).toLocaleString('en')+" "+listMatHangModels[j].donViTinh+"</h2> \n"+
-							"<p>"+listMatHangModels[j].tenHang+"</p> \n"+
-							"<a href='' class='btn btn-default add-to-cart'><i \n"+
-							"	class='fa fa-shopping-cart'></i>Xem chi tiết</a> \n"+
-						    "</div> \n"+
-						    "<div class='product-overlay'> \n"+
-							"<div class='overlay-content'> \n"+
-								"<h2>"+listMatHangModels[j].giaHang+"</h2> \n"+
-								"<p>"+listMatHangModels[j].tenHang+"</p> \n"+
-								"<a href='/detail-san-pham/"+listMatHangModels[j].maHang+"' class='btn btn-default add-to-cart'><i \n"+
-								"	class='fa fa-shopping-cart'></i>Xem chi tiết</a> \n"+
-							"</div> \n"+
-							"</div> \n"+
-							txtState +
-							"</div> \n"+
-							"</div> \n"+
-							"</div> \n";
+				}else{
+					txtCarousel += "<div class='item' > \n"+
+					"<div class='row'>";
 				}
-				txtCarousel += "</div> \n"+
-					"</div>";
+					for (j = i; j < i+5 && j<listMatHang.length; j++) {
+						if(listMatHang[j].trangThai===0) txtState="<img src='/img/home/sap_ve.png' class='new' > \n";
+						if(listMatHang[j].trangThai===2) 
+							{
+							txtState="<img src='/img/home/sale.png' class='new' > \n";
+							console.log("trang thai 2");
+							}
+							
+						txtCarousel = txtCarousel + 	
+						"<div class='col'> \n"+
+						"<div  class='product-image-wrapper box-product' style='height:320px'> \n"+
+						"<div class='single-products'> \n"+
+							"<div class='productinfo ' > \n"+
+							"<a  href='/detail-san-pham/"+listMatHang[j].maHang+"'  >" +
+								"<img class='img-product' src='getImg"+listMatHang[j].urlImg+"' style='height:220px;transform: scale(0.9);'/>"+
+								"</a> <hr/>"+
+								"<p style='color: red;font-weight: bold;'>"+Number(listMatHang[j].giaHang).toLocaleString('en')+" "+listMatHang[j].donViTinh+"</p> \n"+
+								"<a  style='font-size:15px'  href='/detail-san-pham/"+listMatHang[j].maHang+"'>"+(listMatHang[j].tenHang.length >45 ?listMatHang[j].tenHang.slice(0, 45) +"...":listMatHang[j].tenHang)+"</a>  \n"+
+								
+								
+							
+							    "</div> \n"+
+							
+								txtState +
+								"</div> \n"+
+								"</div> \n"+
+								"</div> \n";
+					}
+					txtCarousel += "</div> \n"+
+						"</div>";
+					
+				}
+			return txtCarousel;
+			
+		}
+		var listLaptop = listMatHangModels.filter(function(e){
+			return e.tenLoaiHang == "Laptop";
+		});
+		
+		var listPhone = listMatHangModels.filter(function(e){
+			return e.tenLoaiHang == "Di động";
+		})
+		console.log(listLaptop);
+		console.log(listPhone);
+		
 
-			/* console.log(i + "" + listMatHangModels[i].tenHang);
-			 */}
-/* 		console.log(txtCarousel); */
-		$('#hanghieu').append(txtCarousel);
+		$('#hanghieu').append(createHTML(listMatHangModels));
+		$('#dienthoai').append(createHTML(listPhone));
+		$('#laptop').append(createHTML(listLaptop));
 		
 		console.log(listMatHangModels);
 
 		/*]]>*/
+	</script>
+	<script type="text/javascript">
+
+         /* var selectbox = document.getElementById("select-id");
+         var selectedValue = selectbox.options[selectbox.selectedIndex].value;
+          */
+         
+     $('.loai-hang-item').each(function(ev){
+    	
+    	 $(this).click(function(ev){
+    		 ev.stopPropagation();
+    		console.log($(this).children("a").html());
+    		window.location.href = "/find-by-loai-hang/"+$(this).children("a").attr('id'); 
+    	 })
+    	 
+     })  
+	 
 	</script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
@@ -427,6 +376,13 @@
 		$('.navbar').navbarDropdown({
 			trigger : 'mouseover'
 		});
+		
+		document.getElementById("logout").addEventListener("click", function(event){
+			if(!confirm("Bạn có muốn đăng xuất")){
+				event.preventDefault()	
+			}  
+			
+			});
 	</script>
 
 	<script src="js/body/jquery.js"></script>

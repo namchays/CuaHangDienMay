@@ -36,6 +36,10 @@ public class DonDatHang implements Serializable {
 	@Nationalized
 	private String noiGiaoHang;
 
+
+	@Column(name="trang_thai")
+	private int trangThai;
+	
 	//bi-directional many-to-one association to ChiTietDatHang
 	@OneToMany(mappedBy="donDatHang")
 	private List<ChiTietDatHang> chiTietDatHangs;
@@ -54,13 +58,23 @@ public class DonDatHang implements Serializable {
 	}
 	
 	public DonDatHang(Date ngayDatHang, Date ngayGiaoHang, String noiGiaoHang, 
-			KhachHang khachHang, NhanVien nhanVien) {
+			KhachHang khachHang, NhanVien nhanVien,int trangThai) {
 		super();
 		this.ngayDatHang = ngayDatHang;
 		this.ngayGiaoHang = ngayGiaoHang;
 		this.noiGiaoHang = noiGiaoHang;
 		this.khachHang = khachHang;
 		this.nhanVien = nhanVien;
+		this.trangThai = trangThai;
+	}
+	
+
+	public int getTrangThai() {
+		return trangThai;
+	}
+
+	public void setTrangThai(int trangThai) {
+		this.trangThai = trangThai;
 	}
 
 	public int getSoHoaDon() {

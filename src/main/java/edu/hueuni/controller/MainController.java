@@ -1,5 +1,6 @@
 package edu.hueuni.controller;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.hueuni.config.MyConstances;
+import edu.hueuni.entity.AnhMatHang;
 import edu.hueuni.entity.ChiTietMatHang;
 import edu.hueuni.entity.CuaHang;
 import edu.hueuni.entity.KhachHang;
@@ -49,8 +51,14 @@ public class MainController {
 	@Autowired
 	private MatHangService matHangService;
 	@GetMapping("/login")
-	public String ShowLogin() {
-		return "login";
+	public String showLogin() {
+		return "/login/login";
+	}
+	@GetMapping("/logout")
+	public String logOut(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.setAttribute("account", null);
+		return "redirect:/";
 	}
 	@GetMapping("/")
 	public String homePage(Model model) {
@@ -74,6 +82,11 @@ public class MainController {
 			MatHang matHang = matHangFound.get();
 		
 			List<ChiTietMatHang> listChiTietMatHang = matHang.getChiTietMatHangs();
+			List<AnhMatHang> listAnhMatHang = matHang.getAnhMatHangs();
+			if(listAnhMatHang.size() > 0) {
+				String urlImg = listAnhMatHang.get(0).getUrl();
+				model.addAttribute("urlImg", urlImg);
+			}
 			model.addAttribute("listChiTietMatHang", listChiTietMatHang);
 			model.addAttribute("matHang", matHang );
 		}
@@ -95,21 +108,22 @@ public class MainController {
 
 	@PostMapping("/login")
 	public String loginSystem(@ModelAttribute("nhanVien") NhanVien nhanVien, HttpServletRequest request,
-			HttpServletResponse res, Model model) {
+			HttpServletResponse res, Model model) throws NoSuchAlgorithmException {
 		String userName = nhanVien.getUserName();
 		String password = nhanVien.getPassword();
-		Optional<KhachHang> khachHang = khachHangService.findByUserNameAndPassword(userName, password);
+		String encryptedPassword =nhanVienService.md5("hueunisalt", password);
+		Optional<KhachHang> khachHang = khachHangService.findByUserNameAndPassword(userName, encryptedPassword);
 		if (khachHang.isPresent()) {
 			HttpSession session = request.getSession();
-			if(khachHang.get().getEnable()==false) {
+			if(khachHang.get().getEnable()==true) {
 				session.setAttribute("account", khachHang.get());
-				return "index";
+				return "redirect:/";
 			}else {
-				return "login";
+				return "/login/login";
 			}
 			
 		} else {
-			Optional<NhanVien> nhanVienFind = nhanVienService.findByUserNameAndPassword(userName, password);
+			Optional<NhanVien> nhanVienFind = nhanVienService.findByUserNameAndPassword(userName, encryptedPassword);
 			if (nhanVienFind.isPresent()) {
 				NhanVien curNhanVien = nhanVienFind.get();
 				HttpSession session = request.getSession();
@@ -123,7 +137,7 @@ public class MainController {
 			}
 		}
 
-		return "login";
+		return "/login/login";
 	}
 	@GetMapping("/he-thong-sieu-thi")
 	public String getListCuaHang(Model model) {

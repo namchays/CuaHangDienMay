@@ -29,7 +29,7 @@ public class NhanVien implements Serializable {
 	@Nationalized
 	private String diaChi;
 
-	@Column(name="dien_thoai",length = 12)
+	@Column(name="dien_thoai",length = 13)
 	private String dienThoai;
 
 	@Column(name="gioi_tinh")

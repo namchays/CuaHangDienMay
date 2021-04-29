@@ -28,8 +28,6 @@ public class ChiTietDatHang implements Serializable {
 	@Column(name="so_luong")
 	private int soLuong;
 
-	@Column(name="trang_thai")
-	private int trangThai;
 
 	//bi-directional many-to-one association to DonDatHang
 	@ManyToOne
@@ -44,12 +42,12 @@ public class ChiTietDatHang implements Serializable {
 	public ChiTietDatHang() {
 	}
 
-	public ChiTietDatHang(int giaBan, int mucGiamGia, int soLuong, int trangThai) {
+	public ChiTietDatHang(int giaBan, int mucGiamGia, int soLuong) {
 		super();
 		this.giaBan = giaBan;
 		this.mucGiamGia = mucGiamGia;
 		this.soLuong = soLuong;
-		this.trangThai = trangThai;
+
 	}
 
 	public int getIdChiTietDatHang() {
@@ -84,13 +82,7 @@ public class ChiTietDatHang implements Serializable {
 		this.soLuong = soLuong;
 	}
 
-	public int getTrangThai() {
-		return this.trangThai;
-	}
 
-	public void setTrangThai(int trangThai) {
-		this.trangThai = trangThai;
-	}
 
 	public DonDatHang getDonDatHang() {
 		return this.donDatHang;

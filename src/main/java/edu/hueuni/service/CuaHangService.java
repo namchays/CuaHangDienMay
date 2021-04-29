@@ -31,6 +31,9 @@ public class CuaHangService {
 	public void DeleteById(int id) {
 		cuaHangRepository.deleteById(id);
 	}
+	public List<CuaHang> findByTenCuaHang(String tenCuaHang) {
+		return cuaHangRepository.findByTenCuaHang(tenCuaHang);
+	}
 	
 	
 }

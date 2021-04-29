@@ -53,12 +53,26 @@ public class BaiDang implements Serializable {
 	}
 	
 
-	public BaiDang(String noiDung, String tieuDe, String userName, MatHang matHang) {
+	
+
+
+	public BaiDang(String noiDung, String tieuDe, String userName, String urlImg, MatHang matHang) {
 		super();
 		this.noiDung = noiDung;
 		this.tieuDe = tieuDe;
 		this.userName = userName;
+		this.urlImg = urlImg;
 		this.matHang = matHang;
+	}
+
+
+	public String getUrlImg() {
+		return urlImg;
+	}
+
+
+	public void setUrlImg(String urlImg) {
+		this.urlImg = urlImg;
 	}
 
 
