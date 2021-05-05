@@ -48,17 +48,10 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
-
-                    <!-- DataTales Example -->
+                 
                     <div class="card shadow mb-4">
                         <div class="card-header py-3" >
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                           <a href="/admin/add-cua-hang" class="btn btn-primary" style="float: right"><i class="fas fa-plus"></i> Thêm</a>
+                            <h6 class="m-0 font-weight-bold text-primary">Quản lý khách hàng</h6>
                         </div>
                       
                         <div class="card-body">
@@ -71,6 +64,7 @@
                                             <th>Địa chỉ</th>
                                             <th>Số điện thoại</th>
                                          	<th>Trạng thái tài khoản</th>
+                                         	<th>Chặn</th>
                                         </tr>
                                     </thead>
                                    
@@ -83,7 +77,12 @@
                                        		<td >[[${KhachHang.soDienThoai}]]</td>
                                        		<th:block th:if="${KhachHang.enable}==true"><td>Đang hoạt động</td></th:block>
                                        		<th:block th:unless="${KhachHang.enable==true}"><td>Đã bị chặn</td></th:block>
-                                       	
+                                       		<th:block th:if="${KhachHang.enable==true}">
+                                       		<td><a class="btn btn-danger" th:href="@{'/chan-khach-hang/'+${KhachHang.userName}}">Chặn</a></td>
+                                       		</th:block>
+                                       		<th:block th:unless="${KhachHang.enable==true}">
+                                       		<td><a class="btn btn-primary" th:href="@{'/chan-khach-hang/'+${KhachHang.userName}}">Bỏ Chặn</a></td>
+                                       		</th:block>
                                        </tr>
                                     </th:block>
                                        

@@ -48,17 +48,12 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
-
+                
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3" >
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                           <a href="/admin/add-cua-hang" class="btn btn-primary" style="float: right"><i class="fas fa-plus"></i> Thêm</a>
+                            <h6 class="m-0 font-weight-bold text-primary">Quản lý nhân viên</h6>
+                           <a href="/admin/add-nhan-vien" class="btn btn-primary" style="float: right"><i class="fas fa-plus"></i> Thêm</a>
                         </div>
                       
                         <div class="card-body">
@@ -72,6 +67,8 @@
                                             <th>Số điện thoại</th>
                                             <th>Lương cơ bản</th>
                                             <th>Ngày làm việc</th>
+                                            <th>Sửa</th>
+                                            <th>Xóa</th>
                                         </tr>
                                     </thead>
                                    
@@ -84,6 +81,15 @@
                                        		<td >[[${NhanVien.dienThoai}]]</td>
                                        		<td class="luong">[[${NhanVien.luongCoBan}]]</td>
                                        		<td >[[${NhanVien.ngayLamViec}]]</td>
+                                      		<th:block th:if="${NhanVien.userName}=='admin'">
+                                      			<td><a th:href="@{'/edit-nhan-vien/'+${NhanVien.userName}}">Sửa</a></td>
+                                       		<td>Xóa</td>
+                                      		</th:block>
+                                      		<th:block th:if="${NhanVien.userName}!='admin'">
+                                      			<td><a th:href="@{'/admin/edit-nhan-vien/'+${NhanVien.userName}}">Sửa</a></td>
+                                       		<td><a th:href="@{'/admin/delete-nhan-vien/'+${NhanVien.userName}}">Xóa</a></td>
+                                       		
+                                      		</th:block>
                                        		
                                        		
                                        </tr>
@@ -167,4 +173,3 @@
     <script src="/js/demo/datatables-demo.js"></script>
 
 </body>
-

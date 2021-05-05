@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+<link rel="stylesheet" href="/css/home.css">
+<link rel="icon" href="/img/hone/LOGO.png" />
+<link href="/css/body/bootstrap.min.css" rel="stylesheet">
+<link href="/css/body/font-awesome.min.css" rel="stylesheet">
+<link href="/css/body/prettyPhoto.css" rel="stylesheet">
+<link href="/css/body/price-range.css" rel="stylesheet">
+<link href="/css/body/animate.css" rel="stylesheet">
+<link href="/css/body/main.css" rel="stylesheet">
+<link href="/css/body/responsive.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/gh/fontenele/bootstrap-navbar-dropdowns@5.0.2/dist/css/bootstrap-navbar-dropdowns.min.css"
+	rel="stylesheet">
+<style>
+.col-xs-5ths,
+.col-sm-5ths,
+.col-md-5ths,
+.col-lg-5ths {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.col-xs-5ths {
+    width: 20%;
+   
+}
+
+@media (min-width: 768px) {
+    .col-sm-5ths {
+        width: 20%;
+      
+    }
+}
+
+@media (min-width: 992px) {
+    .col-md-5ths {
+        width: 20%;
+    
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-lg-5ths {
+        width: 20%;
+      
+    }
+}
+</style>
+<style>
+.nowrap {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.dropdown:hover>.dropdown-menu {
+	display: block;
+}
+
+.dropright:hover>.dropdown-menu {
+	display: block;
+}
+
+.dropdown>.dropdown-toggle:active {
+	/*Without this, clicking will make it sticky*/
+	pointer-events: none;
+}
+
+.form-search {
+	margin-top: 13px
+}
+
+.box-product:hover {
+	border-color: blue;
+}
+
+.box-product {
+	border: 1px solid #000000;
+}
+
+.img-product {
+	position: relative;
+	top: 0;
+	transition: top ease 0.5s;
+}
+
+.img-product:hover {
+	top: -10px;
+}
+</style>
+<style>
+.dropdown:hover>.dropdown-menu {
+	display: block;
+}
+
+.dropright:hover>.dropdown-menu {
+	display: block;
+}
+
+.dropdown>.dropdown-toggle:active {
+	/*Without this, clicking will make it sticky*/
+	pointer-events: none;
+}
+.box-product:hover {
+   border-color: blue;
+}
+.box-product{
+ border: 1px solid #000000;
+}
+.form-search{
+	margin-top: 13px
+}
+</style>
+<link rel="stylesheet" href="/css/footer/footer.css">
+<title>Title</title>
+</head>
+
+<body>
+
+	<div class="row">
+		<div class="col-sm-1" style="background-color: #d9d9d9;"></div>
+		<div class="col-sm-10">
+		<!-- --navbar-- -->
+		<th:block th:insert="/shared/navbar :: navbar"></th:block>
+			<!-- -----------------------Body-------------------- -->
+			
+
+			
+				<div class="container">
+					<div class="row">
+
+
+						<div class="col-sm-12 padding-right">
+						<h2 class="title text-center">kết quả tìm kiếm</h2> 
+						<hr/>
+					
+						
+						<div style="font-size: 15px;float: left;" >
+							<label style="font-weight: normal;">Chọn mức giá:</label>
+							<a href="filter-by-price/0-2">Dưới 2 triệu</a> &nbsp;&nbsp;
+							<a href="filter-by-price/2-4" >Từ 2 đến 4 triệu</a>&nbsp;&nbsp;
+							<a href="filter-by-price/4-7" >Từ 7 đến 7 triệu</a>&nbsp;&nbsp;
+							<a href="filter-by-price/7-13" >Từ 7 đến 13 triệu</a>&nbsp;&nbsp;
+							<a href="filter-by-price/13-20" >Từ 13 đến 20 triệu</a>&nbsp;&nbsp;
+							
+						</div>
+					
+						<div style="float: right;font-size: 15px;" >
+						
+							<select style="display: inline;background-color: white;">
+								<option>Giá từ thấp đến cao</option>
+								<option>Giá từ cao đến thấp</option>
+							</select>
+						</div>
+							<div style="float: right;font-size: 15px;" >
+						
+							<label style="font-weight: normal;margin-top: 5px">sắp xếp</label>
+						</div>
+						
+					
+						<hr style="clear: both;"/>
+					
+							<div class="features_items" id="listMatHang" >
+								<!--features_items-->
+								
+								
+					
+							</div>
+
+
+
+						</div>
+					</div>
+				</div>
+			</section>
+
+		</div>
+
+		<div class="col-sm-1" style="background-color: #d9d9d9;"></div>
+
+	</div>
+	<!-- -----footer------------- -->
+	<th:block th:insert="/shared/footer :: footer"></th:block>
+
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+
+		var listMatHangModels = /*[[${listMatHangModels}]]*/'';
+		function shuffle(array) {
+			var tmp, current, top = array.length;
+			if (top)
+				while (--top) {
+					current = Math.floor(Math.random() * (top + 1));
+					tmp = array[current];
+					array[current] = array[top];
+					array[top] = tmp;
+				}
+			return array;
+		}
+		var txtCarousel =  "<div class='row'>";
+		
+		listMatHangModels = shuffle(listMatHangModels);
+		var division = Math.floor(listMatHangModels.length/5); //2
+		for (i = 0; i < listMatHangModels.length; i ++) {
+			var txtState ="<img src='/img/home/new.png' class='new'> \n";
+		
+			
+			
+			
+					if(listMatHangModels[i].trangThai===0) txtState="<img src='/img/home/sap_ve.png' class='new' > \n";
+					if(listMatHangModels[i].trangThai===2) 
+						{
+						txtState="<img src='/img/home/sale.png' class='new' > \n";
+						console.log("trang thai 2");
+						}
+					var txtSrc="";
+					if(listMatHangModels[i].urlImg === null){
+						txtSrc = "/img/home/dang_cap_nhat.png"
+					}
+					else{
+						txtSrc = listMatHangModels[i].urlImg;
+					}
+					txtCarousel = txtCarousel + 		"<div class='col-md-5ths'> \n"+
+					"<div  class='product-image-wrapper box-product' style='height:320px'> \n"+
+					"<div class='single-products'> \n"+
+						"<div class='productinfo ' > \n"+
+						"<a  href='/detail-san-pham/"+listMatHangModels[i].maHang+"'  >" +
+							"<img class='img-product'  src='/getImg"+listMatHangModels[i].urlImg+"' style='height:220px;transform: scale(0.9);'/>"+
+							"</a> <hr/>"+
+							"<p style='color: red;font-weight: bold;'>"+Number(listMatHangModels[i].giaHang).toLocaleString('en')+" "+listMatHangModels[i].donViTinh+"</p> \n"+
+							"<a  style='font-size:15px'  href='/detail-san-pham/"+listMatHangModels[i].maHang+"'>"+(listMatHangModels[i].tenHang.length >45 ?listMatHangModels[i].tenHang.slice(0, 45) +"...":listMatHangModels[i].tenHang)+"</a>  \n"+
+						    "</div> \n"+
+							txtState +
+							"</div> \n"+
+							"</div> \n"+
+							"</div> \n";
+				}
+				txtCarousel += "</div> \n"+
+					"</div>";
+
+			/* console.log(i + "" + listMatHangModels[i].tenHang);
+			 */
+/* 		console.log(txtCarousel); */
+		$('#listMatHang').append(txtCarousel);
+		
+		console.log(listMatHangModels);
+
+		/*]]>*/
+	</script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+		crossorigin="anonymous"></script>
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+	<script
+		src="https://cdn.jsdelivr.net/gh/fontenele/bootstrap-navbar-dropdowns@5.0.2/dist/js/bootstrap-navbar-dropdowns.min.js"></script>
+	<script>
+		$('.navbar').navbarDropdown({
+			trigger : 'mouseover'
+		});
+	</script>
+
+	<script src="/js/body/jquery.js"></script>
+	<script src="/js/body/bootstrap.min.js"></script>
+	<script src="/js/body/jquery.scrollUp.min.js"></script>
+	<script src="/js/body/price-range.js"></script>
+	<script src="/js/body/jquery.prettyPhoto.js"></script>
+	<script src="/js/body/main.js"></script>
+</body>
+
+</html>

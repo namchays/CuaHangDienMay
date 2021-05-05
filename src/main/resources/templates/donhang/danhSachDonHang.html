@@ -1,10 +1,91 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+		<link
+		href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		rel="stylesheet" id="bootstrap-css">
+	<script
+		src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script
+		src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!------ Include the above in your HEAD tag ---------->
+
+	<link
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+		rel="stylesheet"
+		integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+		crossorigin="anonymous">
+		<link rel="stylesheet" href="/css/footer/footer.css">
+<title>Title</title>
 </head>
 <body>
-dsa
+
+
+	
+
+	<div class=" mb-4">
+	<th:block th:insert="/shared/navbar :: navbar"></th:block>
+	<section class="jumbotron text-center">
+		<div class="container">
+			<h1 class="jumbotron-heading">GIỎ HÀNG</h1>
+		</div>
+	</section>
+	
+		<div class="row">
+			<div class="col-12">
+				<h2 class="text-center">-------------oOo----DANH SÁCH ĐƠN HÀNG----oOo-------------</h2>
+  <br>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#da-dat-hang">Đã đặt hàng</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#cho-lay-hang">Chờ lấy hàng</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#dang-giao">Đang giao</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#da-giao">Đã giao</a>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div id="da-dat-hang" class="container tab-pane active"><br>
+     đã đặt hàng
+    </div>
+    <div id="cho-lay-hang" class="container tab-pane fade"><br>
+     Chờ lấy hàng
+    </div>
+    <div id="dang-giao" class="container tab-pane fade"><br>
+    Đang giao
+    </div>
+    <div id="da-giao" class="container tab-pane fade"><br>
+ đã giao
+    </div>
+			</div>
+	
+		</div>
+	</div>
+	</div>
+	
+	<!-- Footer -->
+	<th:block th:insert="/shared/footer :: footer"></th:block>
+
+ <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
 </body>
 </html>

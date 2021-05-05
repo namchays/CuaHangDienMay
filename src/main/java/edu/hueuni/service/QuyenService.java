@@ -13,8 +13,12 @@ public class QuyenService {
 	@Autowired 
 	private QuyenRepository quyenRepository;
 	
-	public Optional<Quyen> findByTenQuyen(String TenQuyen) {
-		return quyenRepository.findByTenQuyen(TenQuyen);
+	public Quyen findByTenQuyen(String TenQuyen) {
+		Optional<Quyen> QuyenFound = quyenRepository.findByTenQuyen(TenQuyen);
+		if(QuyenFound.isPresent()) {
+			return QuyenFound.get();
+		}
+		return null;
 	}
 	public void save(Quyen quyen) {
 		quyenRepository.save(quyen);

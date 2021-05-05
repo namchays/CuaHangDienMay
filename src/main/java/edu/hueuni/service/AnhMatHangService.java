@@ -2,6 +2,8 @@ package edu.hueuni.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ public class AnhMatHangService {
 	public List<AnhMatHang> findAll() {
 		return anhMatHangRepository.findAll();
 	}
+	@Transactional
 	public void deleteByMatHang(MatHang matHang) {
 		anhMatHangRepository.deleteByMatHang(matHang);
 	}

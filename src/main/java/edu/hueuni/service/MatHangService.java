@@ -1,22 +1,30 @@
 package edu.hueuni.service;
 
+import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import edu.hueuni.entity.AnhMatHang;
 import edu.hueuni.entity.BaiDang;
 import edu.hueuni.entity.ChiTietDatHang;
 import edu.hueuni.entity.ChiTietMatHang;
 import edu.hueuni.entity.CuaHang;
+import edu.hueuni.entity.LoaiHang;
 import edu.hueuni.entity.MatHang;
 import edu.hueuni.entity.NhomHang;
+import edu.hueuni.model.ListMatHangModel;
+import edu.hueuni.model.MatHangModel;
 import edu.hueuni.repository.AnhMatHangRepository;
 import edu.hueuni.repository.ChiTietMatHangRepository;
 import edu.hueuni.repository.CuaHangRepository;
 import edu.hueuni.repository.MatHangRepository;
+import edu.hueuni.repository.NhomHangRepository;
 
 
 @Service
@@ -33,6 +41,10 @@ public class MatHangService {
 	private BaiDangService baiDangService;
 	@Autowired
 	private ChiTietDatHangService chiTietDatHangService;
+	@Autowired
+	private NhomHangService nhomHangService;
+	@Autowired
+	private loaiHangService loaiHangService;
 	public void save(MatHang matHang) {
 		matHangRepository.save(matHang);
 	}
@@ -113,4 +125,47 @@ public class MatHangService {
 	public List<MatHang> findByTenHang(String tenHang) {
 		return matHangRepository.findByTenHang(tenHang);
 	}
+	public List<MatHangModel> findByNhomHang(int id, ModelAndView mav) {
+		NhomHang nhomHang = nhomHangService.findById(id);
+		if(nhomHang!=null) {
+			List<MatHang> listMatHang = this.findByNhomHang(nhomHang);
+			ListMatHangModel listMatHangModel = new ListMatHangModel();
+			List<MatHangModel> listMatHangModels = listMatHangModel.getMatHangModel(listMatHang);
+			return listMatHangModels;
+		}
+		return null;
+	}
+	public List<MatHangModel> findByLoaiHang(int id, ModelAndView mav) {
+		LoaiHang loaiHang = loaiHangService.findById(id);
+		if(loaiHang!=null) {
+			List<MatHang> listMatHang = loaiHangService.getAllMatHangByNhomHang(id);
+			ListMatHangModel listMatHangModel = new ListMatHangModel();
+			List<MatHangModel> listMatHangModels = listMatHangModel.getMatHangModel(listMatHang);
+			return listMatHangModels;
+		}
+		return null;
+	}
+
+	public List<MatHangModel> findByTenHangEquals(String tenHang) {
+		List<MatHang> listMatHang = matHangRepository.findAll();
+		List<MatHang> listMatHangFound = new ArrayList<MatHang>();
+		for(MatHang matHang : listMatHang) {
+			
+			if(removeAccent(matHang.getTenHang().toLowerCase()).contains(removeAccent(tenHang).toLowerCase())) {
+				listMatHangFound.add(matHang);
+			}
+		}
+		ListMatHangModel listMatHangModel = new ListMatHangModel();
+		List<MatHangModel> listMatHangModels = listMatHangModel.getMatHangModel(listMatHangFound);
+		return listMatHangModels;
+		
+	}
+	
+	public	String removeAccent(String s) {
+		  
+		  String temp = Normalizer.normalize(s, Normalizer.Form.NFD);
+		  Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+		  return pattern.matcher(temp).replaceAll("");
+		 }
+
 }

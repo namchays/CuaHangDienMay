@@ -15,7 +15,7 @@
 
    		<div class="row navbar navbar-expand-md navbar-dark bg-dark mb-4"
 				role="navigation"
-				style="font-size: 13px; background-color: #ffe263 !important" th:fragment="navbar">
+				style="font-size: 11px; background-color: #ffe263 !important" th:fragment="navbar">
 
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarCollapse" aria-controls="navbarCollapse"
@@ -62,7 +62,7 @@
 							style="color: blue;">Chọn cửa hàng</a>
 							<ul class="dropdown-menu" aria-labelledby="dropdown2">
 								<li class="dropdown-item dropdown"><a
-									href="/find-by-cua-hang/0">Tất cả cửa hàng</a></li>
+									href="/">Tất cả cửa hàng</a></li>
 								<!-- ---- block---- -->
 								<th:block th:each="CuaHang : ${listCuaHang}">
 									<li class="dropdown-item dropdown"><a
@@ -80,7 +80,7 @@
 						<li class="nav-item ">
 							<form class="form-inline form-search" method="post" action="/find-by-ten">
 								<input class="form-control mr-sm-2" size="40" type="search"
-									placeholder="Nhập tên sản phẩm..." aria-label="Search"
+									placeholder="Nhập tên sản phẩm..." aria-label="Search" name="tenMatHang"
 									style="border-color: yellow;">
 								<button style="background-color: yellow;"
 									class="btn btn-outline-success my-2 my-sm-0" type="submit">
@@ -92,6 +92,12 @@
 					</ul>
 					<ul style="margin-top: 10px">
 						<li><a href="/he-thong-sieu-thi">Hệ thống siêu thị</a></li>
+					</ul>
+					<ul style="margin-top: 10px">
+						<li><a href="/trang-tin-tuc">Trang Tin Tức</a></li>
+					</ul>
+					<ul style="margin-top: 10px">
+						<li><a href="/list-cart">Giỏ hàng</a></li>
 					</ul>
 					<th:block th:if="${session.account}==null">
 						<ul style="margin-top: 10px">

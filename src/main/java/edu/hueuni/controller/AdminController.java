@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -44,6 +46,7 @@ import edu.hueuni.entity.QuaTang;
 import edu.hueuni.model.AjaxResponseBody;
 import edu.hueuni.model.ChiTietMatHangItem;
 import edu.hueuni.model.ChiTietMatHangModel;
+import edu.hueuni.model.NhanVienModel;
 import edu.hueuni.model.NhomHangModel;
 import edu.hueuni.model.QuaTangItem;
 import edu.hueuni.model.QuaTangModel;
@@ -142,17 +145,66 @@ public class AdminController {
 	//quản lý nhân viên
 	@GetMapping("/admin/manage-nhan-vien")
 	public ModelAndView manageNhanVien() {
-		ModelAndView mav = new ModelAndView("/admin/user/manageNhanVien");
+		ModelAndView mav = new ModelAndView("/admin/user/nhanvien/manageNhanVien");
 		List<NhanVien> listNhanVien = nhanVienService.findAll();
 		mav.addObject("listNhanVien", listNhanVien);
 		return mav;
 	}
+	@GetMapping("/admin/delete-nhan-vien/{username}")
+	public ModelAndView deleteNhanVien(@PathVariable String username) {
+		ModelAndView mav = new ModelAndView("redirect:/admin/manage-nhan-vien");
+		nhanVienService.deleteById(username);
+		return mav;
+	}
+	@GetMapping("/admin/add-nhan-vien")
+	public ModelAndView addNhanVien() {
+	ModelAndView mav = new ModelAndView("admin/user/nhanvien/addNhanVien");
+	mav.addObject("nhanVien", new NhanVienModel());
+	return mav;
+	}
+	@PostMapping("/admin/add-nhan-vien")
+	public ModelAndView addNhanVienSubmit(@ModelAttribute("nhanVien") NhanVienModel nhanVienModel,@RequestParam("files") MultipartFile[] files) throws ParseException, NoSuchAlgorithmException {
+		
+		ModelAndView mav = new ModelAndView("redirect:/admin/manage-nhan-vien");
+		nhanVienService.addNhanVien(files, nhanVienModel);
+		return mav;
+	}
+	
+	@GetMapping("/admin/edit-nhan-vien/{username}")
+	public ModelAndView editNhanVien(@PathVariable String username) {
+		ModelAndView mav = new ModelAndView("admin/user/nhanvien/editNhanVien");
+		nhanVienService.addObjectToEditNhanVien(mav, username, new NhanVienModel());
+		return mav;
+	}
+
+	@PostMapping("/admin/edit-nhan-vien/{username}")
+	public ModelAndView editNhanVienSubmit(@ModelAttribute("nhanVien") NhanVienModel nhanVienModel,
+			@RequestParam("files") MultipartFile[] files,
+			@PathVariable String username) throws ParseException, NoSuchAlgorithmException {
+		
+		ModelAndView mav = new ModelAndView("redirect:/admin/manage-nhan-vien");
+		nhanVienService.editNhanVien(files, nhanVienModel, username);
+		mav.addObject("username", username);
+		return mav;
+	}
+	
+	
+	///Quản lý khách hàng
 	@GetMapping("/admin/manage-khach-hang")
 	public ModelAndView manageKhachHang() {
-		ModelAndView mav = new ModelAndView("/admin/user/manageKhachHang");
+		ModelAndView mav = new ModelAndView("/admin/user/khachhang/manageKhachHang");
 		List<KhachHang> listKhachHang = khachHangService.findAll();
 		mav.addObject("listKhachHang", listKhachHang);
 		return mav;
 	}
+	@GetMapping("/chan-khach-hang/{userName}")
+	public ModelAndView chanKhachHang(@PathVariable String userName) throws NoSuchAlgorithmException {
+		ModelAndView mav = new ModelAndView("redirect:/admin/manage-khach-hang");
+		KhachHang khachHang = khachHangService.findByUserName(userName);
+		khachHang.setEnable(!khachHang.getEnable());
+		khachHangService.save(khachHang);
+		return mav;
+	}
+
 	
 }

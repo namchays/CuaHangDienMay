@@ -30,6 +30,85 @@
 	href="https://cdn.jsdelivr.net/gh/fontenele/bootstrap-navbar-dropdowns@5.0.2/dist/css/bootstrap-navbar-dropdowns.min.css"
 	rel="stylesheet">
 <style>
+.col-xs-5ths,
+.col-sm-5ths,
+.col-md-5ths,
+.col-lg-5ths {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.col-xs-5ths {
+    width: 20%;
+   
+}
+
+@media (min-width: 768px) {
+    .col-sm-5ths {
+        width: 20%;
+      
+    }
+}
+
+@media (min-width: 992px) {
+    .col-md-5ths {
+        width: 20%;
+    
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-lg-5ths {
+        width: 20%;
+      
+    }
+}
+</style>
+<style>
+.nowrap {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.dropdown:hover>.dropdown-menu {
+	display: block;
+}
+
+.dropright:hover>.dropdown-menu {
+	display: block;
+}
+
+.dropdown>.dropdown-toggle:active {
+	/*Without this, clicking will make it sticky*/
+	pointer-events: none;
+}
+
+.form-search {
+	margin-top: 13px
+}
+
+.box-product:hover {
+	border-color: blue;
+}
+
+.box-product {
+	border: 1px solid #000000;
+}
+
+.img-product {
+	position: relative;
+	top: 0;
+	transition: top ease 0.5s;
+}
+
+.img-product:hover {
+	top: -10px;
+}
+</style>
+<style>
 .dropdown:hover>.dropdown-menu {
 	display: block;
 }
@@ -133,41 +212,38 @@
 				}
 			return array;
 		}
-		var txtCarousel = "";
+		var txtCarousel =  "<div class='row'>";
 		
 		listMatHangModels = shuffle(listMatHangModels);
 		var division = Math.floor(listMatHangModels.length/5); //2
-		for (i = 0; i < division; i ++) {
+		for (i = 0; i < listMatHangModels.length; i ++) {
 			var txtState ="<img src='/img/home/new.png' class='new'> \n";
-			if (i === 0) {
-				txtCarousel +="<div class='row'>";
-
-			}else{
-				txtCarousel += "<div class='row'>";
-			}
-				for (j = i; j < i+5 && j<listMatHangModels.length; j++) {
-					if(listMatHangModels[j].trangThai===0) txtState="<img src='/img/home/sap_ve.png' class='new' > \n";
-					if(listMatHangModels[j].trangThai===2) 
+		
+			
+			
+			
+					if(listMatHangModels[i].trangThai===0) txtState="<img src='/img/home/sap_ve.png' class='new' > \n";
+					if(listMatHangModels[i].trangThai===2) 
 						{
 						txtState="<img src='/img/home/sale.png' class='new' > \n";
 						console.log("trang thai 2");
 						}
 					var txtSrc="";
-					if(listMatHangModels[j].urlImg === null){
+					if(listMatHangModels[i].urlImg === null){
 						txtSrc = "/img/home/dang_cap_nhat.png"
 					}
 					else{
-						txtSrc = listMatHangModels[j].urlImg;
+						txtSrc = listMatHangModels[i].urlImg;
 					}
-					txtCarousel = txtCarousel + 		"<div class='col'> \n"+
+					txtCarousel = txtCarousel + 		"<div class='col-md-5ths'> \n"+
 					"<div  class='product-image-wrapper box-product' style='height:320px'> \n"+
 					"<div class='single-products'> \n"+
 						"<div class='productinfo ' > \n"+
-						"<a  href='/detail-san-pham/"+listMatHangModels[j].maHang+"'  >" +
-							"<img  src='getImg"+listMatHangModels[j].urlImg+"' style='height:220px;transform: scale(0.9);'/>"+
+						"<a  href='/detail-san-pham/"+listMatHangModels[i].maHang+"'  >" +
+							"<img class='img-product'  src='/getImg"+listMatHangModels[i].urlImg+"' style='height:220px;transform: scale(0.9);'/>"+
 							"</a> <hr/>"+
-							"<p style='color: red;font-weight: bold;'>"+Number(listMatHangModels[j].giaHang).toLocaleString('en')+" "+listMatHangModels[j].donViTinh+"</p> \n"+
-							"<a  style='font-size:15px'  href='/detail-san-pham/"+listMatHangModels[j].maHang+"'>"+(listMatHangModels[j].tenHang.length >45 ?listMatHangModels[j].tenHang.slice(0, 45) +"...":listMatHangModels[j].tenHang)+"</a>  \n"+
+							"<p style='color: red;font-weight: bold;'>"+Number(listMatHangModels[i].giaHang).toLocaleString('en')+" "+listMatHangModels[i].donViTinh+"</p> \n"+
+							"<a  style='font-size:15px'  href='/detail-san-pham/"+listMatHangModels[i].maHang+"'>"+(listMatHangModels[i].tenHang.length >45 ?listMatHangModels[i].tenHang.slice(0, 45) +"...":listMatHangModels[i].tenHang)+"</a>  \n"+
 							
 							
 						
@@ -182,7 +258,7 @@
 					"</div>";
 
 			/* console.log(i + "" + listMatHangModels[i].tenHang);
-			 */}
+			 */
 /* 		console.log(txtCarousel); */
 		$('#listMatHang').append(txtCarousel);
 		

@@ -41,8 +41,12 @@ public class NhomHangService {
 		}
 		nhomHangRepository.deleteById(id);
 	}
-	public Optional<NhomHang> findById(int id) {
-		return nhomHangRepository.findById(id);	
+	public NhomHang findById(int id) {
+		Optional<NhomHang> nhomHangFound = nhomHangRepository.findById(id);
+		if(nhomHangFound.isPresent()) {
+			return nhomHangFound.get();
+		}
+		return null;
 	}
 	public List<NhomHang> findByLoaiHang(LoaiHang loaiHang) {
 		return nhomHangRepository.findByLoaiHang(loaiHang);

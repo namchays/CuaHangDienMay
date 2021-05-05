@@ -79,17 +79,17 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
 		// Tự động sinh các Quền trong database khi còn thiếu
 
-				if (quyenService.findByTenQuyen(MyConstances.ROLE_EMPLOYEES).isEmpty()) {
+				if (quyenService.findByTenQuyen(MyConstances.ROLE_EMPLOYEES)==null) {
 					quyenService.save(new Quyen(MyConstances.ROLE_EMPLOYEES));
 				}
 
-				if (quyenService.findByTenQuyen(MyConstances.ROLE_ADMIN).isEmpty()) {
+				if (quyenService.findByTenQuyen(MyConstances.ROLE_ADMIN)==null) {
 					quyenService.save(new Quyen(MyConstances.ROLE_ADMIN));
 				}
 		// Tự động sinh ra các user trong csdl
-				if(nhanvienService.findByUserName("admin").isEmpty()) {
-					Optional<Quyen> quyenAdmin = quyenService.findByTenQuyen(MyConstances.ROLE_ADMIN);
-					if(quyenAdmin.isPresent()) {
+				if(nhanvienService.findByUserName("admin")==null) {
+					Quyen quyenAdmin = quyenService.findByTenQuyen(MyConstances.ROLE_ADMIN);
+					if(quyenAdmin!=null) {
 					
 					    try {
 					    	String ngayLamViecString="2020/1/1";  
@@ -98,7 +98,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 							Date ngaySinh=new SimpleDateFormat("yyyy/MM/dd").parse(ngaySinhString);
 							
 							NhanVien admin = new NhanVien("admin","Đà nẵng", "03243235574", 1, 1000000,  ngayLamViec,	 ngaySinh,  "hoilamchi1", 2000000,  "Lê Trường Nam");
-							admin.setQuyen(quyenAdmin.get());
+							admin.setQuyen(quyenAdmin);
 							nhanvienService.save(admin);
 					    } catch (ParseException e) {
 							e.printStackTrace();
@@ -109,9 +109,9 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 					}
 					
 				}
-				if(nhanvienService.findByUserName("employee").isEmpty()) {
-					Optional<Quyen> quyenEmployee = quyenService.findByTenQuyen(MyConstances.ROLE_EMPLOYEES);
-					if(quyenEmployee.isPresent()) {
+				if(nhanvienService.findByUserName("employee")==null) {
+					Quyen quyenEmployee = quyenService.findByTenQuyen(MyConstances.ROLE_EMPLOYEES);
+					if(quyenEmployee!=null) {
 					
 						try {
 							String ngayLamViecString="2020/11/1";  
@@ -119,7 +119,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 							Date ngayLamViec = new SimpleDateFormat("yyyy/MM/dd").parse(ngayLamViecString);
 							Date ngaySinh=new SimpleDateFormat("yyyy/MM/dd").parse(ngaySinhString);
 							NhanVien employee = new NhanVien("employee","Huế", "032213374", 1, 6490000,  ngayLamViec,	 ngaySinh,  "hoilamchi1", 400000,  "Lê Thanh Trí");
-							employee.setQuyen(quyenEmployee.get());
+							employee.setQuyen(quyenEmployee);
 							nhanvienService.save(employee);
 						} catch (ParseException | NoSuchAlgorithmException e) {
 							e.printStackTrace();
@@ -128,9 +128,9 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 					}
 					
 				}
-				if(nhanvienService.findByUserName("nhanvien1").isEmpty()) {
-					Optional<Quyen> quyenEmployee = quyenService.findByTenQuyen(MyConstances.ROLE_EMPLOYEES);
-					if(quyenEmployee.isPresent()) {
+				if(nhanvienService.findByUserName("nhanvien1")==null) {
+					Quyen quyenEmployee = quyenService.findByTenQuyen(MyConstances.ROLE_EMPLOYEES);
+					if(quyenEmployee!=null) {
 					
 						try {
 							String ngayLamViecString="2020/1/12";  
@@ -138,7 +138,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 							Date ngayLamViec = new SimpleDateFormat("yyyy/MM/dd").parse(ngayLamViecString);
 							Date ngaySinh=new SimpleDateFormat("yyyy/MM/dd").parse(ngaySinhString);
 							NhanVien employee = new NhanVien("nhanvien1","Vũng Tàu", "0322152764", 1, 6532000,  ngayLamViec,ngaySinh,  "hoilamchi1", 65465400,  "Lê Thanh Tú");
-							employee.setQuyen(quyenEmployee.get());
+							employee.setQuyen(quyenEmployee);
 							nhanvienService.save(employee);
 						} catch (ParseException | NoSuchAlgorithmException e) {
 							// TODO Auto-generated catch block
@@ -148,7 +148,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 					}
 					
 				}
-				if(khachHangService.findByUserName("user").isEmpty()) {
+				if(khachHangService.findByUserName("user")==null) {
 					try {
 						String ngaySinhString ="2000/5/11";
 						Date ngaySinh=new SimpleDateFormat("yyyy/MM/dd").parse(ngaySinhString);
@@ -159,7 +159,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 					}
 					
 				}
-				if(khachHangService.findByUserName("khachhang").isEmpty()) {
+				if(khachHangService.findByUserName("khachhang")==null) {
 					String ngaySinhString ="2000/5/12";
 					Date ngaySinh;
 					try {
@@ -170,7 +170,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 					}
 					
 				}
-				if(khachHangService.findByUserName("khachhang1").isEmpty()) {
+				if(khachHangService.findByUserName("khachhang1")==null) {
 					String ngaySinhString ="1999/2/12";
 					Date ngaySinh;
 					try {
@@ -392,9 +392,9 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			    Date ngayDatHang=new SimpleDateFormat("yyyy/MM/dd").parse(ngayDatHangString);  
 			    String ngayGiaoHangString="2020/1/1";  
 			    Date ngayGiaoHang=new SimpleDateFormat("yyyy/MM/dd").parse(ngayGiaoHangString);  
-			    Optional<KhachHang> khachHangFound = khachHangService.findByUserName("user");
-				Optional<NhanVien> nhanVienFound = nhanvienService.findByUserName("employee");
-				DonDatHang donDatHang = new DonDatHang(ngayDatHang,ngayGiaoHang,noiGiaoHang,khachHangFound.get(),nhanVienFound.get(),MyConstances.DA_DAT_HANG);
+			    KhachHang khachHang = khachHangService.findByUserName("user");
+				NhanVien	nhanVienFound = nhanvienService.findByUserName("employee");
+				DonDatHang donDatHang = new DonDatHang(ngayDatHang,ngayGiaoHang,noiGiaoHang,khachHang,nhanVienFound,MyConstances.DA_DAT_HANG);
 				donDatHangService.save(donDatHang);
 			}catch (Exception e) {
 				System.out.println(e.toString());

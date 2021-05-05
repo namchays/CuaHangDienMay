@@ -95,7 +95,12 @@
 												<td th:text="${DonDatHang.ngayDatHang}"></td>
 												<td th:text="${DonDatHang.ngayGiaoHang}"></td>
 												<td th:text="${DonDatHang.noiGiaoHang}"></td>
+												<th:block th:if="${DonDatHang.nhanVien!=null}">
 												<td th:text="${DonDatHang.nhanVien.tenNhanVien}"></td>
+												</th:block>
+												<th:block th:unless="${DonDatHang.nhanVien!=null}">
+												<td >Chưa có</td>
+												</th:block>
 												<th:block th:if="${DonDatHang.trangThai==1}">
 												<td>Chờ duyệt <a class="btn btn-primary">Duyệt</a></td>  
 												</th:block>

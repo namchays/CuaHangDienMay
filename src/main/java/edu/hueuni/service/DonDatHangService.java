@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.hueuni.entity.DonDatHang;
+import edu.hueuni.entity.KhachHang;
+import edu.hueuni.entity.NhanVien;
 import edu.hueuni.repository.DonDatHangRepository;
 
 @Service
@@ -21,5 +23,11 @@ public class DonDatHangService {
 	}
 	public List<DonDatHang> findByNoiGiaoHang(String noiGiaoHang) {
 		return donDatHangRepository.findByNoiGiaoHang(noiGiaoHang);
+	}
+	public List<DonDatHang> findByNhanVien(NhanVien nhanVien) {
+		return donDatHangRepository.findByNhanVien(nhanVien);
+	}
+	public List<DonDatHang> findByKhachHang(KhachHang khachHang) {
+		return donDatHangRepository.findByKhachHang(khachHang);
 	}
 }

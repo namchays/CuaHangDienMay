@@ -83,6 +83,14 @@ public class NhanVien implements Serializable {
 	}
 	
 
+	public NhanVien(String userName) {
+		super();
+		this.userName = userName;
+	}
+
+
+
+
 	public NhanVien(String userName, String diaChi, String dienThoai, int gioiTinh, int luongCoBan, Date ngayLamViec,
 			Date ngaySinh, String password, int phuCap, String tenNhanVien) {
 		super();

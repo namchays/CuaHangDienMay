@@ -175,6 +175,63 @@
 						<div class="col-sm-12 padding-right">
 							
 							<!--features_items-->
+							<!-- Hàng gia dụng -->
+							<div class="recommended_items">
+
+
+								<h2 class="title text-center" style="color: #0054a6;">NHÓM HÀNG GIA DỤNG</h2>
+
+								<div id="recommended-item-carousel-gia-dung" class="carousel slide"
+									data-ride="carousel">
+									<div class="carousel-inner" id="gia-dung"></div>
+									<a class="left recommended-item-control"
+										href="#recommended-item-carousel-gia-dung" data-slide="prev"> <i
+										class="fa fa-angle-left"></i>
+									</a> <a class="right recommended-item-control"
+										href="#recommended-item-carousel-gia-dung" data-slide="next"> <i
+										class="fa fa-angle-right"></i>
+									</a>
+								</div>
+							</div>
+							<!-- Hàng Gia dụng-->
+							<!-- Hàng Điện lạnh -->
+							<div class="recommended_items">
+
+
+								<h2 class="title text-center" style="color: #0054a6;">NHÓM HÀNG ĐIỆN LẠNH</h2>
+
+								<div id="recommended-item-carousel-dien-lanh" class="carousel slide"
+									data-ride="carousel">
+									<div class="carousel-inner" id="dien-lanh"></div>
+									<a class="left recommended-item-control"
+										href="#recommended-item-carousel-dien-lanh" data-slide="prev"> <i
+										class="fa fa-angle-left"></i>
+									</a> <a class="right recommended-item-control"
+										href="#recommended-item-carousel-dien-lanh" data-slide="next"> <i
+										class="fa fa-angle-right"></i>
+									</a>
+								</div>
+							</div>
+							<!-- Hàng Điện lạnh-->
+							<!-- Hàng Điện tử -->
+							<div class="recommended_items">
+
+
+								<h2 class="title text-center" style="color: #0054a6;">NHÓM HÀNG ĐIỆN TỬ</h2>
+
+								<div id="recommended-item-carousel-dien-tu" class="carousel slide"
+									data-ride="carousel">
+									<div class="carousel-inner" id="dien-tu"></div>
+									<a class="left recommended-item-control"
+										href="#recommended-item-carousel-dien-tu" data-slide="prev"> <i
+										class="fa fa-angle-left"></i>
+									</a> <a class="right recommended-item-control"
+										href="#recommended-item-carousel-dien-tu" data-slide="next"> <i
+										class="fa fa-angle-right"></i>
+									</a>
+								</div>
+							</div>
+							<!-- Hàng Điện tử-->
 							<!-- Hàng LapTop -->
 							<div class="recommended_items">
 
@@ -203,7 +260,7 @@
 
 								<div id="recommended-item-carousel-phone" class="carousel slide"
 									data-ride="carousel">
-									<div class="carousel-inner" id="dienthoai"></div>
+									<div class="carousel-inner" id="dien-thoai"></div>
 									<a class="left recommended-item-control"
 										href="#recommended-item-carousel-phone" data-slide="prev"> <i
 										class="fa fa-angle-left"></i>
@@ -224,7 +281,7 @@
 
 								<div id="recommended-item-carousel" class="carousel slide"
 									data-ride="carousel">
-									<div class="carousel-inner" id="hanghieu"></div>
+									<div class="carousel-inner" id="hang-hieu"></div>
 									<a class="left recommended-item-control"
 										href="#recommended-item-carousel" data-slide="prev"> <i
 										class="fa fa-angle-left"></i>
@@ -322,12 +379,22 @@
 		var listPhone = listMatHangModels.filter(function(e){
 			return e.tenLoaiHang == "Di động";
 		})
+		var listDienTu = listMatHangModels.filter(function(e){
+			return e.tenLoaiHang == "Điện tử";
+		})
+		var listDienLanh = listMatHangModels.filter(function(e){
+			return e.tenLoaiHang == "Điện lạnh";
+		})
 		console.log(listLaptop);
 		console.log(listPhone);
+		console.log(listDienLanh);
 		
-
-		$('#hanghieu').append(createHTML(listMatHangModels));
-		$('#dienthoai').append(createHTML(listPhone));
+		
+		
+		$('#dien-lanh').append(createHTML(listDienLanh));
+		$('#dien-tu').append(createHTML(listDienTu));
+		$('#hang-hieu').append(createHTML(listMatHangModels));
+		$('#dien-thoai').append(createHTML(listPhone));
 		$('#laptop').append(createHTML(listLaptop));
 		
 		console.log(listMatHangModels);

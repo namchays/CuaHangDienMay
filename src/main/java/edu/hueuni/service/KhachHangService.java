@@ -19,22 +19,24 @@ public class KhachHangService {
 	private NhanVienService nhanVienService;
 	
 	public void save(KhachHang khachHang) throws NoSuchAlgorithmException {
-		Optional<KhachHang> khachHangFound = khachHangRepository.findById(khachHang.getUserName());
-		if(khachHangFound.isPresent()) {
-			throw new DuplicateKeyException("Username đã tồn tại");
-		}else {
+
 			String password = khachHang.getPassword();
 			String encryptedPassword = nhanVienService.md5("hueunisalt", password);
 			khachHang.setPassword(encryptedPassword);
 			khachHangRepository.save(khachHang);
-		}
+		
 		
 	}
 	public Optional<KhachHang> findByUserNameAndPassword(String userName, String password){
 		return khachHangRepository.findByUserNameAndPassword(userName, password);
 	}
-	public Optional<KhachHang> findByUserName(String userName){
-		return khachHangRepository.findByUserName(userName);
+	public KhachHang findByUserName(String userName){
+		
+		 Optional<KhachHang> khachHangFound = khachHangRepository.findByUserName(userName);
+		 if(khachHangFound.isPresent()) {
+			 return khachHangFound.get();
+		 }
+		 return null;
 	}
 	public List<KhachHang> findAll() {
 		return khachHangRepository.findAll();

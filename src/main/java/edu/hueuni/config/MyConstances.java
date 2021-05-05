@@ -103,4 +103,11 @@ public class MyConstances {
 	public static final int HANG_MOI = 1;
 	public static final int HANG_SAP_VE = 0;
 	public static final int ONLINE_GIA_RE = 2;
+	///Địa chỉ upload
+	public static final String DIRECTORY_BAI_DANG = System.getProperty("user.dir")
+			+ "\\src\\main\\resources\\static\\img\\baidang\\";
+	
+	public static final String DIRECTORY_IMG_USER = System.getProperty("user.dir")
+			+ "\\src\\main\\resources\\static\\img\\user\\";
+	
 }

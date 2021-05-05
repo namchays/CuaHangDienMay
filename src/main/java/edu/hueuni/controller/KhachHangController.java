@@ -34,8 +34,8 @@ public class KhachHangController {
 			@RequestParam(name = "gioiTinh") Integer gioiTinh,
 			@RequestParam(name = "ngaySinh") String ngaySinh) throws ParseException, NoSuchAlgorithmException {
 		
-		Optional<KhachHang> khachHangFound = khachHangService.findByUserName(userName);
-		if(khachHangFound.isPresent()) {
+		KhachHang khachHang = khachHangService.findByUserName(userName);
+		if(khachHang!=null) {
 			return "/user/register";
 		}else {
 

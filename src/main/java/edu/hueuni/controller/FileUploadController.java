@@ -17,6 +17,7 @@ public class FileUploadController {
 	public static String uploadImgDirectory = System.getProperty("user.dir") +"\\src\\main\\resources\\static\\img\\mathang";
 	public static String uploadImgDirectoryBaiDang = System.getProperty("user.dir") +"\\src\\main\\resources\\static\\img\\baidang";
 	public static String uploadImgDirectoryQuaTang = System.getProperty("user.dir") +"\\src\\main\\resources\\static\\img\\quatang";
+	public static String uploadImgDirectoryUser = System.getProperty("user.dir") +"\\src\\main\\resources\\static\\img\\user";
 	@RequestMapping(value = "getImg/img/mathang/{photo}",method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<ByteArrayResource> getImg(@PathVariable("photo") String photo){
@@ -66,6 +67,27 @@ public class FileUploadController {
 		if(!photo.equals("")&&photo !=null) {
 			try {
 				Path filename = Paths.get(uploadImgDirectoryQuaTang,photo);
+				byte[] buffer = Files.readAllBytes(filename);
+				
+				ByteArrayResource byteArrayResource = new ByteArrayResource(buffer);
+				return ResponseEntity.ok().contentLength(buffer.length)
+						.contentType(MediaType.parseMediaType("image/png"))
+						.body(byteArrayResource);
+			}
+			catch(Exception e) {
+				System.out.println(e.toString());
+			}
+		}
+		
+		return ResponseEntity.badRequest().build();
+	}
+	@RequestMapping(value = "/getAvatar/{photo}",method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<ByteArrayResource> getImgAvatar(@PathVariable("name") String name){
+		System.out.println(name);
+		if(!name.equals("")&&name !=null) {
+			try {
+				Path filename = Paths.get(uploadImgDirectoryUser,name);
 				byte[] buffer = Files.readAllBytes(filename);
 				
 				ByteArrayResource byteArrayResource = new ByteArrayResource(buffer);

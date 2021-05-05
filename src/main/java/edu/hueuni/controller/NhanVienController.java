@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,7 @@ import edu.hueuni.model.NhomHangModel;
 import edu.hueuni.model.QuaTangItem;
 import edu.hueuni.model.QuaTangModel;
 import edu.hueuni.service.AnhMatHangService;
+import edu.hueuni.service.BaiDangService;
 import edu.hueuni.service.ChiTietMatHangService;
 import edu.hueuni.service.CuaHangService;
 import edu.hueuni.service.DonDatHangService;
@@ -75,6 +77,8 @@ public class NhanVienController {
 	private NhanVienService nhanVienService;
 	@Autowired
 	private KhachHangService khachHangService;
+	@Autowired
+	private BaiDangService baiDangService;
 	
 	public static String uploadDirectory = System.getProperty("user.dir")
 			+ "\\src\\main\\resources\\static\\img\\mathang\\";
@@ -82,7 +86,7 @@ public class NhanVienController {
 	public static String uploadQuaTangDirectory = System.getProperty("user.dir")
 			+ "\\src\\main\\resources\\static\\img\\quatang\\";
 	
-	///Manage quà tặng
+	///----------------------------------------Manage quà tặng------------------------------------------------------
 	@GetMapping("/manage-qua-tang")
 	public ModelAndView manageQuaTang() {
 		ModelAndView mav = new ModelAndView("/employee/quatang/manageQuaTang");
@@ -98,6 +102,15 @@ public class NhanVienController {
 		ModelAndView mav = new ModelAndView("/employee/quatang/addQuaTang");
 		return mav;
 		
+	}
+	@GetMapping("/edit-qua-tang/{id}")
+	public ModelAndView editQuaTang(@PathVariable int id) {
+		ModelAndView mav = new ModelAndView("/employee/quatang/editQuaTang"); 
+		Optional<QuaTang> quaTangFound = quaTangService.findById(id);
+		if(quaTangFound.isPresent()) {
+			mav.addObject("quaTang", quaTangFound.get());
+		}
+		return mav;
 	}
 	
 	@GetMapping("/delete-qua-tang/{id}")
@@ -146,9 +159,9 @@ public class NhanVienController {
 		ModelAndView mav = new ModelAndView("/employee/loaihang/manageLoaiHang");
 		List<LoaiHang> listLoaiHang = loaiHangService.findAll();
 		mav.addObject("listLoaiHang", listLoaiHang);
-		Optional<LoaiHang> loaiHangFound = loaiHangService.findById(id);
-		if (loaiHangFound.isPresent()) {
-			List<NhomHang> nhomHangs = loaiHangFound.get().getNhomHangs();
+		LoaiHang loaiHangFound = loaiHangService.findById(id);
+		if (loaiHangFound!=null) {
+			List<NhomHang> nhomHangs = loaiHangFound.getNhomHangs();
 			mav.addObject("listNhomHang", nhomHangs);
 		}
 		mav.addObject("id", id);
@@ -169,11 +182,11 @@ public class NhanVienController {
 	@PostMapping("/edit-loai-hang/{id}")
 	public ModelAndView editLoaiHang(@PathVariable int id, @RequestParam(name = "tenLoaiHang") String tenLoaiHang) {
 		ModelAndView mav = new ModelAndView("redirect:/manage-loai-hang/" + id);
-		Optional<LoaiHang> loaiHangFound = loaiHangService.findById(id);
-		if (loaiHangFound.isPresent()) {
-			LoaiHang loaiHang = loaiHangFound.get();
-			loaiHang.setTenLoaiHang(tenLoaiHang);
-			loaiHangService.save(loaiHang);
+		LoaiHang loaiHangFound = loaiHangService.findById(id);
+		if (loaiHangFound!=null) {
+		
+			loaiHangFound.setTenLoaiHang(tenLoaiHang);
+			loaiHangService.save(loaiHangFound);
 		}
 		return mav;
 
@@ -183,9 +196,9 @@ public class NhanVienController {
 	@PostMapping("/add-nhom-hang/{id}")
 	public String addNhomHangSubmit(@RequestParam(name = "tenNhomHang") String tenNhomHang, @PathVariable int id) {
 		NhomHang nhomHang = new NhomHang(tenNhomHang);
-		Optional<LoaiHang> LoaiHangFound = loaiHangService.findById(id);
-		if (LoaiHangFound.isPresent()) {
-			nhomHang.setLoaiHang(LoaiHangFound.get());
+		LoaiHang LoaiHangFound = loaiHangService.findById(id);
+		if (LoaiHangFound!=null) {
+			nhomHang.setLoaiHang(LoaiHangFound);
 			nhomHangService.save(nhomHang);
 		}
 
@@ -195,9 +208,9 @@ public class NhanVienController {
 	@PostMapping("/edit-nhom-hang/{id}")
 	public ModelAndView editNhomHang(@PathVariable int id, @RequestParam(name = "tenNhomHang") String tenNhomHang) {
 		ModelAndView mav = new ModelAndView("redirect:/manage-loai-hang/1");
-		Optional<NhomHang> nhomHangFound = nhomHangService.findById(id);
-		if (nhomHangFound.isPresent()) {
-			NhomHang nhomHang = nhomHangFound.get();
+		NhomHang nhomHang = nhomHangService.findById(id);
+		if (nhomHang!=null) {
+		
 			nhomHang.setTenNhomHang(tenNhomHang);
 			nhomHangService.save(nhomHang);
 		}
@@ -304,7 +317,12 @@ public class NhanVienController {
 			@RequestParam(name = "trangThai") String trangThai,
 			@ModelAttribute("quaTangModel") @Valid QuaTangModel quaTangModel,
 			@ModelAttribute("ChiTietMatHangModel") @Valid ChiTietMatHangModel chiTietMatHangModel,
-			@RequestParam("files") MultipartFile[] files) {
+			@RequestParam("files") MultipartFile[] files,
+			@RequestParam("fileBaiDang") MultipartFile[] fileBaiDang,
+			@RequestParam(name = "tieuDe") String tieuDe,
+			@RequestParam(name = "noiDung") String noiDung,
+			HttpServletRequest request
+			) {
 		System.out.println("TRANG THAI "+ trangThai);
 		System.out.println("index"+giaHang.indexOf('$'));
 		System.out.println("gia"+giaHang);
@@ -317,8 +335,8 @@ public class NhanVienController {
 		
 		//Nhóm hàng ok
 		int idNhomHang = Integer.parseInt(tenNhomHang);
-		Optional<NhomHang> nhomHang = nhomHangService.findById(idNhomHang);
-		NhomHang nhomHangGet = nhomHang.get();
+		NhomHang nhomHang = nhomHangService.findById(idNhomHang);
+
 		
 		//Thêm quà tặng ok
 //		List<QuaTang> listQuaTang = addListQuaTang(Integer.parseInt(quaTangModel.getQuaTang1()),Integer.parseInt(quaTangModel.getQuaTang2()),Integer.parseInt(quaTangModel.getQuaTang3()));
@@ -333,7 +351,7 @@ public class NhanVienController {
 		
 		//thêm mặt hàng 
 		MatHang matHang =new MatHang(donViTinh,giaHangInt, Integer.parseInt(soLuong), tenMatHang, Integer.parseInt(trangThai), 
-				xuatXu, nhomHangGet, listQuaTangs);
+				xuatXu, nhomHang, listQuaTangs);
 		matHangService.save(matHang);
 	
 		
@@ -369,7 +387,9 @@ public class NhanVienController {
 	
 		//Thêm ảnh ok
 		ThemAnh(files,matHang);
-
+		//Thêm bài đăng
+		HttpSession session = request.getSession();
+		baiDangService.addBaiDang(tieuDe, fileBaiDang, noiDung, session, matHang);
 		
 		return mav;
 	}
@@ -407,8 +427,8 @@ public class NhanVienController {
 		
 		//Nhóm hàng chưa set
 		int idNhomHang = Integer.parseInt(tenNhomHang);
-		Optional<NhomHang> nhomHang = nhomHangService.findById(idNhomHang);
-		NhomHang nhomHangGet = nhomHang.get();
+		NhomHang nhomHang = nhomHangService.findById(idNhomHang);
+
 		
 		//Thêm quà tặng chưa set
 		List<QuaTangItem> listQuaTangItem = quaTangModel.getQuaTangItem();
@@ -465,7 +485,7 @@ public class NhanVienController {
 			
 			//set value
 			
-			matHang.setNhomHang(nhomHangGet);
+			matHang.setNhomHang(nhomHang);
 			matHang.setQuaTangs(listQuaTangs);
 			matHang.setGiaHang(giaHangInt);
 			matHang.setSoLuong(Integer.parseInt(soLuong));
@@ -552,11 +572,11 @@ public class NhanVienController {
 			return ResponseEntity.badRequest().body(result);
 
 		}
-		Optional<LoaiHang> loaiHangFound = loaiHangService.findById(selectedValue);
+		LoaiHang loaiHangFound = loaiHangService.findById(selectedValue);
 		ArrayList<NhomHang> NhomHangFound = new ArrayList<NhomHang>();
-		if (loaiHangFound.isPresent()) {
+		if (loaiHangFound!=null) {
 			result.setMsg("success");
-			NhomHangFound = (ArrayList<NhomHang>) nhomHangService.findByLoaiHang(loaiHangFound.get());
+			NhomHangFound = (ArrayList<NhomHang>) nhomHangService.findByLoaiHang(loaiHangFound);
 		} else {
 			result.setMsg("error");
 		}

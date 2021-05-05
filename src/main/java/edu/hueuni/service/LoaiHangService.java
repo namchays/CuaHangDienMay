@@ -1,5 +1,6 @@
 package edu.hueuni.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.hueuni.entity.LoaiHang;
+import edu.hueuni.entity.MatHang;
 import edu.hueuni.entity.NhomHang;
 import edu.hueuni.repository.LoaiHangRepository;
 import edu.hueuni.repository.NhomHangRepository;
@@ -27,8 +29,12 @@ public class loaiHangService {
 	public List<LoaiHang> findAll() {
 		return loaiHangRepository.findAll();
 	}
-	public Optional<LoaiHang> findById(int id){
-		return loaiHangRepository.findById(id);
+	public LoaiHang findById(int id){
+		Optional<LoaiHang> loaiHangFound = loaiHangRepository.findById(id);
+		if(loaiHangFound.isPresent()) {
+			return loaiHangFound.get();
+		}
+		return null;
 	}
 	public void deleteById(int id) {
 		Optional<LoaiHang> LoaiHangFound = loaiHangRepository.findById(id);
@@ -65,7 +71,30 @@ public class loaiHangService {
 //		
 //		deThiRepository.delete(deThi);
 //	}
-	
+	public List<MatHang> getAllMatHangByNhomHang(int id) {
+		Optional<LoaiHang> loaiHangFound = loaiHangRepository.findById(id);
+		List<MatHang> listMatHang = new ArrayList<MatHang>();
+		if(loaiHangFound.isPresent()) {
+			LoaiHang loaiHang = loaiHangFound.get();
+			List<NhomHang> listNhomHang = loaiHang.getNhomHangs();
+			if(listNhomHang!=null) {
+				if(listNhomHang.size()>0) {
+					for (NhomHang nhomHang : listNhomHang) {
+						List<MatHang> matHangs = nhomHang.getMatHangs();
+						if(matHangs!=null) {
+							if(matHangs.size()>0) {
+								matHangs.forEach(x->{
+									listMatHang.add(x);
+								});
+							}
+						}
+					}
+				}
+			}
+			
+		}
+		return listMatHang;
+	}
 	
 	
 }
