@@ -1,7 +1,14 @@
 package edu.hueuni.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,10 +24,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.hueuni.entity.AnhMatHang;
 import edu.hueuni.entity.BaiDang;
 import edu.hueuni.entity.BinhLuan;
 import edu.hueuni.entity.KhachHang;
 import edu.hueuni.entity.NhanVien;
+import edu.hueuni.model.BinhLuanModel;
+import edu.hueuni.model.QuantityModel;
+import edu.hueuni.model.TraLoiModel;
 import edu.hueuni.service.AnhMatHangService;
 import edu.hueuni.service.BaiDangService;
 import edu.hueuni.service.BinhLuanService;
@@ -70,7 +81,8 @@ public class CommentController {
 	private AnhMatHangService anhMatHangService;
 	@Autowired
 	private ChiTietMatHangService chiTietMatHangService;
-	
+	public static String uploadDirectory = System.getProperty("user.dir")
+			+ "\\src\\main\\resources\\static\\img\\comment\\";
 	
 	@SuppressWarnings("unchecked")
 	@PostMapping("/add-comment/{id}")
@@ -82,6 +94,7 @@ public class CommentController {
 
 //        logger.debug("Multiple file upload!");
 		HttpSession session = request.getSession();
+		BinhLuanModel binhLuanModel = new BinhLuanModel();
 		if(session.getAttribute("account")!=null) {
 			String username =null;
 			Object account = session.getAttribute("account");
@@ -98,12 +111,57 @@ public class CommentController {
 			binhLuan.setNoiDung(extraField);
 			binhLuan.setUserName(username);
 			binhLuan.setBaiDang(baiDang);
+			
+			
+			binhLuanModel.setNoiDung(extraField);
+			binhLuanModel.setLuotThich(0);
+			binhLuanModel.setUserName(username);
+			
+			//Thêm ảnh
+			new File(uploadDirectory).mkdir();
+			String imageURL = null;
+			StringBuilder fileNames = new StringBuilder();
+			for (MultipartFile file : uploadfiles) {
+				imageURL = "/img/comment/" + file.getOriginalFilename();
+				System.out.println(imageURL);
+				Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
+				fileNames.append(file.getOriginalFilename());
+				try {
+					Files.write(fileNameAndPath, file.getBytes());
+				} catch (IOException e) {
+					break;
+				}
+				binhLuanModel.setUrlImage(imageURL);
+				binhLuan.setUrlImage(imageURL);
+			
+
+			}
+			Date date = new Date();
+			binhLuan.setThoiGian(date);
+			binhLuanModel.setThoiGian(date.toString());
+			System.err.println(date.toString());
 			binhLuanService.save(binhLuan);
+			
 		}
 		
         // Get file name
 			
-        return new ResponseEntity("Successfully uploaded - ", HttpStatus.OK);
+        return  ResponseEntity.ok(binhLuanModel);
+
+    }
+	@SuppressWarnings("unchecked")
+	@PostMapping("/add-tra/{id}")
+    public ResponseEntity<?> addTraLoiForm(
+            @RequestParam("noiDung") String noiDung,
+            @RequestParam("files") MultipartFile[] uploadfiles,
+            @PathVariable int id,
+            HttpServletRequest request) {
+		
+		
+		TraLoiModel traLoiModel = traLoiService.addTraLoi(noiDung, uploadfiles, id, request);
+		
+		
+        return  ResponseEntity.ok(traLoiModel);
 
     }
 }

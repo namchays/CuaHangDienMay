@@ -155,13 +155,14 @@
 						<hr/>
 					
 						
-						<div style="font-size: 15px;float: left;" >
+						<div class="filter-by-price" style="font-size: 15px;float: left;" >
 							<label style="font-weight: normal;">Chọn mức giá:</label>
-							<a href="filter-by-price/0-2">Dưới 2 triệu</a> &nbsp;&nbsp;
-							<a href="filter-by-price/2-4" >Từ 2 đến 4 triệu</a>&nbsp;&nbsp;
-							<a href="filter-by-price/4-7" >Từ 7 đến 7 triệu</a>&nbsp;&nbsp;
-							<a href="filter-by-price/7-13" >Từ 7 đến 13 triệu</a>&nbsp;&nbsp;
-							<a href="filter-by-price/13-20" >Từ 13 đến 20 triệu</a>&nbsp;&nbsp;
+							<a href="0-2">Dưới 2 triệu</a> &nbsp;&nbsp;
+							<a href="2-4" >Từ 2 đến 4 triệu</a>&nbsp;&nbsp;
+							<a href="4-7" >Từ 7 đến 7 triệu</a>&nbsp;&nbsp;
+							<a href="7-13" >Từ 7 đến 13 triệu</a>&nbsp;&nbsp;
+							<a href="13-20" >Từ 13 đến 20 triệu</a>&nbsp;&nbsp;
+							<a href="20" >Trên 20 triệu</a>&nbsp;&nbsp;
 							
 						</div>
 					
@@ -203,91 +204,110 @@
 	<th:block th:insert="/shared/footer :: footer"></th:block>
 
 	<script th:inline="javascript">
-		/*<![CDATA[*/
-		
-		
-			
-		var listMatHangModels = /*[[${listMatHangModels}]]*/'';
-		function shuffle(array) {
-			var tmp, current, top = array.length;
-			if (top)
-				while (--top) {
-					current = Math.floor(Math.random() * (top + 1));
-					tmp = array[current];
-					array[current] = array[top];
-					array[top] = tmp;
-				}
-			return array;
+/*<![CDATA[*/
+	
+	
+	
+	var listMatHangModels = /*[[${listMatHangModels}]]*/'';
+	function shuffle(array) {
+		var tmp, current, top = array.length;
+		if (top)
+			while (--top) {
+				current = Math.floor(Math.random() * (top + 1));
+				tmp = array[current];
+				array[current] = array[top];
+				array[top] = tmp;
+			}
+		return array;
+	}
+	listMatHangModels = shuffle(listMatHangModels);
+	///sort product
+	$('#sort-asc-desc').on('change', function() {
+		if(this.value=="1"){
+			listMatHangModels.sort(function(a, b){return a.giaHang-b.giaHang}); 
+			sort();
 		}
-		listMatHangModels = shuffle(listMatHangModels);
-		
-		$('#sort-asc-desc').on('change', function() {
-			if(this.value=="1"){
-				listMatHangModels.sort(function(a, b){return a.giaHang-b.giaHang}); 
-				sort();
-			}
-			if(this.value=="0"){
-				listMatHangModels.sort(function(a, b){return b.giaHang-a.giaHang}); 
-				sort();
-			}
-			});
-		function  madeListMatHang(listMatHangModels){
+		if(this.value=="0"){
+			listMatHangModels.sort(function(a, b){return b.giaHang-a.giaHang}); 
+			sort();
+		}
+		});
+	
+	////filter product
+	$('div.filter-by-price a').click(function(event) {
+    event.preventDefault();
+    listMatHangModels = /*[[${listMatHangModels}]]*/'';
+    var value=$(this).attr("href");
+    var res = value.split("-");
+ 	var first =   parseInt(res[0]) * 1000000;
+    var last = parseInt(res[1]) * 1000000;
+   	if(Number.isNaN(last)){
+   		listMatHangModels = listMatHangModels.filter(item => item.giaHang >= first );	
+   	}else{
+    listMatHangModels = listMatHangModels.filter(item => item.giaHang >= first && item.giaHang < last);
+   	}
+    sort();
+    console.log("last"+last);
+    console.log("last"+first);
+    
+	});
+	function  madeListMatHang(listMatHangModels){
 
-			var txtCarousel =  "<div class='row'>";
+		var txtCarousel =  "<div class='row'>";
+		
+		var division = Math.floor(listMatHangModels.length/5); //2
+		for (i = 0; i < listMatHangModels.length; i ++) {
+			var txtState ="<img src='/img/home/new.png' class='new'> \n";
+		
 			
-			var division = Math.floor(listMatHangModels.length/5); //2
-			for (i = 0; i < listMatHangModels.length; i ++) {
-				var txtState ="<img src='/img/home/new.png' class='new'> \n";
 			
-				
-				
-				
-						if(listMatHangModels[i].trangThai===0) txtState="<img src='/img/home/sap_ve.png' class='new' > \n";
-						if(listMatHangModels[i].trangThai===2) 
-							{
-							txtState="<img src='/img/home/sale.png' class='new' > \n";
-							console.log("trang thai 2");
-							}
-						var txtSrc="";
-						if(listMatHangModels[i].urlImg === null){
-							txtSrc = "/img/home/dang_cap_nhat.png"
+			
+					if(listMatHangModels[i].trangThai===0) txtState="<img src='/img/home/sap_ve.png' class='new' > \n";
+					if(listMatHangModels[i].trangThai===2) 
+						{
+						txtState="<img src='/img/home/sale.png' class='new' > \n";
+						console.log("trang thai 2");
 						}
-						else{
-							txtSrc = listMatHangModels[i].urlImg;
-						}
-						txtCarousel = txtCarousel + 		"<div class='col-md-5ths'> \n"+
-						"<div  class='product-image-wrapper box-product' style='height:320px'> \n"+
-						"<div class='single-products'> \n"+
-							"<div class='productinfo ' > \n"+
-							"<a  href='/detail-san-pham/"+listMatHangModels[i].maHang+"'  >" +
-								"<img class='img-product'  src='/getImg"+listMatHangModels[i].urlImg+"' style='height:220px;transform: scale(0.9);'/>"+
-								"</a> <hr/>"+
-								"<p style='color: red;font-weight: bold;'>"+Number(listMatHangModels[i].giaHang).toLocaleString('en')+" "+listMatHangModels[i].donViTinh+"</p> \n"+
-								"<a  style='font-size:15px'  href='/detail-san-pham/"+listMatHangModels[i].maHang+"'>"+(listMatHangModels[i].tenHang.length >45 ?listMatHangModels[i].tenHang.slice(0, 45) +"...":listMatHangModels[i].tenHang)+"</a>  \n"+
-							    "</div> \n"+
-								txtState +
-								"</div> \n"+
-								"</div> \n"+
-								"</div> \n";
+					var txtSrc="";
+					if(listMatHangModels[i].urlImg === null){
+						txtSrc = "/img/home/dang_cap_nhat.png"
 					}
-					txtCarousel += "</div> \n"+
-						"</div>";
-					return txtCarousel;
-		}
+					else{
+						txtSrc = listMatHangModels[i].urlImg;
+					}
+					txtCarousel = txtCarousel + 		"<div class='col-md-5ths'> \n"+
+					"<div  class='product-image-wrapper box-product' style='height:320px'> \n"+
+					"<div class='single-products'> \n"+
+						"<div class='productinfo ' > \n"+
+						"<a  href='/detail-san-pham/"+listMatHangModels[i].maHang+"'  >" +
+							"<img class='img-product'  src='/getImg"+listMatHangModels[i].urlImg+"' style='height:220px;transform: scale(0.9);'/>"+
+							"</a> <hr/>"+
+							"<p style='color: red;font-weight: bold;'>"+Number(listMatHangModels[i].giaHang).toLocaleString('en')+" "+listMatHangModels[i].donViTinh+"</p> \n"+
+							"<a  style='font-size:15px'  href='/detail-san-pham/"+listMatHangModels[i].maHang+"'>"+(listMatHangModels[i].tenHang.length >45 ?listMatHangModels[i].tenHang.slice(0, 45) +"...":listMatHangModels[i].tenHang)+"</a>  \n"+
+						    "</div> \n"+
+							txtState +
+							"</div> \n"+
+							"</div> \n"+
+							"</div> \n";
+				}
+				txtCarousel += "</div> \n"+
+					"</div>";
+				return txtCarousel;
+	}
 
-			/* console.log(i + "" + listMatHangModels[i].tenHang);
-			 */
-/* 		console.log(txtCarousel); */
-		var txtAdd = madeListMatHang(listMatHangModels);
-		$('#listMatHang').append(txtAdd);
-		function sort(){
-			$('#listMatHang').children().remove();
-			var txtSorted = madeListMatHang(listMatHangModels);
-			$('#listMatHang').append(txtSorted);
+	var txtAdd = madeListMatHang(listMatHangModels);
+	$('#listMatHang').append(txtAdd);
+	function sort(){
+		$('#listMatHang').children().remove();
+		var txtSorted = madeListMatHang(listMatHangModels);
+		if(listMatHangModels.length > 0){
+			$('#listMatHang').append(txtSorted);	
+		}else{
+			$('#listMatHang').append("<h1 style='background-color: #ff8400'>Không có mặt hàng nào được tìm thấy</h1>")
 		}
-		console.log(listMatHangModels);
-
-		/*]]>*/
+	}
+console.log(listMatHangModels)
+	/*]]>*/
 	</script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>

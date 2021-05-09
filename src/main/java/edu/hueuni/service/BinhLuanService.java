@@ -48,4 +48,13 @@ public class BinhLuanService {
 	public List<BinhLuan> findByBaiDang(BaiDang baiDang) {
 		return binhLuanRepository.findByBaiDang(baiDang);
 	}
+	public BinhLuan findById(int id) {
+		Optional<BinhLuan> binhLuanFound = binhLuanRepository.findById(id);
+		BinhLuan binhLuan = null;
+		if(binhLuanFound.isPresent()) {
+			binhLuan = binhLuanFound.get();
+		}
+	
+		return binhLuan;
+	}
 }

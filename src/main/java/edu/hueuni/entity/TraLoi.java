@@ -1,6 +1,8 @@
 package edu.hueuni.entity;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.*;
 
 import org.hibernate.annotations.Nationalized;
@@ -34,7 +36,10 @@ public class TraLoi implements Serializable {
 
 	@Column(name="user_name",length = 50)
 	private String userName;
-
+	
+	@Column(name="thoi_gian")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date thoiGian;
 	//bi-directional many-to-one association to BinhLuan
 	@ManyToOne
 	@JoinColumn(name="id_binh_luan")
@@ -64,6 +69,16 @@ public class TraLoi implements Serializable {
 	public int getLuotThich() {
 		return this.luotThich;
 	}
+
+	public Date getThoiGian() {
+		return thoiGian;
+	}
+
+
+	public void setThoiGian(Date thoiGian) {
+		this.thoiGian = thoiGian;
+	}
+
 
 	public void setLuotThich(int luotThich) {
 		this.luotThich = luotThich;

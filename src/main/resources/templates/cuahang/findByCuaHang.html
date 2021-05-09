@@ -187,7 +187,6 @@
 						</div>
 					</div>
 				</div>
-			</section>
 
 		</div>
 
@@ -292,7 +291,23 @@
 			trigger : 'mouseover'
 		});
 	</script>
+<script type="text/javascript">
 
+         /* var selectbox = document.getElementById("select-id");
+         var selectedValue = selectbox.options[selectbox.selectedIndex].value;
+          */
+         
+     $('.loai-hang-item').each(function(ev){
+    	
+    	 $(this).click(function(ev){
+    		 ev.stopPropagation();
+    		console.log($(this).children("a").html());
+    		window.location.href = "/find-by-loai-hang/"+$(this).children("a").attr('id'); 
+    	 })
+    	 
+     })  
+	 
+	</script>
 	<script src="/js/body/jquery.js"></script>
 	<script src="/js/body/bootstrap.min.js"></script>
 	<script src="/js/body/jquery.scrollUp.min.js"></script>

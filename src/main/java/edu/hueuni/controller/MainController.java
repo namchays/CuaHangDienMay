@@ -3,6 +3,7 @@ package edu.hueuni.controller;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.hueuni.config.MyConstances;
 import edu.hueuni.entity.AnhMatHang;
+import edu.hueuni.entity.BinhLuan;
 import edu.hueuni.entity.ChiTietMatHang;
 import edu.hueuni.entity.CuaHang;
 import edu.hueuni.entity.KhachHang;
@@ -83,7 +85,15 @@ public class MainController {
 				String urlImg = listAnhMatHang.get(0).getUrl();
 				model.addAttribute("urlImg", urlImg);
 			}
-			
+			if(matHang.getBaiDangs().size()>0) {
+				if(matHang.getBaiDangs().get(0).getBinhLuans().size()>0) {
+					MatHang matHang2 = matHang;
+					List<BinhLuan> binhLuans = matHang2.getBaiDangs().get(0).getBinhLuans();
+				    binhLuans.sort((o1,o2) -> o2.getThoiGian().compareTo(o1.getThoiGian()));
+					matHang.getBaiDangs().get(0).setBinhLuans(binhLuans);
+						
+				}
+			}
 			model.addAttribute("listChiTietMatHang", listChiTietMatHang);
 			model.addAttribute("matHang", matHang );
 			if(matHang.getBaiDangs().size()>0) {

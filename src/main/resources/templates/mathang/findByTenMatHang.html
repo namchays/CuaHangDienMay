@@ -155,21 +155,22 @@
 						<hr/>
 					
 						
-						<div style="font-size: 15px;float: left;" >
+						<div class="filter-by-price" style="font-size: 15px;float: left;" >
 							<label style="font-weight: normal;">Chọn mức giá:</label>
-							<a href="filter-by-price/0-2">Dưới 2 triệu</a> &nbsp;&nbsp;
-							<a href="filter-by-price/2-4" >Từ 2 đến 4 triệu</a>&nbsp;&nbsp;
-							<a href="filter-by-price/4-7" >Từ 7 đến 7 triệu</a>&nbsp;&nbsp;
-							<a href="filter-by-price/7-13" >Từ 7 đến 13 triệu</a>&nbsp;&nbsp;
-							<a href="filter-by-price/13-20" >Từ 13 đến 20 triệu</a>&nbsp;&nbsp;
+							<a href="0-2">Dưới 2 triệu</a> &nbsp;&nbsp;
+							<a href="2-4" >Từ 2 đến 4 triệu</a>&nbsp;&nbsp;
+							<a href="4-7" >Từ 7 đến 7 triệu</a>&nbsp;&nbsp;
+							<a href="7-13" >Từ 7 đến 13 triệu</a>&nbsp;&nbsp;
+							<a href="13-20" >Từ 13 đến 20 triệu</a>&nbsp;&nbsp;
+							<a href="20" >Trên 20 triệu</a>&nbsp;&nbsp;
 							
 						</div>
 					
 						<div style="float: right;font-size: 15px;" >
 						
-							<select style="display: inline;background-color: white;">
-								<option>Giá từ thấp đến cao</option>
-								<option>Giá từ cao đến thấp</option>
+								<select id="sort-asc-desc" style="display: inline;background-color: white;">
+								<option value="1">Giá từ thấp đến cao</option>
+								<option value="0">Giá từ cao đến thấp</option>
 							</select>
 						</div>
 							<div style="float: right;font-size: 15px;" >
@@ -203,23 +204,57 @@
 	<th:block th:insert="/shared/footer :: footer"></th:block>
 
 	<script th:inline="javascript">
-		/*<![CDATA[*/
-
-		var listMatHangModels = /*[[${listMatHangModels}]]*/'';
-		function shuffle(array) {
-			var tmp, current, top = array.length;
-			if (top)
-				while (--top) {
-					current = Math.floor(Math.random() * (top + 1));
-					tmp = array[current];
-					array[current] = array[top];
-					array[top] = tmp;
-				}
-			return array;
+/*<![CDATA[*/
+	
+	
+	
+	var listMatHangModels = /*[[${listMatHangModels}]]*/'';
+	function shuffle(array) {
+		var tmp, current, top = array.length;
+		if (top)
+			while (--top) {
+				current = Math.floor(Math.random() * (top + 1));
+				tmp = array[current];
+				array[current] = array[top];
+				array[top] = tmp;
+			}
+		return array;
+	}
+	listMatHangModels = shuffle(listMatHangModels);
+	///sort product
+	$('#sort-asc-desc').on('change', function() {
+		if(this.value=="1"){
+			listMatHangModels.sort(function(a, b){return a.giaHang-b.giaHang}); 
+			sort();
 		}
+		if(this.value=="0"){
+			listMatHangModels.sort(function(a, b){return b.giaHang-a.giaHang}); 
+			sort();
+		}
+		});
+	
+	////filter product
+	$('div.filter-by-price a').click(function(event) {
+    event.preventDefault();
+    listMatHangModels = /*[[${listMatHangModels}]]*/'';
+    var value=$(this).attr("href");
+    var res = value.split("-");
+ 	var first =   parseInt(res[0]) * 1000000;
+    var last = parseInt(res[1]) * 1000000;
+   	if(Number.isNaN(last)){
+   		listMatHangModels = listMatHangModels.filter(item => item.giaHang >= first );	
+   	}else{
+    listMatHangModels = listMatHangModels.filter(item => item.giaHang >= first && item.giaHang < last);
+   	}
+    sort();
+    console.log("last"+last);
+    console.log("last"+first);
+    
+	});
+	function  madeListMatHang(listMatHangModels){
+
 		var txtCarousel =  "<div class='row'>";
 		
-		listMatHangModels = shuffle(listMatHangModels);
 		var division = Math.floor(listMatHangModels.length/5); //2
 		for (i = 0; i < listMatHangModels.length; i ++) {
 			var txtState ="<img src='/img/home/new.png' class='new'> \n";
@@ -257,16 +292,20 @@
 				}
 				txtCarousel += "</div> \n"+
 					"</div>";
+				return txtCarousel;
+	}
 
-			/* console.log(i + "" + listMatHangModels[i].tenHang);
-			 */
-/* 		console.log(txtCarousel); */
-		$('#listMatHang').append(txtCarousel);
-		
-		console.log(listMatHangModels);
-
-		/*]]>*/
+	var txtAdd = madeListMatHang(listMatHangModels);
+	$('#listMatHang').append(txtAdd);
+	function sort(){
+		$('#listMatHang').children().remove();
+		var txtSorted = madeListMatHang(listMatHangModels);
+		$('#listMatHang').append(txtSorted);
+	}
+console.log(listMatHangModels)
+	/*]]>*/
 	</script>
+
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
 	<script

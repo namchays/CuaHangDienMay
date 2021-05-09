@@ -67,6 +67,7 @@
                                             <th>Số điện thoại</th>
                                             <th>Lương cơ bản</th>
                                             <th>Ngày làm việc</th>
+                                            <th>Ảnh</th>
                                             <th>Sửa</th>
                                             <th>Xóa</th>
                                         </tr>
@@ -81,6 +82,8 @@
                                        		<td >[[${NhanVien.dienThoai}]]</td>
                                        		<td class="luong">[[${NhanVien.luongCoBan}]]</td>
                                        		<td >[[${NhanVien.ngayLamViec}]]</td>
+                                       		<td><img th:src="${NhanVien.urlAvatar}" style="width: 200px">
+                                       		</td>
                                       		<th:block th:if="${NhanVien.userName}=='admin'">
                                       			<td><a th:href="@{'/edit-nhan-vien/'+${NhanVien.userName}}">Sửa</a></td>
                                        		<td>Xóa</td>

@@ -328,6 +328,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 				if(listBaiDang!=null) {
 					if(listBaiDang.size()>0) {
 						BinhLuan binhLuan = new BinhLuan(0, MyConstances.BINH_LUAN, "user", listBaiDang.get(0));
+						binhLuan.setThoiGian(new Date());
 						binhLuanService.save(binhLuan);
 					}
 				}
@@ -339,6 +340,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 				if(listBinhLuan!=null) {
 					if(listBinhLuan.size() > 0) {
 						TraLoi traLoi = new TraLoi(0,MyConstances.TRA_LOI,null,"admin");
+						traLoi.setThoiGian(new Date());
 						traLoi.setBinhLuan(listBinhLuan.get(0));
 						traLoiService.save(traLoi);
 					}
