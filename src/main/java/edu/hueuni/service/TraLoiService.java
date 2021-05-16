@@ -102,6 +102,7 @@ public class TraLoiService {
 			traLoi.setThoiGian(date);
 			traLoiModel.setThoiGian(date);
 			this.save(traLoi);
+			traLoiModel.setIdCauTraLoi(traLoi.getIdCauTraLoi());
 			
 		}
 		return traLoiModel;

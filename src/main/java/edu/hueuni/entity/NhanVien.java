@@ -2,6 +2,7 @@ package edu.hueuni.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Nationalized;
 

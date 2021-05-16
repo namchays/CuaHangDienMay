@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.hueuni.entity.ChiTietDatHang;
@@ -104,4 +105,11 @@ public class DonHangControler {
 		}
 		return mav;
 	}
+	@GetMapping("/don-hang/da-nhan-hang/{id}")
+	public ModelAndView xoaDonHang(HttpServletRequest request,@PathVariable int id) {
+		ModelAndView mav = new ModelAndView("redirect:/chi-tiet-dat-hang");
+		donDatHangService.deletById(id);
+		return mav;
+	}
+
 }

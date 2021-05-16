@@ -138,9 +138,11 @@ public class CommentController {
 			}
 			Date date = new Date();
 			binhLuan.setThoiGian(date);
+	
 			binhLuanModel.setThoiGian(date.toString());
 			System.err.println(date.toString());
 			binhLuanService.save(binhLuan);
+			binhLuanModel.setIdBinhLuan(binhLuan.getIdBinhLuan());
 			
 		}
 		
@@ -150,7 +152,7 @@ public class CommentController {
 
     }
 	@SuppressWarnings("unchecked")
-	@PostMapping("/add-tra/{id}")
+	@PostMapping("/add-tra-loi/{id}")
     public ResponseEntity<?> addTraLoiForm(
             @RequestParam("noiDung") String noiDung,
             @RequestParam("files") MultipartFile[] uploadfiles,
@@ -160,8 +162,15 @@ public class CommentController {
 		
 		TraLoiModel traLoiModel = traLoiService.addTraLoi(noiDung, uploadfiles, id, request);
 		
-		
         return  ResponseEntity.ok(traLoiModel);
 
     }
+	@PostMapping("/like-comment/{id}")
+	public ResponseEntity<?> likeComment(
+			@PathVariable int id) {
+		
+		BinhLuanModel binhLuanModel = binhLuanService.likeComment(id);
+		return  ResponseEntity.ok(binhLuanModel);
+		
+	}
 }

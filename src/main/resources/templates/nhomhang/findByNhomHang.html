@@ -155,7 +155,7 @@
 						<hr/>
 					
 						
-							<div class="filter-by-price" style="font-size: 15px;float: left;" >
+						<div class="filter-by-price" style="font-size: 15px;float: left;" >
 							<label style="font-weight: normal;">Chọn mức giá:</label>
 							<a href="0-2">Dưới 2 triệu</a> &nbsp;&nbsp;
 							<a href="2-4" >Từ 2 đến 4 triệu</a>&nbsp;&nbsp;
@@ -169,8 +169,8 @@
 						<div style="float: right;font-size: 15px;" >
 						
 							<select id="sort-asc-desc" style="display: inline;background-color: white;">
-								<option value="1">Giá từ thấp đến cao</option>
-								<option value="0">Giá từ cao đến thấp</option>
+								<option th:value="1">Giá từ thấp đến cao</option>
+								<option th:value="0">Giá từ cao đến thấp</option>
 							</select>
 						</div>
 							<div style="float: right;font-size: 15px;" >
@@ -193,7 +193,7 @@
 						</div>
 					</div>
 				</div>
-			</section>
+		
 
 		</div>
 
@@ -209,6 +209,9 @@
 	
 	
 	var listMatHangModels = /*[[${listMatHangModels}]]*/'';
+	if(listMatHangModels.length <= 0){
+		$('#listMatHang').append("<h1 style='background-color: #ff8400'>Không có mặt hàng nào được tìm thấy</h1>")
+	}
 	function shuffle(array) {
 		var tmp, current, top = array.length;
 		if (top)
@@ -300,7 +303,11 @@
 	function sort(){
 		$('#listMatHang').children().remove();
 		var txtSorted = madeListMatHang(listMatHangModels);
-		$('#listMatHang').append(txtSorted);
+		if(listMatHangModels.length > 0){
+			$('#listMatHang').append(txtSorted);	
+		}else{
+			$('#listMatHang').append("<h1 style='background-color: #ff8400'>Không có mặt hàng nào được tìm thấy</h1>")
+		}
 	}
 console.log(listMatHangModels)
 	/*]]>*/
@@ -331,7 +338,7 @@ console.log(listMatHangModels)
 			trigger : 'mouseover'
 		});
 	</script>
-<script type="text/javascript">
+	<script type="text/javascript">
 
          /* var selectbox = document.getElementById("select-id");
          var selectedValue = selectbox.options[selectbox.selectedIndex].value;

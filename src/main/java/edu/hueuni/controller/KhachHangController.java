@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +33,9 @@ public class KhachHangController {
 			@RequestParam(name = "diaChi") String diaChi,
 			@RequestParam(name = "soDienThoai") String soDienThoai,
 			@RequestParam(name = "gioiTinh") Integer gioiTinh,
-			@RequestParam(name = "ngaySinh") String ngaySinh) throws ParseException, NoSuchAlgorithmException {
+			@RequestParam(name = "ngaySinh") String ngaySinh
+			) throws ParseException, NoSuchAlgorithmException {
+
 		
 		KhachHang khachHang = khachHangService.findByUserName(userName);
 		if(khachHang!=null) {

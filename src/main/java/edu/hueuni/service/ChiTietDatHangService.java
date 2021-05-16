@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.hueuni.entity.ChiTietDatHang;
+import edu.hueuni.entity.DonDatHang;
 import edu.hueuni.entity.MatHang;
 import edu.hueuni.repository.ChiTietDatHangRepository;
 
@@ -25,5 +26,8 @@ public class ChiTietDatHangService {
 	}
 	public void deleteById(int id) {
 		chiTietDatHangRepository.deleteById(id);
+	}
+	public void deleteByDonDatHang(DonDatHang donDatHang) {
+		chiTietDatHangRepository.deleteByDonDatHang(donDatHang);
 	}
 }

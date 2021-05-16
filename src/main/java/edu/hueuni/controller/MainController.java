@@ -32,6 +32,7 @@ import edu.hueuni.entity.LoaiHang;
 import edu.hueuni.entity.MatHang;
 import edu.hueuni.entity.NhanVien;
 import edu.hueuni.entity.Quyen;
+import edu.hueuni.model.BinhLuanModel;
 import edu.hueuni.model.ListMatHangModel;
 import edu.hueuni.model.MatHangModel;
 import edu.hueuni.model.NhanVienModel;
@@ -74,8 +75,8 @@ public class MainController {
 	@GetMapping("/detail-san-pham/{id}")
 	public String chiTietMatHang(Model model,@PathVariable int id) {
 		addDataToNavbar(null, model);
-		System.out.println(id);
 		Optional<MatHang> matHangFound = matHangService.findById(id);
+		System.out.println("detail SAn Phẩm");
 		if(matHangFound.isPresent()) {
 			MatHang matHang = matHangFound.get();
 		
@@ -98,7 +99,10 @@ public class MainController {
 			model.addAttribute("matHang", matHang );
 			if(matHang.getBaiDangs().size()>0) {
 				int idBaiDang = matHang.getBaiDangs().get(0).getIdBaiDang();
-				model.addAttribute("idBaiDang", idBaiDang);
+				System.err.println(idBaiDang);
+				BinhLuanModel binhLuanModel = new BinhLuanModel();
+				binhLuanModel.setIdBaiDang(idBaiDang);
+				model.addAttribute("binhLuanModel", binhLuanModel);
 			}
 		}
 		
@@ -126,29 +130,33 @@ public class MainController {
 		String encryptedPassword =nhanVienService.md5("hueunisalt", password);
 		Optional<KhachHang> khachHang = khachHangService.findByUserNameAndPassword(userName, encryptedPassword);
 		if (khachHang.isPresent()) {
+			System.err.println("tai khoan co san");
 			HttpSession session = request.getSession();
 			if(khachHang.get().getEnable()==true) {
 				session.setAttribute("account", khachHang.get());
 				return "redirect:/";
 			}else {
+				System.err.println("tai khoan bi chan");
+				model.addAttribute("hasError", "Tài khoản bị chặn.");
 				return "/login/login";
 			}
 			
 		} else {
 			Optional<NhanVien> nhanVienFind = nhanVienService.findByUserNameAndPassword(userName, encryptedPassword);
 			if (nhanVienFind.isPresent()) {
+				System.err.println("tai khoan co san nv");
 				NhanVien curNhanVien = nhanVienFind.get();
 				HttpSession session = request.getSession();
 				session.setAttribute("account", curNhanVien);
 				Quyen quyenNhanVien = curNhanVien.getQuyen();
 				if (quyenNhanVien.getTenQuyen().equals(MyConstances.ROLE_EMPLOYEES)) {
-					return "redirect:/employee/manage-don-hang";
+					return "redirect:/manage-don-hang";
 				} else if (quyenNhanVien.getTenQuyen().equals(MyConstances.ROLE_ADMIN)) {
 					return "redirect:/manage-don-hang";
 				}
 			}
 		}
-
+//		model.addAttribute("hasError", "Sai tên đăng nhập hoặc mật khẩu");
 		return "/login/login";
 	}
 	@GetMapping("/he-thong-sieu-thi")

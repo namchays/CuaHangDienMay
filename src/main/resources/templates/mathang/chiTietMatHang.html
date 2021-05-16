@@ -21,7 +21,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 <link rel="stylesheet" href="/css/home.css">
 <link rel="icon" href="/img/hone/LOGO.png" />
-	<style>
+<style>
 .pb-product-details-ul {
 	list-style-type: none;
 	padding-left: 0;
@@ -71,94 +71,92 @@
 }
 </style>
 <style>
-body {font-family: Arial, Helvetica, sans-serif;}
-input[type=checkbox] {
-    transform: scale(1.5);
-}
-.imgModal {
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.3s;
+body {
+	font-family: Arial, Helvetica, sans-serif;
 }
 
-.imgModal:hover {opacity: 0.7;}
+input[type=checkbox] {
+	transform: scale(1.5);
+}
+
+.imgModal {
+	border-radius: 5px;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.imgModal:hover {
+	opacity: 0.7;
+}
 
 /* The Modal (background) */
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-/*   padding-top: 100px;  */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	/*   padding-top: 100px;  */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
 }
 
 /* Modal Content (image) */
 .modal-content {
-  margin: auto;
-  display: block;
-  width: 80%;
-  max-width: 700px;
+	margin: auto;
+	display: block;
+	width: 80%;
+	max-width: 700px;
 }
 
 /* Caption of Modal Image */
 #caption {
-  margin: auto;
-  display: block;
-  width: 80%;
-  max-width: 700px;
-  text-align: center;
-  color: #ccc;
-  padding: 10px 0;
-  height: 150px;
+	margin: auto;
+	display: block;
+	width: 80%;
+	max-width: 700px;
+	text-align: center;
+	color: #ccc;
+	padding: 10px 0;
+	height: 150px;
 }
 
 /* Add Animation */
-.modal-content, #caption {  
-  -webkit-animation-name: zoom;
-  -webkit-animation-duration: 0.6s;
-  animation-name: zoom;
-  animation-duration: 0.6s;
+.modal-content, #caption {
+	-webkit-animation-name: zoom;
+	-webkit-animation-duration: 0.6s;
+	animation-name: zoom;
+	animation-duration: 0.6s;
 }
 
-@-webkit-keyframes zoom {
-  from {-webkit-transform:scale(0)} 
-  to {-webkit-transform:scale(1)}
-}
 
-@keyframes zoom {
-  from {transform:scale(0)} 
-  to {transform:scale(1)}
-}
+
 
 /* The Close Button */
 .close {
-  position: absolute;
-  top: 15px;
-  right: 35px;
-  color: #ff0000;
-  font-size: 40px;
-  font-weight: bold;
-  transition: 0.3s;
+	position: absolute;
+	top: 15px;
+	right: 35px;
+	color: #ff0000;
+	font-size: 40px;
+	font-weight: bold;
+	transition: 0.3s;
 }
 
-.close:hover,
-.close:focus {
-  color: #bbb;
-  text-decoration: none;
-  cursor: pointer;
+.close:hover, .close:focus {
+	color: #bbb;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 /* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 700px){
-  .modal-content {
-    width: 100%;
-  }
+@media only screen and (max-width: 700px) {
+	.modal-content {
+		width: 100%;
+	}
 }
 </style>
 <link rel="stylesheet"
@@ -191,9 +189,9 @@ input[type=checkbox] {
 							<th:block th:each="Anh,pos :${matHang.anhMatHangs}">
 								<th:block th:if="${pos.index<3}">
 									<div class="col-md-4">
-										<img class="imgModal" th:src="@{'/getImg'+${Anh.url}}" width="120px"
-											style="transform: scale(1)">
-											<div id="myModal" class="modal" style="z-index: 100">
+										<img class="imgModal" th:src="@{'/getImg'+${Anh.url}}"
+											width="120px" style="transform: scale(1)">
+										<div id="myModal" class="modal" style="z-index: 100">
 											<span class="close">&times;</span> <img class="modal-content"
 												id="img01">
 											<div id="caption"></div>
@@ -227,34 +225,17 @@ input[type=checkbox] {
 							</div>
 						</div>
 						<div class="row">
+						<th:block th:each="ChiTiet,pos : ${listChiTietMatHang}">
+						<th:block th:if="${pos.index <4} ">
+						
 							<div class="col-xs-3 col-md-3 pb-product-details-fa">
-								<span class="fa fa-mobile fa-lg"></span>
-								<h3>
-									<strong>5.5"</strong>
+									<h3>
+									<strong>[[${ChiTiet.tenChiTiet}]]</strong>
 								</h3>
-								<p>1440x2560 pixels</p>
+								<p>[[${ChiTiet.thongTinChiTiet}]]</p>
 							</div>
-							<div class="col-xs-3 col-md-3 pb-product-details-fa">
-								<span class="fa fa-camera fa-lg"></span>
-								<h3>
-									<strong>12 MP</strong>
-								</h3>
-								<p>2160p</p>
-							</div>
-							<div class="col-xs-3 col-md-3 pb-product-details-fa">
-								<span class="fa fa-microchip fa-lg"></span>
-								<h3>
-									<strong>4GB RAM</strong>
-								</h3>
-								<p>Exynos 8890</p>
-							</div>
-							<div class="col-xs-3 col-md-3 pb-product-details-fa">
-								<span class="fa fa-battery-4 fa-lg"></span>
-								<h3>
-									<strong>3600mAH</strong>
-								</h3>
-								<p>Li-ion</p>
-							</div>
+						</th:block>
+						</th:block>
 						</div>
 						<div class="row">
 							<div class="col-xs-7 col-md-7 pb-product-details-fa">
@@ -262,8 +243,8 @@ input[type=checkbox] {
 									<span class="fa fa-battery-4 fa-lg">Ảnh Quà tặng</span>
 									<br />
 									<th:block th:each="QuaTang : ${matHang.quaTangs}">
-										<img  th:src="@{'/getImg'+${QuaTang.urlImage}}"
-											style="width: 80px"/>
+										<img th:src="@{'/getImg'+${QuaTang.urlImage}}"
+											style="width: 80px" />
 									</th:block>
 								</th:block>
 							</div>
@@ -307,97 +288,114 @@ input[type=checkbox] {
 					</div>
 				</th:block>
 				<div>
-			<th:block th:if="${matHang.baiDangs.size()>0}">
-					<div class="card">
-						<div class="row">
-							<div class="col-md-12">
-								<h3 class="text-center mb-5">Đánh giá sản phẩm</h3>
-								<div class="row">
-									<div class="col-md-12">
-										<form id="form-comment" enctype="multipart/form-data" class="">
-											<label for="inlineFormEmail">Nhập bình luận</label> <input
-												type="text" size="50" placeholder="Nhập bình luận....."  name="extraField">
-											<label for="up_image"><i class="fas fa-camera"></i></label> <input
-												type="file" id="up_image" style="display: none;" name="files"
-												accept="image/*">
-											<button type="submit" id="btnSubmit">Gửi</button>
-										</form>
-									</div>
+					<th:block th:if="${matHang.baiDangs.size()>0}">
+						<div class="card">
+							<div class="row">
+								<div class="col-md-12">
+									<h3 class="text-center mb-5">Đánh giá sản phẩm</h3>
+									<div class="row">
+										<div class="col-md-12">
+											<form id="form-comment" enctype="multipart/form-data"
+												class="">
+												<label for="inlineFormEmail">Nhập bình luận</label> <input
+													type="text" size="50" placeholder="Nhập bình luận....."
+													name="extraField"> <label for="up_image"><i
+													class="fas fa-camera"></i></label> <input type="file" id="up_image"
+													style="display: none;" name="files" accept="image/*">
+												<button type="submit" id="btnSubmit">Gửi</button>
+											</form>
+										</div>
 
-									<div class="col-md-12" id = "list-comment">
-									
-									<th:block th:each="BinhLuan : ${matHang.baiDangs[0].binhLuans}">
-										<div class="media">
-											
-											
-											<img class="mr-3 circle-img rounded-circle" th:src="@{'/getAvatar/'+${BinhLuan.userName}}" style="height: 50px;width:50px; "  />
-											<div th:class="@{'media-body comment-body-'+${BinhLuan.idBinhLuan}}" >
-												<div class="row">
-													<div class="col-8 d-flex">
-														<h5>[[${BinhLuan.userName}]]</h5>
-						
-													</div>
-												
-												</div>
-												 [[${BinhLuan.noiDung}]] 
-												 <th:block th:if="${BinhLuan.urlImage!=null}">
-												 <br/>
-												 <img th:src="@{'/getImg'+${BinhLuan.urlImage}}" style="width: 50%"/>
-												 </th:block>
-												    <br> <i
-													th:class="@{'far fa-thumbs-up like-comment like-comment-'+${BinhLuan.idBinhLuan}}" th:id="@{'like-comment-'+${BinhLuan.idBinhLuan}}"></i>([[${BinhLuan.luotThich}]]) &nbsp; <span th:data-idBinhLuan="${BinhLuan.idBinhLuan}" class="reply"
-													style="color: blue;"><i class="fa fa-reply "></i>
-													reply</span>  &nbsp;<span class="time-comment"> [[${BinhLuan.thoiGian}]] </span>
-												<!-- end of comment -->
+										<div class="col-md-12" id="list-comment">
 
-												<!-- reply -->
-												<th:block th:each="TraLoi : ${BinhLuan.traLois}">
-												<div class="media mt-4">
-													<a class="pr-3" href="#"><img class="rounded-circle"
-														
-														th:src="@{'/getAvatar/'+${TraLoi.userName}}" style="height: 50px;"   /></a>
-													<div class="media-body">
+											<th:block
+												th:each="BinhLuan : ${matHang.baiDangs[0].binhLuans}">
+												<div class="media">
+
+
+													<img class="mr-3 circle-img rounded-circle"
+														th:src="@{'/getAvatar/'+${BinhLuan.userName}}"
+														style="height: 50px; width: 50px;" />
+													<div
+														th:class="@{'media-body comment-body-'+${BinhLuan.idBinhLuan}}">
 														<div class="row">
-															<div class="col-12 d-flex">
-																<h5>[[${TraLoi.userName}]]</h5>
+															<div class="col-8 d-flex">
+																<h5>[[${BinhLuan.userName}]]</h5>
 
 															</div>
+
 														</div>
-														[[${TraLoi.noiDung}]]
-														 <th:block th:if="${TraLoi.urlImage!=null}">
-												 <br/>
-												 <img th:src="@{'/getImg'+${TraLoi.urlImage}}" style="width: 50%"/>
-												 </th:block>
+														[[${BinhLuan.noiDung}]]
+														<th:block th:if="${BinhLuan.urlImage!=null}">
+															<br />
+															<img th:src="@{'/getImg'+${BinhLuan.urlImage}}"
+																style="width: 50%" />
+														</th:block>
+														<br> <i
+															th:class="@{'far fa-thumbs-up like-comment like-comment-'+${BinhLuan.idBinhLuan}}"
+															th:id="@{'like-comment-'+${BinhLuan.idBinhLuan}}">([[${BinhLuan.luotThich}]])</i>
+														&nbsp; <span th:data-idBinhLuan="${BinhLuan.idBinhLuan}"
+															class="reply" style="color: blue;"><i
+															class="fa fa-reply "></i> reply</span> &nbsp;<span
+															class="time-comment"> [[${BinhLuan.thoiGian}]] </span>
+														<!-- end of comment -->
+
+														<!-- reply -->
+														<th:block th:each="TraLoi : ${BinhLuan.traLois}">
+															<div class="media mt-4">
+																<a class="pr-3" href="#"><img class="rounded-circle"
+																	th:src="@{'/getAvatar/'+${TraLoi.userName}}"
+																	style="height: 50px;" /></a>
+																<div class="media-body">
+																	<div class="row">
+																		<div class="col-12 d-flex">
+																			<h5>[[${TraLoi.userName}]]</h5>
+
+																		</div>
+																	</div>
+																	[[${TraLoi.noiDung}]]
+																	<th:block th:if="${TraLoi.urlImage!=null}">
+																		<br />
+																		<img th:src="@{'/getImg'+${TraLoi.urlImage}}"
+																			style="width: 50%" />
+																	</th:block>
+																</div>
+															</div>
+															<i
+																th:class="@{'far fa-thumbs-up like-reply like-reply-'+${TraLoi.idCauTraLoi}}"
+																style="margin-left: 60px"></i> ([[${TraLoi.luotThich}]]) &nbsp; <span
+																th:data-idBinhLuan="${BinhLuan.idBinhLuan}"
+																class="reply" style="color: blue;"><i
+																class="fa fa-reply"></i> reply</span> &nbsp;<span
+																class="time-comment"> [[${TraLoi.thoiGian}]] </span>
+															<br />
+															</th:block>
+															<!-- end of rely -->
+															<!-- end of comment -->
 													</div>
 												</div>
-												<i class="far fa-thumbs-up" style="margin-left: 60px"></i> ([[${TraLoi.luotThich}]]) &nbsp; <span id="reply"
-													style="color: blue;"><i class="fa fa-reply"></i>
-													reply</span> &nbsp;<span class="time-comment"> [[${TraLoi.thoiGian}]] </span><br/>
-												<!-- end of rely -->
-												<!-- end of comment -->
-												
-										
-												
+												<div class="col-md-12">
+													<form style="margin-left: 50px; display: none;"
+														th:id="@{'form-reply-'+${BinhLuan.idBinhLuan}}"
+														enctype="multipart/form-data"
+														th:class="@{'form-reply form-reply-'+${BinhLuan.idBinhLuan}}">
+														<label>Trả lời</label> <input type="text" size="50"
+															placeholder="Nhập trả lời....." name="noiDung"> <label
+															th:for="@{'up_image_tl'+${BinhLuan.idBinhLuan}}"><i
+															class="fas fa-camera"></i></label> <input type="file"
+															th:id="@{'up_image_tl'+${BinhLuan.idBinhLuan}}"
+															style="display: none;" name="files" accept="image/*">
+														<button type="submit">Gửi</button>
+													</form>
 												</div>
-											</div>
-									<div class="col-md-12">
-										<form  style="margin-left: 50px;display: none;" th:id="@{'form-reply-'+${BinhLuan.idBinhLuan}}" enctype="multipart/form-data" th:class="@{'form-reply form-reply-'+${BinhLuan.idBinhLuan}}">
-											<label >Trả lời</label> <input
-												type="text" size="50" placeholder="Nhập trả lời....."  name="noiDung">
-											<label th:for="@{'up_image_tl'+${BinhLuan.idBinhLuan}}"><i class="fas fa-camera"></i></label> <input
-												type="file" th:id="@{'up_image_tl'+${BinhLuan.idBinhLuan}}" style="display: none;"  name="files"
-												accept="image/*">
-											<button type="submit" >Gửi</button>
-										</form>
-									</div>
-											
-											</th:block>		
+
+											</th:block>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</th:block>
+					</th:block>
 				</div>
 			</div>
 		</div>
@@ -420,125 +418,156 @@ input[type=checkbox] {
 
 
 	<script th:inline="javascript">
-	/*<![CDATA[*/
-	$(document).ready( function() { // Wait until document is fully parsed
-		  $("#form-comment").on('submit', function(e){
+		/*<![CDATA[*/
+		$(document).ready(function() { // Wait until document is fully parsed
+			$("#form-comment").on('submit', function(e) {
 
-		     e.preventDefault();
-		     fire_ajax_submit()
-		
-		  });
+				e.preventDefault();
+				fire_ajax_submit()
+
+			});
 		});
-	function fire_ajax_submit() {
 
-	    // Get form
-	    var form = $('#form-comment')[0];
-		console.log(form)
-	    var data = new FormData(form);
-		console.log(data)
-	   var idBaiDang = /*[[${idBaiDang}]]*/ '0';
-	   console.log(idBaiDang);
-		var Url = "/add-comment/"+idBaiDang;
-	    $.ajax({
-	        type: "POST",
-	        enctype: 'multipart/form-data',
-	        url: Url,
-	        data: data,
-	        processData: false, //prevent jQuery from automatically transforming the data into a query string
-	        contentType: false,
-	        cache: false,
-	        timeout: 600000,
-	        success: function (data) {
+		function fire_ajax_submit() {
 
-	            console.log("SUCCESS : ", data);
-	            var txtComment = "<div class='media'>"+
-						"<img class='circle-img rounded-circle' src='/getAvatar/"+data.userName+"' style='height: 50px;width:50px;'  />"+
-						"<div class='media-body comment-body' >"+
-						"<div class='row'>"+
-								"<div class='col-8 d-flex'>"+
-									"<h5>"+data.userName+"</h5>"+
-								"</div>"+
-								"<div class='col-4'>"+
-									"<div class='pull-right reply'></div>"+
-								"</div>"+
-							"</div>"+
-							 ""+data.noiDung+" "+
-							 
-							 
-							 "<br/>"+
-							 "<img src='/getImg"+data.urlImage+"' style='width: 50%'/>"+
-							 
-							 "<br> <i"+
-								" class='far fa-thumbs-up'></i>(0) &nbsp; <span id='reply'"+
-								"style='color: blue;'><i class='fa fa-reply'></i>"+
-								"reply</span> <span> Vừa Xong</span>"+
-															
-							"</div>"+
-						
-						"</div>";
-	           	$("#list-comment").prepend(txtComment);
+			// Get form
+			var form = $('#form-comment')[0];
+			console.log(form)
+			var data = new FormData(form);
+			console.log(data)
+			var binhLuanModel = /*[[${binhLuanModel}]]*/'0';
+			var idBaiDang = binhLuanModel.idBaiDang;
+			console.log(idBaiDang);
+			var Url = "/add-comment/" + idBaiDang;
+			$.ajax({
+						type : "POST",
+						enctype : 'multipart/form-data',
+						url : Url,
+						data : data,
+						processData : false, //prevent jQuery from automatically transforming the data into a query string
+						contentType : false,
+						cache : false,
+						timeout : 600000,
+						success : function(data) {
 
-	        },
-	        error: function (e) {
+							console.log("SUCCESS : ", data);
+							var txtComment = "<div class='media'>"
+									+ "<img class='circle-img rounded-circle' src='/getAvatar/"+data.userName+"' style='height: 50px;width:50px;'  />"
+									+ "<div class='media-body comment-body' >"
+									+ "<div class='row'>"
+									+ "<div class='col-8 d-flex'>"
+									+ "<h5>"
+									+ data.userName
+									+ "</h5>"
+									+ "</div>"
+									+ "<div class='col-4'>"
+									+ "<div class='pull-right reply'></div>"
+									+ "</div>"
+									+ "</div>"
+									+ ""
+									+ data.noiDung
+									+ " "
+									+
+									"<br/>"
+									+ "<img src='/getImg"
+									+ data.urlImage
+									+ "' style='width: 50%'/>"
+									+
 
-	          
-	            console.log("ERROR : ", e);
-	         
-	        }
-	    });
+									"<br> <i"+
+								" class='far fa-thumbs-up like-comment like-comment-"+data.idBinhLuan+"'>(0)</i> &nbsp; <span data-idBinhLuan='"+data.idBinhLuan+"' class='reply' "+
+								"style='color: blue;'><i class='fa fa-reply'></i>"
+									+ "reply</span> <span> Vừa Xong</span>" +
 
-	}
-	/*]]>*/
+									"</div>" +
+
+									"</div>";
+							$("#list-comment").prepend(txtComment);
+
+						},
+						error : function(e) {
+
+							console.log("ERROR : ", e);
+
+						}
+					});
+
+		}
+		/*]]>*/
 	</script>
 	<script th:inline="javascript">
-	/*<![CDATA[*/
-	$(document).ready( function() { // Wait until document is fully parsed
-		  $(".form-reply").each(function(){
-			  $(this).on('submit', function(e){
-					
-				     e.preventDefault();
-				     var arr=$(this).attr("class").split('-');
-				     addTraLoi(arr[3])
-		  })	
-		  });
+		/*<![CDATA[*/
+		$(document).ready(function() { // Wait until document is fully parsed
+			$(".form-reply").each(function() {
+				$(this).on('submit', function(e) {
+
+					e.preventDefault();
+					var arr = $(this).attr("class").split('-');
+					addTraLoi(arr[3])
+				})
+			});
 		});
-	
-	function addTraLoi(idBinhLuan) {
 
-		var classOfForm ='.form-reply-'+idBinhLuan;
-	
-	    // Get form
-	    var formTraLoi = $(classOfForm)[0];
-		console.log(formTraLoi);
-	   var dataTraLoi = new FormData(formTraLoi);
-	   console.log(dataTraLoi);
-	   var Url = "/add-tra/"+idBinhLuan;
-	   console.log(Url);
-	    $.ajax({
-	    	  type: "POST",
-		        enctype: 'multipart/form-data',
-		        url: Url,
-		        data: dataTraLoi,
-		        processData: false, //prevent jQuery from automatically transforming the data into a query string
-		        contentType: false,
-		        cache: false,
-		        timeout: 600000,
-		        success: function (data) {
+		function addTraLoi(idBinhLuan) {
 
-	            console.log("SUCCESS : ", data);
-	         
+			var classOfForm = '.form-reply-' + idBinhLuan;
 
-	        },
-	        error: function (e) {
+			// Get form
+			var formTraLoi = $(classOfForm)[0];
+			console.log(formTraLoi);
+			var dataTraLoi = new FormData(formTraLoi);
+			console.log(dataTraLoi);
+			var Url = "/add-tra-loi/" + idBinhLuan;
+			console.log(Url);
+			$
+					.ajax({
+						type : "POST",
+						enctype : 'multipart/form-data',
+						url : Url,
+						data : dataTraLoi,
+						processData : false, //prevent jQuery from automatically transforming the data into a query string
+						contentType : false,
+						cache : false,
+						timeout : 600000,
+						success : function(data) {
+							var txtImg = "";
+							if (data.urlImage != null) {
+								txtImg += " <br/> " + "<img src='/getImg"
+										+ data.urlImage
+										+ "' style='width: 50%'/>";
 
-	          
-	            console.log("ERROR : ", e);
-	         
-	        }
-	    });
+							}
+							var txtSrc = "/getAvatar/" + data.userName;
+							var txtAdd = "	<div class='media mt-4'>"
+									+ "<a class='pr-3' ><img class='rounded-circle' src='"+txtSrc+"' style='height: 50px;'   /></a> "
+									+ "<div class='media-body'> "
+									+ "<div class='row'> "
+									+ "<div class='col-12 d-flex'> "
+									+ "<h5>"
+									+ data.userName
+									+ "</h5> "
+									+ "</div>"
+									+ "</div>"
+									+ data.noiDung
+									+ txtImg
+									+ "</div>"
+									+ "</div>"
+									+ "<i class='far fa-thumbs-up like-reply like-reply-"+data.idCauTraLoi+"' style='margin-left: 60px'></i> (0) &nbsp; <span id='reply' "+
+				"style='color: blue;''><i class='fa fa-reply'></i>"
+									+ "reply</span> &nbsp;<span class=''> Vừa xong </span><br/>";
+							console.log("SUCCESS : ", data);
+							$(".comment-body-" + idBinhLuan).append(txtAdd);
 
-	}
-	/*]]>*/
+						},
+						error : function(e) {
+
+							console.log("ERROR : ", e);
+
+						}
+					});
+
+		}
+		/*]]>*/
 	</script>
 
 	<script
@@ -552,95 +581,117 @@ input[type=checkbox] {
 	<script>
 		$(document).ready(
 				function() {
-					$('.reply').each(function(){
-						$(this).click(
-							function(ev,i) {
-								console.log("toggle")
-								var txtClass =".form-reply-" +$(this).attr("data-idBinhLuan");
-								var txtId ="form-reply-" +$(this).attr("data-idBinhLuan");
-								console.log(txtClass)
-								$(txtClass).toggle(function(){
-									
-								});
-								var elmnt = document.getElementById(txtId);
-							
-								elmnt.scrollIntoView({ behavior: 'smooth', block: 'center' });
-								
-								
-								console.log();
-
-							});
-					})
-
-				});
-	</script>
-	<script>
-		$(document).ready(
-				function() {
-					$('.like-comment').each(function(){
-						$(this).click(
+					$('.reply').each(
 							function() {
-								/* console.log("toggle")
-								var txtClass =".form-reply-" +$(this).attr("data-idBinhLuan");
-								var txtId ="form-reply-" +$(this).attr("data-idBinhLuan");
-								console.log(txtClass)
-								$(txtClass).toggle(function(){
-									
-								});
-								var elmnt = document.getElementById(txtId);
-							
-								elmnt.scrollIntoView({ behavior: 'smooth', block: 'center' });
-								 */
-								var str = $(this).attr("id");
-								arr = str.split('-');
-								var  id = arr[2];
-								
-							});
-					})
+								$(this).click(
+										function(ev, i) {
+											console.log("toggle")
+											var txtClass = ".form-reply-"
+													+ $(this).attr(
+															"data-idBinhLuan");
+											var txtId = "form-reply-"
+													+ $(this).attr(
+															"data-idBinhLuan");
+											console.log(txtClass)
+											$(txtClass).toggle(function() {
+
+											});
+											var elmnt = document
+													.getElementById(txtId);
+
+											elmnt.scrollIntoView({
+												behavior : 'smooth',
+												block : 'center'
+											});
+
+											console.log();
+
+										});
+							})
 
 				});
 	</script>
 	<script>
-	
-		$('.time-comment').each(function(){
+		$(document).ready(function() {
+			$('.like-comment').each(function() {
+				$(this).click(function() {
+					var str = $(this).attr("id");
+					arr = str.split('-');
+					var id = arr[2];
+					likeComment(id)
+				});
+			})
+
+		});
+		function likeComment(idBinhLuan) {
+
+			var dataId = idBinhLuan;
+			var Url = "/like-comment/" + idBinhLuan;
+			console.log(Url);
+			$
+					.ajax({
+						type : "POST",
+						enctype : 'multipart/form-data',
+						url : Url,
+						data : dataId,
+						processData : false, //prevent jQuery from automatically transforming the data into a query string
+						contentType : false,
+						cache : false,
+						timeout : 600000,
+						success : function(data) {
+
+							console.log("SUCCESS : ", data);
+							$('#like-comment-' + data.idBinhLuan)
+									.replaceWith(
+											"<i class='fas fa-thumbs-up dislike-comment dislike-comment-"+data.idBinhLuan+"' id='dislike-comment-"+data.idBinhLuan+"'>("+data.luotThich+")</i>");
+
+						},
+						error : function(e) {
+							console.log("ERROR : ", e);
+
+						}
+					});
+
+		}
+	</script>
+	<script>
+		$('.time-comment').each(function() {
 			var timeShow = timeSince(new Date($(this).html())) + " trước";
 			$(this).html(timeShow);
 		});
-		
+
 		function timeSince(date) {
 
-			  var seconds = Math.floor((new Date() - date) / 1000);
+			var seconds = Math.floor((new Date() - date) / 1000);
 
-			  var interval = seconds / 31536000;
+			var interval = seconds / 31536000;
 
-			  if (interval > 1) {
-			    return Math.floor(interval) + " năm";
-			  }
-			  interval = seconds / 2592000;
-			  if (interval > 1) {
-			    return Math.floor(interval) + " tháng";
-			  }
-			  interval = seconds / 86400;
-			  if (interval > 1) {
-			    return Math.floor(interval) + " ngày";
-			  }
-			  interval = seconds / 3600;
-			  if (interval > 1) {
-			    return Math.floor(interval) + " tiếng";
-			  }
-			  interval = seconds / 60;
-			  if (interval > 1) {
-			    return Math.floor(interval) + " phút";
-			  }
-			  return Math.floor(seconds) + " giây";
+			if (interval > 1) {
+				return Math.floor(interval) + " năm";
 			}
-			var aDay = 24*60*60*1000;
-			
+			interval = seconds / 2592000;
+			if (interval > 1) {
+				return Math.floor(interval) + " tháng";
+			}
+			interval = seconds / 86400;
+			if (interval > 1) {
+				return Math.floor(interval) + " ngày";
+			}
+			interval = seconds / 3600;
+			if (interval > 1) {
+				return Math.floor(interval) + " tiếng";
+			}
+			interval = seconds / 60;
+			if (interval > 1) {
+				return Math.floor(interval) + " phút";
+			}
+			return Math.floor(seconds) + " giây";
+		}
+		var aDay = 24 * 60 * 60 * 1000;
 	</script>
 	<script type="text/javascript">
 		/* Number(listMatHang[j].giaHang).toLocaleString('en') */
 		$('#giaHang').html(Number($('#giaHang').html()).toLocaleString('en'));
-
 	</script>
 	<script>
 		// Get the modal
@@ -648,7 +699,7 @@ input[type=checkbox] {
 
 		// Get the image and insert it inside the modal - use its "alt" text as a caption
 		var img = document.getElementsByClassName("imgModal");
-		
+
 		var modalImg = document.getElementById("img01");
 		var captionText = document.getElementById("caption");
 		for (i = 0; i < img.length; i++) {
@@ -658,7 +709,7 @@ input[type=checkbox] {
 				captionText.innerHTML = this.alt;
 			}
 		}
-	
+
 		// Get the <span> element that closes the modal
 		var span = document.getElementsByClassName("close")[0];
 
@@ -667,7 +718,7 @@ input[type=checkbox] {
 			modal.style.display = "none";
 		}
 	</script>
-	
+
 </body>
 
 </html>

@@ -30,15 +30,10 @@
 
 
 	
-
-	<div class=" mb-4">
-	<th:block th:insert="/shared/navbar :: navbar"></th:block>
-	<section class="jumbotron text-center">
-		<div class="container">
-			<h1 class="jumbotron-heading">GIỎ HÀNG</h1>
-		</div>
-	</section>
 	
+	<th:block th:insert="/shared/navbar :: navbar"></th:block>
+
+	<div class="container">
 		<div class="row">
 			<div class="col-12">
 				<h2 class="text-center">-------------oOo----DANH SÁCH ĐƠN HÀNG----oOo-------------</h2>
@@ -62,16 +57,220 @@
   <!-- Tab panes -->
   <div class="tab-content">
     <div id="da-dat-hang" class="container tab-pane active"><br>
-     đã đặt hàng
+    <table class="table table-bordered" id="dataTable" width="100%"
+									cellspacing="0">
+									<thead>
+										<tr>
+											<th>Số hóa đơn</th>
+											<th>Mặt hàng</th>
+											<th>Ngày đặt hàng</th>
+											<th>Ngày giao hàng</th>
+											<th>Nơi giao hàng</th>
+											<th>Tên nhân viên</th>
+										
+											
+										</tr>
+									</thead>
+
+									<tbody>
+										<th:block th:each="DonDatHang : ${listDonDatHang}">
+											<th:block th:if="${DonDatHang.trangThai==1}">
+												
+												
+												
+											<tr>
+												<td th:text="${DonDatHang.soHoaDon}"></td>
+												<td>
+													<ul class="list-group">
+
+
+
+														<th:block
+															th:each="chiTietDatHang : ${DonDatHang.chiTietDatHangs}">
+															<li class="list-group-item">[[${chiTietDatHang.matHang.tenHang}]]</li>
+														</th:block>
+													</ul>
+												</td>
+												<td th:text="${DonDatHang.ngayDatHang}"></td>
+												<td th:text="${DonDatHang.ngayGiaoHang}"></td>
+												<td th:text="${DonDatHang.noiGiaoHang}"></td>
+												<th:block th:if="${DonDatHang.nhanVien!=null}">
+												<td th:text="${DonDatHang.nhanVien.tenNhanVien}"></td>
+												</th:block>
+												<th:block th:unless="${DonDatHang.nhanVien!=null}">
+												<td >Chưa có</td>
+												</th:block>
+											
+											
+												
+											</tr>
+											</th:block>
+										</th:block>
+
+									</tbody>
+								</table>
     </div>
     <div id="cho-lay-hang" class="container tab-pane fade"><br>
-     Chờ lấy hàng
+       <table class="table table-bordered" id="dataTable" width="100%"
+									cellspacing="0">
+									<thead>
+										<tr>
+											<th>Số hóa đơn</th>
+											<th>Mặt hàng</th>
+											<th>Ngày đặt hàng</th>
+											<th>Ngày giao hàng</th>
+											<th>Nơi giao hàng</th>
+											<th>Tên nhân viên</th>
+										
+											
+										</tr>
+									</thead>
+
+									<tbody>
+										<th:block th:each="DonDatHang : ${listDonDatHang}">
+											<th:block th:if="${DonDatHang.trangThai==2}">
+												
+												
+												
+											<tr>
+												<td th:text="${DonDatHang.soHoaDon}"></td>
+												<td>
+													<ul class="list-group">
+
+
+
+														<th:block
+															th:each="chiTietDatHang : ${DonDatHang.chiTietDatHangs}">
+															<li class="list-group-item">[[${chiTietDatHang.matHang.tenHang}]]</li>
+														</th:block>
+													</ul>
+												</td>
+												<td th:text="${DonDatHang.ngayDatHang}"></td>
+												<td th:text="${DonDatHang.ngayGiaoHang}"></td>
+												<td th:text="${DonDatHang.noiGiaoHang}"></td>
+												<th:block th:if="${DonDatHang.nhanVien!=null}">
+												<td th:text="${DonDatHang.nhanVien.tenNhanVien}"></td>
+												</th:block>
+												<th:block th:unless="${DonDatHang.nhanVien!=null}">
+												<td >Chưa có</td>
+												</th:block>
+											
+											
+												
+											</tr>
+											</th:block>
+										</th:block>
+
+									</tbody>
+								</table>
     </div>
     <div id="dang-giao" class="container tab-pane fade"><br>
-    Đang giao
+     <table class="table table-bordered" id="dataTable" width="100%"
+									cellspacing="0">
+									<thead>
+										<tr>
+											<th>Số hóa đơn</th>
+											<th>Mặt hàng</th>
+											<th>Ngày đặt hàng</th>
+											<th>Ngày giao hàng</th>
+											<th>Nơi giao hàng</th>
+											<th>Tên nhân viên</th>
+										
+											
+										</tr>
+									</thead>
+
+									<tbody>
+										<th:block th:each="DonDatHang : ${listDonDatHang}">
+											<th:block th:if="${DonDatHang.trangThai==3}">
+												
+												
+												
+											<tr>
+												<td th:text="${DonDatHang.soHoaDon}"></td>
+												<td>
+													<ul class="list-group">
+
+
+
+														<th:block
+															th:each="chiTietDatHang : ${DonDatHang.chiTietDatHangs}">
+															<li class="list-group-item">[[${chiTietDatHang.matHang.tenHang}]]</li>
+														</th:block>
+													</ul>
+												</td>
+												<td th:text="${DonDatHang.ngayDatHang}"></td>
+												<td th:text="${DonDatHang.ngayGiaoHang}"></td>
+												<td th:text="${DonDatHang.noiGiaoHang}"></td>
+												<th:block th:if="${DonDatHang.nhanVien!=null}">
+												<td th:text="${DonDatHang.nhanVien.tenNhanVien}"></td>
+												</th:block>
+												<th:block th:unless="${DonDatHang.nhanVien!=null}">
+												<td >Chưa có</td>
+												</th:block>
+											
+											
+												
+											</tr>
+											</th:block>
+										</th:block>
+
+									</tbody>
+								</table>
     </div>
     <div id="da-giao" class="container tab-pane fade"><br>
- đã giao
+   <table class="table table-bordered" id="dataTable" width="100%"
+									cellspacing="0">
+									<thead>
+										<tr>
+											<th>Số hóa đơn</th>
+											<th>Mặt hàng</th>
+											<th>Ngày đặt hàng</th>
+											<th>Ngày giao hàng</th>
+											<th>Nơi giao hàng</th>
+											<th>Tên nhân viên</th>
+											<th>Đã nhận được hàng</th>
+											
+										</tr>
+									</thead>
+
+									<tbody>
+										<th:block th:each="DonDatHang : ${listDonDatHang}">
+											<th:block th:if="${DonDatHang.trangThai==4}">
+												
+												
+												
+											<tr>
+												<td th:text="${DonDatHang.soHoaDon}"></td>
+												<td>
+													<ul class="list-group">
+
+
+
+														<th:block
+															th:each="chiTietDatHang : ${DonDatHang.chiTietDatHangs}">
+															<li class="list-group-item">[[${chiTietDatHang.matHang.tenHang}]]</li>
+														</th:block>
+													</ul>
+												</td>
+												<td th:text="${DonDatHang.ngayDatHang}"></td>
+												<td th:text="${DonDatHang.ngayGiaoHang}"></td>
+												<td th:text="${DonDatHang.noiGiaoHang}"></td>
+												<th:block th:if="${DonDatHang.nhanVien!=null}">
+												<td th:text="${DonDatHang.nhanVien.tenNhanVien}"></td>
+												</th:block>
+												<th:block th:unless="${DonDatHang.nhanVien!=null}">
+												<td >Chưa có</td>
+												</th:block>
+												
+												<td><a th:href="@{'/don-hang/da-nhan-hang/'+${DonDatHang.soHoaDon}}">Đã nhận</a></td>
+												
+											</tr>
+											</th:block>
+										</th:block>
+
+									</tbody>
+								</table>
     </div>
 			</div>
 	

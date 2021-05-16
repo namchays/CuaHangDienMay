@@ -10,8 +10,15 @@ public class BinhLuanModel {
 	private String urlImage;
 	private String userName;
 	private String thoiGian;
+	private int idBaiDang;
 	
 
+	public int getIdBaiDang() {
+		return idBaiDang;
+	}
+	public void setIdBaiDang(int idBaiDang) {
+		this.idBaiDang = idBaiDang;
+	}
 	public String getThoiGian() {
 		return thoiGian;
 	}

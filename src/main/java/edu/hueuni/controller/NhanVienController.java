@@ -607,4 +607,19 @@ public class NhanVienController {
 		mav.addObject("listDonDatHang", listDonDatHang);
 		return mav;
 	}
+	@GetMapping("/duyet-don-hang/{soHoaDon}")
+	public ModelAndView duyetDonHang(@PathVariable int soHoaDon,@RequestParam String trangThai) {
+		ModelAndView mav = new ModelAndView("redirect:/manage-don-hang");
+		DonDatHang donDatHang = donDatHangService.findById(soHoaDon);
+		donDatHang.setTrangThai(Integer.parseInt(trangThai));
+		donDatHangService.save(donDatHang);
+		return mav;
+	}
+	@GetMapping("/delete-don-hang/{soHoaDon}")
+	public ModelAndView xoaDonHang(@PathVariable int soHoaDon) {
+		ModelAndView mav = new ModelAndView("redirect:/manage-don-hang");
+		
+		donDatHangService.deletById(soHoaDon);
+		return mav;
+	}
 }

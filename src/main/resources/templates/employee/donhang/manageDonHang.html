@@ -71,9 +71,10 @@
 											<th>Ngày đặt hàng</th>
 											<th>Ngày giao hàng</th>
 											<th>Nơi giao hàng</th>
-											<th>Tên nhân viên</th>
+											<th>Tên khách hàng</th>
 											<th>Trạng Thái</th>
-											
+											<th>Xóa</th>
+
 										</tr>
 									</thead>
 
@@ -95,25 +96,40 @@
 												<td th:text="${DonDatHang.ngayDatHang}"></td>
 												<td th:text="${DonDatHang.ngayGiaoHang}"></td>
 												<td th:text="${DonDatHang.noiGiaoHang}"></td>
-												<th:block th:if="${DonDatHang.nhanVien!=null}">
-												<td th:text="${DonDatHang.nhanVien.tenNhanVien}"></td>
+												<th:block th:if="${DonDatHang.khachHang!=null}">
+													<td th:text="${DonDatHang.khachHang.tenKhachHang}"></td>
 												</th:block>
-												<th:block th:unless="${DonDatHang.nhanVien!=null}">
-												<td >Chưa có</td>
+												<th:block th:unless="${DonDatHang.khachHang!=null}">
+													<td>Chưa có</td>
 												</th:block>
-												<th:block th:if="${DonDatHang.trangThai==1}">
-												<td>Chờ duyệt <a class="btn btn-primary">Duyệt</a></td>  
-												</th:block>
-												<th:block th:if="${DonDatHang.trangThai==2}">
-												<td>Chờ lấy hàng</td>
-												</th:block>
-												<th:block th:if="${DonDatHang.trangThai==3}">
-												<td>Đang giao</td>
-												</th:block>
-												<th:block th:if="${DonDatHang.trangThai==3}">
-												<td>Đã giao</td>
-												</th:block>
-												
+
+												<td>
+													<form
+														th:action="@{'/duyet-don-hang/'+${DonDatHang.soHoaDon}}">
+														<th:block th:if="${DonDatHang.trangThai==1}">
+															<label style="color: #00fbff;background-color: black">Chờ duyệt</label>
+														</th:block>
+														<th:block th:if="${DonDatHang.trangThai==2}">
+															<label style="color: #e5ff00;background-color: black"> Chờ lấy hàng </label>
+														</th:block>
+														<th:block th:if="${DonDatHang.trangThai==3}">
+															<label style="color: #002aff;background-color: black">Đang giao</label>
+														</th:block>
+														<th:block th:if="${DonDatHang.trangThai==4}">
+															<label style="color: #00ff59;background-color: black">Đã giao</label>
+														</th:block>
+
+														<br /> <select name="trangThai">
+															<option value="0">Chọn trạng thái</option>
+															<option value="1">Chờ duyệt</option>
+															<option value="2">Chờ lấy hàng</option>
+															<option value="3">Đang giao</option>
+															<option value="4">Đã giao</option>
+														</select> <input type="submit">
+													</form>
+												</td>
+												<td><a
+													th:href="@{'/delete-don-hang/'+${DonDatHang.soHoaDon}}">Xóa</a></td>
 											</tr>
 										</th:block>
 

@@ -38,6 +38,8 @@
                 <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
+                    <th:block th:if="${session.account.quyen.tenQuyen=='ROLE_ADMIN'}">
+                    
                         <h6 class="collapse-header">Quản lý hệ thống</h6>
                         <a class="collapse-item" href="/manage-don-hang">Quản lý đơn hàng</a>
                         <a class="collapse-item" href="/manage-mat-hang">Quản lý mặt hàng</a>
@@ -46,10 +48,23 @@
                         <a class="collapse-item" href="/manage-qua-tang">Quản lý Quà Tặng</a>
                         <a class="collapse-item" href="/manage-trang-tin-tuc">Quản lý Trang tin tức</a>
                         
+                    </th:block>
+                    <th:block th:unless="${session.account.quyen.tenQuyen=='ROLE_ADMIN'}">
+                    
+                        <h6 class="collapse-header">Quản lý hệ thống</h6>
+                        <a class="collapse-item" href="/manage-don-hang">Quản lý đơn hàng</a>
+                        <a class="collapse-item" href="/manage-mat-hang">Quản lý mặt hàng</a>
+                        <a class="collapse-item" href="/manage-loai-hang/1">Quản lý loại mặt hàng</a>
+                        <a class="collapse-item" href="/manage-qua-tang">Quản lý Quà Tặng</a>
+                        <a class="collapse-item" href="/manage-trang-tin-tuc">Quản lý Trang tin tức</a>
+                        
+                    </th:block>
+              
                     </div>
                 </div>
             </li>
                  <!-- Nav Item - Pages Collapse Menu -->
+                    <th:block th:if="${session.account.quyen.tenQuyen=='ROLE_ADMIN'}">
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -65,6 +80,7 @@
                     </div>
                 </div>
             </li>
+            </th:block>
             <!-- QL Thông tin cá nhân -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"

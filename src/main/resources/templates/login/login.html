@@ -51,7 +51,9 @@
 										value="lsRememberMe" checked="checked" id="rememberMe" />
 										<div class="control__indicator"></div> </label>
 								</div>
-
+								<p class="alert alert-danger" th:if="${hasError}!=null" th:utext="${hasError}" > 
+									ssssssss
+									</p>
 								<input type="submit" value="Đăng nhập"
 									class="btn btn-block py-2 btn-primary" onclick="lsRememberMe()">
 								<span class="text-center my-3 d-block">hoặc</span>
