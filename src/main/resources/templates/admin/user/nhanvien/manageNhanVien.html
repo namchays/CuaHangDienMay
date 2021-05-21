@@ -85,12 +85,12 @@
                                        		<td><img th:src="${NhanVien.urlAvatar}" style="width: 200px">
                                        		</td>
                                       		<th:block th:if="${NhanVien.userName}=='admin'">
-                                      			<td><a th:href="@{'/edit-nhan-vien/'+${NhanVien.userName}}">Sửa</a></td>
+                                      			<td>Sửa</td>
                                        		<td>Xóa</td>
                                       		</th:block>
                                       		<th:block th:if="${NhanVien.userName}!='admin'">
                                       			<td><a th:href="@{'/admin/edit-nhan-vien/'+${NhanVien.userName}}">Sửa</a></td>
-                                       		<td><a th:href="@{'/admin/delete-nhan-vien/'+${NhanVien.userName}}">Xóa</a></td>
+                                       		<td><a onclick="deleteEmployee()" th:href="@{'/admin/delete-nhan-vien/'+${NhanVien.userName}}">Xóa</a></td>
                                        		
                                       		</th:block>
                                        		
@@ -174,5 +174,11 @@
 
     <!-- Page level custom scripts -->
     <script src="/js/demo/datatables-demo.js"></script>
-
+<script type="text/javascript">
+function deleteEmployee(){
+	if(!confirm('bạn có muốn xóa người dùng này không')){
+		event.preventDefault();
+	}
+}
+</script>
 </body>

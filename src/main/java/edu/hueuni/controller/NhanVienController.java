@@ -480,7 +480,7 @@ public class NhanVienController {
 			
 			//Thêm ảnh chưa check
 			anhMatHangService.deleteByMatHang(matHang);
-			ThemAnh(files,matHang);
+			editAnh(files,matHang);
 			
 			
 			//set value
@@ -537,6 +537,34 @@ public class NhanVienController {
 
 		}
 	
+	}
+	private void editAnh(MultipartFile[] files,MatHang matHang) {
+		List<AnhMatHang> listAnh = new ArrayList<AnhMatHang>();
+		new File(uploadDirectory).mkdir();
+		String imageURL = null;
+		StringBuilder fileNames = new StringBuilder();
+		for (MultipartFile file : files) {
+			System.err.println("loop");
+			
+			imageURL = "/img/mathang/" + file.getOriginalFilename();
+			if(file.getOriginalFilename()==null || file.getOriginalFilename().equals("")||imageURL.equals("/img/mathang/"))
+				return;
+			AnhMatHang anh = new AnhMatHang();
+			anh.setUrl(imageURL);
+		
+			Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
+			fileNames.append(file.getOriginalFilename());
+			try {
+				Files.write(fileNameAndPath, file.getBytes());
+			} catch (IOException e) {
+				break;
+			}
+			anh.setMatHang(matHang);
+			anhMatHangService.save(anh);
+			listAnh.add(anh);
+			
+		}
+		
 	}
 	private String ThemAnh(MultipartFile[] files) {
 		new File(uploadQuaTangDirectory).mkdir();

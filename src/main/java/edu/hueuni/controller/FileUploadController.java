@@ -144,7 +144,6 @@ public class FileUploadController {
 		System.out.println("name" +name);
 		if(!name.equals("")&&name !=null) {
 			try {
-				
 				String fileName = null;
 				if(nhanVienService.findByUserName(name)!=null) {
 					NhanVien nhanVien = nhanVienService.findByUserName(name);

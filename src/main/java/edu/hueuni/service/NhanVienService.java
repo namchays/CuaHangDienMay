@@ -175,9 +175,9 @@ public class NhanVienService {
 	public void addObjectToEditNhanVien(ModelAndView mav, String username, NhanVienModel nhanVienModel) {
 		NhanVien nhanVien = this.findByUserName(username);
 		if(nhanVien!=null) {
-			  SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
-			    String ngaySinh = formatter.format(nhanVien.getNgaySinh());  
-			    String ngayLamViec = formatter.format(nhanVien.getNgayLamViec());
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
+			String ngaySinh = formatter.format(nhanVien.getNgaySinh());  
+			String ngayLamViec = formatter.format(nhanVien.getNgayLamViec());
 			nhanVienModel.setUserName(username);
 			nhanVienModel.setTenNhanVien(nhanVien.getUserName());
 			nhanVienModel.setPhuCap(nhanVien.getPhuCap());
@@ -188,7 +188,6 @@ public class NhanVienService {
 			nhanVienModel.setGioiTinh(nhanVien.getGioiTinh());
 			nhanVienModel.setDienThoai(nhanVien.getDienThoai());
 			nhanVienModel.setDiaChi(nhanVien.getDiaChi());
-			
 			mav.addObject("nhanVien", nhanVienModel);
 		}
 		

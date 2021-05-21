@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.hueuni.entity.AnhMatHang;
+import edu.hueuni.entity.BaiDang;
 import edu.hueuni.entity.ChiTietDatHang;
 import edu.hueuni.entity.ChiTietMatHang;
 import edu.hueuni.entity.CuaHang;
@@ -44,6 +46,7 @@ import edu.hueuni.entity.NhanVien;
 import edu.hueuni.entity.NhomHang;
 import edu.hueuni.entity.QuaTang;
 import edu.hueuni.model.AjaxResponseBody;
+import edu.hueuni.model.BaiDangModel;
 import edu.hueuni.model.ChiTietMatHangItem;
 import edu.hueuni.model.ChiTietMatHangModel;
 import edu.hueuni.model.NhanVienModel;
@@ -51,6 +54,7 @@ import edu.hueuni.model.NhomHangModel;
 import edu.hueuni.model.QuaTangItem;
 import edu.hueuni.model.QuaTangModel;
 import edu.hueuni.service.AnhMatHangService;
+import edu.hueuni.service.BaiDangService;
 import edu.hueuni.service.ChiTietMatHangService;
 import edu.hueuni.service.CuaHangService;
 import edu.hueuni.service.DonDatHangService;
@@ -83,6 +87,8 @@ public class AdminController {
 	private NhanVienService nhanVienService;
 	@Autowired
 	private KhachHangService khachHangService;
+	@Autowired
+	private BaiDangService baiDangService;
 	public static String uploadDirectory = System.getProperty("user.dir")
 			+ "\\src\\main\\resources\\static\\img\\mathang\\";
 
@@ -205,6 +211,43 @@ public class AdminController {
 		khachHangService.save(khachHang);
 		return mav;
 	}
-
+	//Quản lý trang tin tức
+	
+	@GetMapping("/admin/manage-news")
+	public ModelAndView quanLyTrangTinTuc() {
+		ModelAndView mav = new ModelAndView("/admin/news/manageNews");
+		List<BaiDang> listBaiDang = baiDangService.findByMatHang(null);
+		mav.addObject("listBaiDang", listBaiDang);
+		return mav;
+	}
+	@GetMapping("/admin/add-news")
+	public ModelAndView addTinTuc() {
+		ModelAndView mav = new ModelAndView("/admin/news/addNews");
+		mav.addObject("baiDang", new BaiDangModel());
+		return mav;
+	}
+	@PostMapping("/admin/add-news")
+	public ModelAndView addTinTucSubmit(@ModelAttribute("baiDang") BaiDangModel baiDangModel,@RequestParam("files") MultipartFile[] files,HttpServletRequest request) {
+		HttpSession  session = request.getSession();
+		ModelAndView mav = new ModelAndView("redirect:/admin/manage-news");
+		baiDangService.addBaiDang(baiDangModel.getTieuDe(), files, baiDangModel.getNoiDung(), session, null);
+		return mav;
+	}
+	
+	@GetMapping("/admin/edit-news/{id}")
+	public ModelAndView editTinTuc(@PathVariable int id) {
+		ModelAndView mav = new ModelAndView("/admin/news/editNews");
+		BaiDang baiDang = baiDangService.findById(id);
+		BaiDangModel baiDangModel = new BaiDangModel(id, baiDang.getNoiDung(), baiDang.getTieuDe(), null, baiDang.getUrlImg());
+		mav.addObject("baiDang", baiDangModel);
+		return mav;
+	}
+	@PostMapping("/admin/edit-news/{id}")
+	public ModelAndView edutTinTucSubmit(@ModelAttribute("baiDang") BaiDangModel baiDangModel,@RequestParam("files") MultipartFile[] files,HttpServletRequest request,@PathVariable int id) {
+		HttpSession  session = request.getSession();
+		ModelAndView mav = new ModelAndView("redirect:/admin/manage-news");
+		baiDangService.editBaiDang(baiDangModel.getTieuDe(), files, baiDangModel.getNoiDung(), session, null, id);
+		return mav;
+	}
 	
 }

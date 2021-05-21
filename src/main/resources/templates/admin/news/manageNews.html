@@ -19,7 +19,7 @@
 
     <!-- Custom styles for this template -->
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <!-- Custom styles for this page -->
     <link href="/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
@@ -42,19 +42,19 @@
             <div id="content">
 
                 <!-- Topbar -->
-                	<nav th:insert="/admin/shared/topbar :: topbar"></nav>
+               	<nav th:insert="/admin/shared/topbar :: topbar"></nav>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                  
+                   
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3" >
-                            <h6 class="m-0 font-weight-bold text-primary">Quản lý mặt hàng</h6>
-                           <a href="/add-mat-hang" class="btn btn-primary" style="float: right"><i class="fas fa-plus"></i> Thêm</a>
+                            <h6 class="m-0 font-weight-bold text-primary">Quản lý bài đăng</h6>
+                           <a href="/admin/add-news" class="btn btn-primary" style="float: right"><i class="fas fa-plus"></i> Thêm</a>
                         </div>
                       
                         <div class="card-body">
@@ -62,42 +62,27 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Mã hàng</th>
-                                            <th>Tên hàng</th>
+                                            <th>ID</th>
+                                             <th>Tiêu đề</th>
+                                            <th>Nội dung</th>
+                                           
+                                            <th>Người đăng</th>
                                             <th>Ảnh</th>
-                                            <th>Giá hàng</th>
-                                            <th>Đơn vị tính</th>
-                                            <th>Ngày nhập</th>
-                                            <th>Số lượng</th>
-                                            <th>Xuất xứ</th>
-                                            <th>Trạng thái</th>
                                             <th>Sửa</th>
                                             <th>Xóa</th>
-                                           
                                         </tr>
                                     </thead>
                                    
                                     <tbody >
-                                    <th:block th:each="MatHang : ${listMatHang}">
+                                    <th:block th:each="BaiDang : ${listBaiDang}">
                                     <tr>
-                                       		<td th:text="${MatHang.MaHang}"></td>
-                                       		<td th:text="${MatHang.TenHang}"></td>
-                                       		<th:block th:if="${MatHang.anhMatHangs.size()>0}">
-                                       			<td ><img th:src="@{'/getImg'+${MatHang.anhMatHangs[0].url}}" style="width: 40px"></td>
-                                       		</th:block>
-                                       		<th:block th:unless="${MatHang.anhMatHangs.size()>0}">
-                                       			<td >Không tìm thấy</td>
-                                       		</th:block>
-                                       	
-                                       		<td class="giahang" th:text="${MatHang.GiaHang}"></td>
-                                       		<td th:text="${MatHang.DonViTinh}"></td>
-                                       		<td th:text="${MatHang.NgayNhap}"></td>
-                                       		<td th:text="${MatHang.SoLuong}"></td>
-                                       		<td th:text="${MatHang.XuatXu}"></td>
-                                       		<td th:text="${MatHang.TrangThai}"></td>
-                                       		
-                                       		<td ><a th:href="@{'/edit-mat-hang/'+${MatHang.MaHang}}">Sửa</a></td>
-                                       		<td ><a th:href="@{'/delete-mat-hang/'+${MatHang.MaHang}}">Xóa</a></td>
+                                       		<td th:text="${BaiDang.idBaiDang}"></td>
+                                       		<td th:text="${BaiDang.tieuDe}"></td>
+                                       		<td th:text="${BaiDang.noiDung}"></td>
+                                       		<td th:text="${BaiDang.userName}"></td>
+                                       		<td ><img th:src="@{'/getImg'+${BaiDang.urlImg}}" style="width: 200px"></td>
+                                       		<td ><a th:href="@{'/admin/edit-news/'+${BaiDang.idBaiDang}}">Sửa</a></td>
+                                       		<td ><a th:href="@{'/admin/delete-news/'+${BaiDang.idBaiDang}}">Xóa</a></td>
                                        </tr>
                                     </th:block>
                                        
@@ -153,14 +138,7 @@
             </div>
         </div>
     </div>
-<script type="text/javascript">
-$(document).ready(function(){
-	$('.giahang').each(function( index ) {
-		  $( this ).text(Number($(this).text()).toLocaleString('en'));
-	});
-});
-	
-</script>
+
     <!-- Bootstrap core JavaScript-->
     <script src="/jquery/jquery.min.js"></script>
     <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>

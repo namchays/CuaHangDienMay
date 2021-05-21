@@ -173,4 +173,13 @@ public class CommentController {
 		return  ResponseEntity.ok(binhLuanModel);
 		
 	}
+	@PostMapping("/like-reply/{id}")
+	public ResponseEntity<?> likeReply(
+			@PathVariable int id) {
+		
+//		BinhLuanModel binhLuanModel = binhLuanService.likeComment(id);
+		TraLoiModel traLoiModel = traLoiService.likeTraLoi(id);
+		return  ResponseEntity.ok(traLoiModel);
+		
+	}
 }

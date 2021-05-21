@@ -68,13 +68,13 @@ public class MainController {
 		return "redirect:/login";
 	}
 	@GetMapping("/")
-	public String homePage(Model model) {
-		addDataToNavbar(null, model);
+	public String homePage(Model model,HttpServletRequest request) {
+		addDataToNavbar(null, model,request);
 		return "index";
 	}
 	@GetMapping("/detail-san-pham/{id}")
-	public String chiTietMatHang(Model model,@PathVariable int id) {
-		addDataToNavbar(null, model);
+	public String chiTietMatHang(Model model,@PathVariable int id,HttpServletRequest request) {
+		addDataToNavbar(null, model,request);
 		Optional<MatHang> matHangFound = matHangService.findById(id);
 		System.out.println("detail SAn Phẩm");
 		if(matHangFound.isPresent()) {
@@ -160,14 +160,15 @@ public class MainController {
 		return "/login/login";
 	}
 	@GetMapping("/he-thong-sieu-thi")
-	public String getListCuaHang(Model model) {
-		addDataToNavbar(null, model);
+	public String getListCuaHang(Model model,HttpServletRequest request) {
+		addDataToNavbar(null, model,request);
 		List<CuaHang> listCuaHang = cuaHangService.findAll();
 		model.addAttribute("listCuaHang", listCuaHang);
 		return "/cuahang/heThongSieuThi";
 	}
 	@GetMapping("/chi-tiet-cua-hang/{id}")
-	public String chiTietCuaHang(Model model,@PathVariable int id) {
+	public String chiTietCuaHang(Model model,@PathVariable int id,HttpServletRequest request) {
+		addDataToNavbar(null, model,request);
 		Optional<CuaHang> cuaHangFound = cuaHangService.findById(id);
 		if(cuaHangFound.isPresent()) {
 			CuaHang cuaHang = cuaHangFound.get();
@@ -177,9 +178,10 @@ public class MainController {
 	}
 	
 	@GetMapping("/find-by-cua-hang/{id}")
-	public ModelAndView findByCuaHang(@PathVariable int id) {
+	public ModelAndView findByCuaHang(@PathVariable int id,HttpServletRequest request,Model model) {
+		addDataToNavbar(null, model,request);
 		ModelAndView mav = new ModelAndView("/cuahang/findByCuaHang");
-		addDataToNavbar(mav, null);
+		addDataToNavbar(mav, null, request);
 		List<CuaHang> listCuaHang = cuaHangService.findAll();
 		List<LoaiHang> listLoaiHang = loaiHangService.findAll();
 //		List<MatHang> listMatHang = matHangService.findAll();
@@ -203,28 +205,29 @@ public class MainController {
 		return mav;
 	}
 	@GetMapping("/find-by-nhom-hang/{id}")
-	public ModelAndView findByNhomHang(@PathVariable int id) {
-		
+	public ModelAndView findByNhomHang(@PathVariable int id,HttpServletRequest request,Model model) {
+		addDataToNavbar(null, model,request);
 		ModelAndView mav = new ModelAndView("/nhomhang/findByNhomHang");
-		addDataToNavbar(mav, null);
+		addDataToNavbar(mav, null,request);
 		List<MatHangModel> listMatHangModel = matHangService.findByNhomHang(id, mav);
 		mav.addObject("listMatHangModels", listMatHangModel);
 		return mav;
 	}
 	
 	@GetMapping("/find-by-loai-hang/{id}")
-	public ModelAndView findByLoaiHang(@PathVariable int id) {
-		
+	public ModelAndView findByLoaiHang(@PathVariable int id,HttpServletRequest request,Model model) {
+		addDataToNavbar(null, model,request);
 		ModelAndView mav = new ModelAndView("/loaihang/findByLoaiHang");
-		addDataToNavbar(mav, null);
+		addDataToNavbar(mav, null, request);
 		List<MatHangModel> listMatHangModel = matHangService.findByLoaiHang(id, mav);
 		mav.addObject("listMatHangModels", listMatHangModel);
 		return mav;
 	}
 	@PostMapping("/find-by-ten")
-	public ModelAndView findByTenMatHang(@RequestParam String tenMatHang) {
+	public ModelAndView findByTenMatHang(@RequestParam String tenMatHang,HttpServletRequest request,Model model) {
+		addDataToNavbar(null, model,request);
 		ModelAndView mav = new ModelAndView("/mathang/findByTenMatHang");
-		addDataToNavbar(mav, null);
+		addDataToNavbar(mav, null,request);
 		List<MatHangModel> listMatHangModel = matHangService.findByTenHangEquals(tenMatHang);
 		mav.addObject("listMatHangModels", listMatHangModel);
 		return mav;
@@ -251,12 +254,27 @@ public class MainController {
 		return mav;
 	}
 	
-	private void addDataToNavbar(ModelAndView mav, Model  model) {
+	private void addDataToNavbar(ModelAndView mav, Model  model,HttpServletRequest request) {
 		List<CuaHang> listCuaHang = cuaHangService.findAll();
 		List<LoaiHang> listLoaiHang = loaiHangService.findAll();
 		List<MatHang> listMatHang = matHangService.findAll();
 		ListMatHangModel listMatHangModel = new ListMatHangModel();
 		List<MatHangModel> listMatHangModels = listMatHangModel.getMatHangModel(listMatHang);
+		HttpSession session = request.getSession();
+		if(session.getAttribute("account")!=null) {
+			Object account = session.getAttribute("account");
+			if(account instanceof NhanVien) {
+				if(model!=null) {
+					model.addAttribute("accNhanVien",(NhanVien)account);
+				}
+			}else {
+				if(account instanceof KhachHang) {
+					if(model!=null) {
+						model.addAttribute("accNhanVien",null);
+					}
+				}	
+			}
+		}
 		if(model!=null) {
 			model.addAttribute("listLoaiHang", listLoaiHang);
 			model.addAttribute("listMatHangModels", listMatHangModels);

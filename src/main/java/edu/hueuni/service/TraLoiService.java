@@ -22,6 +22,7 @@ import edu.hueuni.entity.BinhLuan;
 import edu.hueuni.entity.KhachHang;
 import edu.hueuni.entity.NhanVien;
 import edu.hueuni.entity.TraLoi;
+import edu.hueuni.model.BinhLuanModel;
 import edu.hueuni.model.TraLoiModel;
 import edu.hueuni.repository.TraLoiRepository;
 
@@ -106,5 +107,25 @@ public class TraLoiService {
 			
 		}
 		return traLoiModel;
+	}
+	public TraLoiModel likeTraLoi(int id) {
+
+		Optional<TraLoi>  traLoiFound = traLoiRepository.findById(id);
+		System.err.println("like tra loi");
+		if(traLoiFound.isPresent()) {
+			TraLoi traLoi = traLoiFound.get();
+			traLoi.setLuotThich(traLoi.getLuotThich()+1);
+			System.err.println("luot thich"+traLoi.getLuotThich());
+			traLoiRepository.save(traLoi);
+
+			TraLoiModel traLoiModel = new TraLoiModel();
+			traLoiModel.setLuotThich(traLoi.getLuotThich());
+			traLoiModel.setIdCauTraLoi(id);
+			return traLoiModel;
+		}else {
+			System.err.println("err");
+		}
+		return null;
+		
 	}
 }

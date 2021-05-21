@@ -101,4 +101,38 @@ public class BaiDangService {
 		baiDang.setUrlImg(imageURL);
 		baiDangRepository.save(baiDang);
 	}
+	public void editBaiDang(String tieuDe, MultipartFile[] files, String noiDung, HttpSession session, MatHang matHang,int id) {
+		Optional<BaiDang> baiDangFound = baiDangRepository.findById(id);
+		BaiDang baiDang = baiDangFound.get();
+		if (session.getAttribute("account")!=null) {
+			Object account = session.getAttribute("account");
+			if(account instanceof NhanVien) {
+				baiDang.setUserName(((NhanVien) account).getUserName());
+			}
+			
+		}
+		
+		baiDang.setMatHang(matHang);
+		baiDang.setTieuDe(tieuDe);
+		baiDang.setNoiDung(noiDung);
+		new File(MyConstances.DIRECTORY_BAI_DANG).mkdir();
+		String imageURL = null;
+		StringBuilder fileNames = new StringBuilder();
+		for (MultipartFile file : files) {
+			imageURL = "/img/baidang/" + file.getOriginalFilename();
+			System.out.println(imageURL);
+			Path fileNameAndPath = Paths.get(MyConstances.DIRECTORY_BAI_DANG, file.getOriginalFilename());
+			fileNames.append(file.getOriginalFilename());
+			try {
+				Files.write(fileNameAndPath, file.getBytes());
+			} catch (IOException e) {
+				break;
+			}
+			
+			
+		}
+		baiDang.setUrlImg(imageURL);
+		baiDangRepository.save(baiDang);
+	}
+	
 }

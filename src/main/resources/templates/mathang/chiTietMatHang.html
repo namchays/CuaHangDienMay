@@ -363,7 +363,8 @@ input[type=checkbox] {
 															</div>
 															<i
 																th:class="@{'far fa-thumbs-up like-reply like-reply-'+${TraLoi.idCauTraLoi}}"
-																style="margin-left: 60px"></i> ([[${TraLoi.luotThich}]]) &nbsp; <span
+																th:id="@{'like-reply-'+${TraLoi.idCauTraLoi}}"
+																style="margin-left: 60px">([[${TraLoi.luotThich}]])</i>  &nbsp; <span
 																th:data-idBinhLuan="${BinhLuan.idBinhLuan}"
 																class="reply" style="color: blue;"><i
 																class="fa fa-reply"></i> reply</span> &nbsp;<span
@@ -615,14 +616,33 @@ input[type=checkbox] {
 		$(document).ready(function() {
 			$('.like-comment').each(function() {
 				$(this).click(function() {
-					var str = $(this).attr("id");
-					arr = str.split('-');
-					var id = arr[2];
-					likeComment(id)
+					     	 var str = $(this).attr("id");
+							arr = str.split('-');
+							var id = arr[2];
+							likeComment(id);
+							
+					
 				});
 			})
+			$('.like-reply').each(function() {
+				$(this).click(function() {
+					     	 var str = $(this).attr("id");
+							arr = str.split('-');
+							var id = arr[2];
+							likeReply(id)
+					 
+					
+				});
+			})
+			$('#dislike-comment-84').click(function() {
+		     	console.log("click")
+		
+			})	
 
 		});
+		
+	
+		
 		function likeComment(idBinhLuan) {
 
 			var dataId = idBinhLuan;
@@ -653,6 +673,41 @@ input[type=checkbox] {
 					});
 
 		}
+		function likeReply(idBinhLuan) {
+
+			var dataId = idBinhLuan;
+			var Url = "/like-reply/" + idBinhLuan;
+			console.log(Url);
+			$
+					.ajax({
+						type : "POST",
+						enctype : 'multipart/form-data',
+						url : Url,
+						data : dataId,
+						processData : false, //prevent jQuery from automatically transforming the data into a query string
+						contentType : false,
+						cache : false,
+						timeout : 600000,
+						success : function(data) {
+
+							console.log("SUCCESS : ", data);
+							$('#like-reply-' + data.idCauTraLoi)
+							.replaceWith(
+									"<i style='margin-left: 60px' class='fas fa-thumbs-up dislike-reply dislike-comment-"+data.idCauTraLoi+"' id='dislike-comment-"+data.idCauTraLoi+"'>("+data.luotThich+")</i>");
+						},
+						error : function(e) {
+							console.log("ERROR : ", e);
+
+						}
+					});
+
+		}
+	</script>
+	<script type="text/javascript">
+	
+	
+		
+
 	</script>
 	<script>
 		$('.time-comment').each(function() {

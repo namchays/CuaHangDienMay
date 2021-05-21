@@ -20,6 +20,7 @@
 <link href="css/body/animate.css" rel="stylesheet">
 <link href="css/body/main.css" rel="stylesheet">
 <link href="css/body/responsive.css" rel="stylesheet">
+
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -385,9 +386,14 @@
 		var listDienLanh = listMatHangModels.filter(function(e){
 			return e.tenLoaiHang == "Điện lạnh";
 		})
+		var listGiaDung = listMatHangModels.filter(function(e){
+			return e.tenLoaiHang == "Gia dụng";
+		})
 		console.log(listLaptop);
 		console.log(listPhone);
 		console.log(listDienLanh);
+		
+		console.log(listGiaDung);
 		
 		
 		
@@ -396,6 +402,7 @@
 		$('#hang-hieu').append(createHTML(listMatHangModels));
 		$('#dien-thoai').append(createHTML(listPhone));
 		$('#laptop').append(createHTML(listLaptop));
+		$('#gia-dung').append(createHTML(listGiaDung));
 		
 		console.log(listMatHangModels);
 
@@ -458,6 +465,7 @@
 	<script src="js/body/price-range.js"></script>
 	<script src="js/body/jquery.prettyPhoto.js"></script>
 	<script src="js/body/main.js"></script>
+	
 </body>
 
 </html>

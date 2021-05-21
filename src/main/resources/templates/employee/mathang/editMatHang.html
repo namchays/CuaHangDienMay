@@ -242,7 +242,8 @@
 
 	<!-- Page level custom scripts -->
 	<script src="/js/demo/datatables-demo.js"></script>
-	<script type="text/javascript">
+	<script th:inline="javascript">
+	/*<![CDATA[*/
 		function onOptionChange() {
 			var selectBox = document.getElementById("tenLoaiHang");
 			var selectedValue = selectBox.options[selectBox.selectedIndex].value;
@@ -285,7 +286,49 @@
 			
 			/* $('#').val("1"); */
 		}
-		document.getElementById('tenLoaiHang').value = "1";
+		var idLoaiHang = /*[[${idLoaiHang}]]*/'';
+	 	document.getElementById('tenLoaiHang').value = idLoaiHang; 
+		var selectBox = document.getElementById("tenLoaiHang");
+			var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+			//alert(selectedValue);
+			var urlTarget = "/get-nhom-hang-by-loai-hang";
+			var myJson = JSON.stringify(selectedValue);
+			$.ajax({
+				type : 'POST',
+				contentType : "application/json",
+				url : urlTarget,
+				data : myJson,
+				dataType : 'json',
+				cache : false,
+				timeout : 600000,
+				success : function(data) {
+
+					if (data != null) {
+						$('#listNhomHang').empty();
+						var listNhomHang = data.nhomHangModel;
+						console.log(listNhomHang);
+						if (listNhomHang != null) {
+							if (listNhomHang.length > 0) {
+								listNhomHang.forEach(function(element) {
+									console.log(element)
+									$('#listNhomHang').append(
+											new Option(element.tenNhomHang,
+													element.id));
+								});
+							}
+						}
+						
+						var idNhomHang = /*[[${idNhomHang}]]*/'';
+					 	document.getElementById('listNhomHang').value = idNhomHang; 
+					}
+
+					/* $("#listQuestion").remove() */
+				},
+				error : function(e) {
+					console.log(e);
+				}
+			})
+			/*]]>*/
 	</script>
 	<script>
 		document.getElementById("addQuaTang").addEventListener("click",
@@ -358,6 +401,10 @@
 	    blur: function() { 
 	      formatCurrency($(this), "blur");
 	    }
+	});
+	
+	$('#currency-field').text(function(){
+		formatCurrency($(this), "blur");
 	});
 
 

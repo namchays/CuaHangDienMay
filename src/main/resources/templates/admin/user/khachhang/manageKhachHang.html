@@ -78,7 +78,7 @@
                                        		<th:block th:if="${KhachHang.enable}==true"><td>Đang hoạt động</td></th:block>
                                        		<th:block th:unless="${KhachHang.enable==true}"><td>Đã bị chặn</td></th:block>
                                        		<th:block th:if="${KhachHang.enable==true}">
-                                       		<td><a class="btn btn-danger" th:href="@{'/chan-khach-hang/'+${KhachHang.userName}}">Chặn</a></td>
+                                       		<td><a class="btn btn-danger" onclick="block()" th:href="@{'/chan-khach-hang/'+${KhachHang.userName}}">Chặn</a></td>
                                        		</th:block>
                                        		<th:block th:unless="${KhachHang.enable==true}">
                                        		<td><a class="btn btn-primary" th:href="@{'/chan-khach-hang/'+${KhachHang.userName}}">Bỏ Chặn</a></td>
@@ -156,5 +156,12 @@
     <!-- Page level custom scripts -->
     <script src="/js/demo/datatables-demo.js"></script>
 
+	<script type="text/javascript">
+		function block(){
+			if(!confirm('bạn có muốn chặn người dùng này không')){
+				event.preventDefault();
+			}
+		}
+	</script>
 </body>
 
