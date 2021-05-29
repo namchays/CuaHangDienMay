@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,12 +16,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.hueuni.entity.KhachHang;
+import edu.hueuni.entity.NhanVien;
 import edu.hueuni.service.KhachHangService;
+import edu.hueuni.service.NhanVienService;
 
 @Controller
 public class KhachHangController {
 	@Autowired
 	private KhachHangService khachHangService;
+	@Autowired
+	private NhanVienService nhanVienService;
 
 	@GetMapping("/register")
 	public String showRegisterForm() {
@@ -33,20 +38,28 @@ public class KhachHangController {
 			@RequestParam(name = "diaChi") String diaChi,
 			@RequestParam(name = "soDienThoai") String soDienThoai,
 			@RequestParam(name = "gioiTinh") Integer gioiTinh,
-			@RequestParam(name = "ngaySinh") String ngaySinh
+			@RequestParam(name = "ngaySinh") String ngaySinh,
+			Model model
 			) throws ParseException, NoSuchAlgorithmException {
 
 		
 		KhachHang khachHang = khachHangService.findByUserName(userName);
-		if(khachHang!=null) {
+		NhanVien nhanVien = nhanVienService.findByUserName(userName);
+		if(khachHang!=null || nhanVien!=null) {
+			model.addAttribute("hasError", "Tài khoản đã tồn tại.");
 			return "/user/register";
 		}else {
-
-			    Date NgaySinhDateType=new SimpleDateFormat("yyyy-MM-dd").parse(ngaySinh);  
-			KhachHang newKhachHang =new KhachHang(userName,  diaChi,  gioiTinh,  NgaySinhDateType,  password,
-					 soDienThoai,  tenKhachHang);
-			khachHangService.save(newKhachHang);
-			return "redirect:/login";
+			try {
+				   Date NgaySinhDateType=new SimpleDateFormat("yyyy-MM-dd").parse(ngaySinh);  
+					KhachHang newKhachHang =new KhachHang(userName,  diaChi,  gioiTinh,  NgaySinhDateType,  password,
+							 soDienThoai,  tenKhachHang);
+					khachHangService.save(newKhachHang);
+					return "redirect:/login";
+			} catch (Exception e) {
+				model.addAttribute("hasError", "Thông tin đăng ký không hợp lệ");
+				return "/user/register";
+			}
+			 
 		}
 		
 		

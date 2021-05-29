@@ -68,8 +68,8 @@
 										style="height: 70px" /></td>
 									<td><input type="number" class="soLuong" th:id="${gioHangItem.maHang}" th:value="${gioHangItem.soLuong}"
 										style="width: 50px" min="1"></td>
-									<td th:text="${gioHangItem.gia}"></td>
-									<td th:text="${gioHangItem.thanhTien}" th:id="@{'thanhtien-'+${gioHangItem.maHang}}"></td>
+									<td class="gia" th:text="${gioHangItem.gia}"></td>
+									<td class="thanh-tien" th:text="${gioHangItem.thanhTien}" th:id="@{'thanhtien-'+${gioHangItem.maHang}}"></td>
 									<td class="text-center"><button class="deleteCart" th:id="${gioHangItem.maHang}" >Xóa</button></td>
 								</tr>
 							</th:block>
@@ -127,8 +127,8 @@
 				        		timeout: 600000,
 				        		success: function(data){
 				        			console.log(data);
-				        			$('#tong-tien').html(data.tongTien);
-				        			$('#thanhtien-'+data.id).html(data.thanhTien);
+				        			$('#tong-tien').html(Number(data.tongTien).toLocaleString("en"));
+				        			$('#thanhtien-'+data.id).html(Number(data.thanhTien).toLocaleString("en"));
 				        		},
 				        		error: function(e) {
 					    			console.log("loi" +e);
@@ -165,6 +165,17 @@
 					}
 				})
 			})
+		})
+		
+		
+		/* $('#thanh-tien').html(Number($('#thanh-tien').html()).toLocaleString("en")); */
+		$('.thanh-tien').each(function(){
+			$(this).html(Number($(this).html()).toLocaleString("en"));	
+		})
+		$('#tong-tien').html(Number($('#tong-tien').html()).toLocaleString("en"));	
+		
+		$('.gia').each(function(){
+			$(this).html(Number($(this).html()).toLocaleString("en"));	
 		})
 	</script>
  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

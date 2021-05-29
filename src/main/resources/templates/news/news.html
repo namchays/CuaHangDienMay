@@ -100,114 +100,18 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="weekly-news-active dot-style d-flex dot-style">
-                            <div class="weekly-single active">
-                                <div class="weekly-img">
-                                    <img src="/assets/img/news/weeklyNews2.jpg" alt="">
-                                </div>
-                                <div class="weekly-caption">
-                                    <span class="color1">Strike 11</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest11</a></h4>
-                                </div>
-                            </div> 
-                            <div class="weekly-single active">
-                                <div class="weekly-img">
-                                        <img src="/assets/img/news/weeklyNews1.jpg" alt="">
-                                </div>
-                                <div class="weekly-caption">
-                                    <span class="color1">Strike22</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest22</a></h4>
-                                </div>
-                            </div>
-                            <div class="weekly-single active">
-                                <div class="weekly-img">
-                                        <img src="/assets/img/news/weeklyNews3.jpg" alt="">
-                                </div>
-                                <div class="weekly-caption">
-                                    <span class="color1">Strik33e</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contes33t</a></h4>
-                                </div>
-                            </div>
+                          
+                        <th:block th:each="BaiDang : ${listBaiDang}">
                             <div class="weekly-single">
                                 <div class="weekly-img">
-                                    <img src="/assets/img/news/weeklyNews1.jpg" alt="">
+                                    <img th:src="${BaiDang.urlImg}" alt="" style="transform : scale(1)">
                                 </div>
                                 <div class="weekly-caption">
                                     <span class="color1">Strik44e</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contes44t</a></h4>
+                                   <h4><a th:href="@{'/news-detail/'+${BaiDang.idBaiDang}}">[[${BaiDang.tieuDe}]]</a></h4>
                                 </div>
                             </div>
-                            <div class="weekly-single">
-                                <div class="weekly-img">
-                                    <img src="/assets/img/news/weeklyNews1.jpg" alt="">
-                                </div>
-                                <div class="weekly-caption">
-                                    <span class="color1">Strik44e</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contes44t</a></h4>
-                                </div>
-                            </div>
-                            <div class="weekly-single">
-                                <div class="weekly-img">
-                                    <img src="/assets/img/news/weeklyNews1.jpg" alt="">
-                                </div>
-                                <div class="weekly-caption">
-                                    <span class="color1">Strik44e</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contes44t</a></h4>
-                                </div>
-                            </div>
-                            <div class="weekly-single">
-                                <div class="weekly-img">
-                                    <img src="/assets/img/news/weeklyNews1.jpg" alt="">
-                                </div>
-                                <div class="weekly-caption">
-                                    <span class="color1">Strik44e</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contes44t</a></h4>
-                                </div>
-                            </div>
-                            <div class="weekly-single">
-                                <div class="weekly-img">
-                                    <img src="/assets/img/news/weeklyNews1.jpg" alt="">
-                                </div>
-                                <div class="weekly-caption">
-                                    <span class="color1">Strik44e</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contes44t</a></h4>
-                                </div>
-                            </div>
-                            <div class="weekly-single">
-                                <div class="weekly-img">
-                                    <img src="/assets/img/news/weeklyNews1.jpg" alt="">
-                                </div>
-                                <div class="weekly-caption">
-                                    <span class="color1">Strik44e</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contes44t</a></h4>
-                                </div>
-                            </div>
-                            <div class="weekly-single">
-                                <div class="weekly-img">
-                                    <img src="/assets/img/news/weeklyNews1.jpg" alt="">
-                                </div>
-                                <div class="weekly-caption">
-                                    <span class="color1">Strik44e</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contes44t</a></h4>
-                                </div>
-                            </div>
-                            <div class="weekly-single">
-                                <div class="weekly-img">
-                                    <img src="/assets/img/news/weeklyNews1.jpg" alt="">
-                                </div>
-                                <div class="weekly-caption">
-                                    <span class="color1">Strik44e</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contes44t</a></h4>
-                                </div>
-                            </div>
-                            <div class="weekly-single">
-                                <div class="weekly-img">
-                                    <img src="/assets/img/news/weeklyNews1.jpg" alt="">
-                                </div>
-                                <div class="weekly-caption">
-                                    <span class="color1">Strik44e</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contes44t</a></h4>
-                                </div>
-                            </div>
+                            </th:block>
                         </div>
                     </div>
                 </div>
@@ -251,50 +155,21 @@
                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">           
                                 <div class="whats-news-caption">
                                     <div class="row">
+                                      <th:block th:each="BaiDang,pos : ${listBaiDang}">
+                                      <th:block th:if="${pos.index} <=3">
                                         <div class="col-lg-6 col-md-6">
                                             <div class="single-what-news mb-100">
                                                 <div class="what-img">
-                                                    <img src="/assets/img/news/whatNews1.jpg" alt="">
+                                                    <img th:src="${BaiDang.urlImg}" alt="">
                                                 </div>
                                                 <div class="what-cap">
-                                                    <span class="color1">Night party</span>
-                                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
+                                                    <span class="color1">News</span>
+                                                    <h4><a th:href="@{'/news-detail/'+${BaiDang.idBaiDang}}">[[${BaiDang.tieuDe}]]</a></h4>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="single-what-news mb-100">
-                                                <div class="what-img">
-                                                    <img src="/assets/img/news/whatNews2.jpg" alt="">
-                                                </div>
-                                                <div class="what-cap">
-                                                    <span class="color1">Night party</span>
-                                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="single-what-news mb-100">
-                                                <div class="what-img">
-                                                    <img src="/assets/img/news/whatNews3.jpg" alt="">
-                                                </div>
-                                                <div class="what-cap">
-                                                    <span class="color1">Night party</span>
-                                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="single-what-news mb-100">
-                                                <div class="what-img">
-                                                    <img src="/assets/img/news/whatNews4.jpg" alt="">
-                                                </div>
-                                                <div class="what-cap">
-                                                    <span class="color1">Night party</span>
-                                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </th:block>
+                                       </th:block>
                                     </div>
                                 </div>
                             </div>
@@ -606,7 +481,7 @@
                 </div>
                 <!-- New Poster -->
                 <div class="news-poster d-none d-lg-block">
-                    <img src="/assets/img/news/news_card.jpg" alt="">
+                    <img src="/img/baidang/sieu thi dien may cho lon(1).jpg" alt="">
                 </div>
             </div>
             </div>
@@ -628,56 +503,18 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="weekly2-news-active dot-style d-flex dot-style">
-                            <div class="weekly2-single">
-                                <div class="weekly2-img">
-                                    <img src="/assets/img/news/weekly2News1.jpg" alt="">
-                                </div>
-                                <div class="weekly2-caption">
-                                    <span class="color1">Corporate</span>
-                                    <p>25 Jan 2020</p>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                </div>
-                            </div> 
-                            <div class="weekly2-single">
-                                <div class="weekly2-img">
-                                    <img src="/assets/img/news/weekly2News2.jpg" alt="">
-                                </div>
-                                <div class="weekly2-caption">
-                                    <span class="color1">Event night</span>
-                                    <p>25 Jan 2020</p>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                </div>
-                            </div> 
-                            <div class="weekly2-single">
-                                <div class="weekly2-img">
-                                    <img src="/assets/img/news/weekly2News3.jpg" alt="">
-                                </div>
-                                <div class="weekly2-caption">
-                                    <span class="color1">Corporate</span>
-                                    <p>25 Jan 2020</p>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                </div>
-                            </div>
+                             <th:block th:each="BaiDang : ${listBaiDang}">
                              <div class="weekly2-single">
                                 <div class="weekly2-img">
-                                    <img src="/assets/img/news/weekly2News4.jpg" alt="">
+                                    <img th:src="${BaiDang.urlImg}" alt="">
                                 </div>
                                 <div class="weekly2-caption">
-                                    <span class="color1">Event time</span>
+                                    <span class="color1">[[${BaiDang.userName}]]</span>
                                     <p>25 Jan 2020</p>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
+                                  <h4><a th:href="@{'/news-detail/'+${BaiDang.idBaiDang}}">[[${BaiDang.tieuDe}]]</a></h4>
                                 </div>
                             </div> 
-                             <div class="weekly2-single">
-                                <div class="weekly2-img">
-                                    <img src="/assets/img/news/weekly2News4.jpg" alt="">
-                                </div>
-                                <div class="weekly2-caption">
-                                    <span class="color1">Corporate</span>
-                                    <p>25 Jan 2020</p>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                </div>
-                            </div> 
+                            </th:block>
                         </div>
                     </div>
                 </div>

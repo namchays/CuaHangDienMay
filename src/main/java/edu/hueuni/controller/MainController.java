@@ -156,7 +156,7 @@ public class MainController {
 				}
 			}
 		}
-//		model.addAttribute("hasError", "Sai tên đăng nhập hoặc mật khẩu");
+		model.addAttribute("hasError", "Sai tên đăng nhập hoặc mật khẩu");
 		return "/login/login";
 	}
 	@GetMapping("/he-thong-sieu-thi")

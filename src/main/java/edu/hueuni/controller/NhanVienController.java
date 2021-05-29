@@ -479,7 +479,7 @@ public class NhanVienController {
 			}
 			
 			//Thêm ảnh chưa check
-			anhMatHangService.deleteByMatHang(matHang);
+		
 			editAnh(files,matHang);
 			
 			
@@ -549,6 +549,7 @@ public class NhanVienController {
 			imageURL = "/img/mathang/" + file.getOriginalFilename();
 			if(file.getOriginalFilename()==null || file.getOriginalFilename().equals("")||imageURL.equals("/img/mathang/"))
 				return;
+			
 			AnhMatHang anh = new AnhMatHang();
 			anh.setUrl(imageURL);
 		
